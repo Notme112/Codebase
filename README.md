@@ -1,12 +1,13 @@
 # Codebase
-Hier stelle ich verschiedene Scripte für den [@Rettungssimulator](https://github.com/Rettungssimulator) vor, zusammengefasst zu einem
-## Supported Bowsers
+Hier stelle ich verschiedene Scripte für den [@Rettungssimulator](https://github.com/Rettungssimulator) vor, zusammengefasst zu einem.
 
-Dies browser werden gesupportet:
+## Supported Browsers
 
-| Brwoser | Supported          |
+Diese Browser werden supportet:
+
+| Browser | Supported          |
 | ------- | ------------------ |
-| Apple   | :x:                |
+| Safari  | :x:                |
 | Chrome  | :white_check_mark: |
 | Opera   | :white_check_mark: |
 | IE      | :x:                |
@@ -14,4 +15,4 @@ Dies browser werden gesupportet:
 | Firefox | :grey_question:    |
 
 ## Reporting
-Du hast einen Bug gefunden? mach am betsen einen Issue auf und gib dort deinen Browser an
+Du hast einen Bug gefunden? Mach am besten ein Issue auf und gib dort deinen Browser an.
