@@ -1,2 +1,2 @@
 # Codebase
-Hier stelle ich verschiedene Scripte vor, zusammengefasst zu einem
+Hier stelle ich verschiedene Scripte für den @Rettungssimulator vor, zusammengefasst zu einem
