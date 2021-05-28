@@ -6,11 +6,12 @@ Dies browser werden gesupportet:
 
 | Brwoser | Supported          |
 | ------- | ------------------ |
-| Apple   | :white_check_mark: |
-| Chrome  | :x:                |
+| Apple   | :x:                |
+| Chrome  | :white_check_mark: |
 | Opera   | :white_check_mark: |
 | IE      | :x:                |
-| Edge    | :❔:                |
+| Edge    | :grey_question:    |
+| Firefox | :grey_question:    |
 
 ## Reporting
 Du hast einen Bug gefunden? mach am betsen einen Issue auf und gib dort deinen Browser an
