@@ -1,2 +1,2 @@
 # Codebase
-Hier stelle ich verschiedene Scripte für den [@Rettungssimulator vor](https://github.com/Rettungssimulator), zusammengefasst zu einem
+Hier stelle ich verschiedene Scripte für den [@Rettungssimulator](https://github.com/Rettungssimulator) vor, zusammengefasst zu einem
