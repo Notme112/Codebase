@@ -6,7 +6,7 @@
 // @author       NiZi112
 // @match        https://rettungssimulator.online/
 // @include      www.rettungssimulator.online
-// @include      www.rettungssimulator.online/toplist
+// @include      rettungssimulator.online/toplist
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // ==/UserScript==
@@ -59,22 +59,22 @@
     //Ende Storage-Abfrage
     //Start speichern
     var speichern = function(){
-        gesamtmuenzen_aktiv = document.getElementById("gesamzmuenzen_check").checked;
-        localStorage.setItem("gesamtmuenzen_aktiv_resi_base", gesamtmuenzen_aktiv);
-        toplist_aktiv = document.getElementById("toplist_check").checked;
-        localStorage.setItem("toplist_aktiv_resi_base", toplist_aktiv);
-        einsatzliste_max_aktiv = document.getElementById("einsatzliste_max_check").checked;
-        localStorage.setItem("einsatzliste_max_aktiv_resi_base", einsatzliste_max_aktiv);
-        flogout_aktiv = document.getElementById("flogout_check").checked;
-        localStorage.setItem("flogout_aktiv_resi_base", flogout_aktiv);
-        autocomplete_aktiv = document.getElementById("autocomplete_check").checked;
-        localStorage.setItem("autocomplete_aktiv_resi_base", autocomplete_aktiv);
-        streamer_aktiv = document.getElementById("streamer_check").checked;
-        localStorage.setItem("streamer_aktiv_resi_base", streamer_aktiv);
-        sounds_aktiv = document.getElementById("sounds_check").checked;
-        localStorage.setItem("sounds_aktiv_resi_base", sounds_aktiv);
-        window.location.reload();
-    };
+        gesamtmuenzen_aktiv = document.getElementById('gesamtmuenzen_check').checked;
+        localStorage.setItem('gesamtmuenzen_aktiv_resi_base', gesamtmuenzen_aktiv);
+        toplist_aktiv = document.getElementById('toplist_check').checked;
+        localStorage.setItem('toplist_aktiv_resi_base', toplist_aktiv);
+        einsatzliste_max_aktiv = document.getElementById('einsatzliste_max_check').checked;
+        localStorage.setItem('einsatzliste_max_aktiv_resi_base', einsatzliste_max_aktiv);
+        flogout_aktiv = document.getElementById('flogout_check').checked;
+        localStorage.setItem('flogout_aktiv_resi_base', flogout_aktiv);
+        autocomplete_aktiv = document.getElementById('autocomplete_check').checked;
+        localStorage.setItem('autocomplete_aktiv_resi_base', autocomplete_aktiv);
+        streamer_aktiv = document.getElementById('streamer_check').checked;
+        localStorage.setItem('streamer_aktiv_resi_base', streamer_aktiv);
+        sounds_aktiv = document.getElementById('sounds_check').checked;
+        localStorage.setItem('sounds_aktiv_resi_base', sounds_aktiv);
+        window.top.location.reload()
+    }
     //Ende speichern
     //Start eigener Frame
     var listenelement = document.createElement("li");
@@ -85,7 +85,7 @@
         openFrame("", "1/1/4/4");
         let frame = $("#iframe");
         frame.on("load", () => {
-            frame.contents().find("body").append("<script>var speichern = function(){ gesamtmuenzen_aktiv = document.getElementById('gesamtmuenzen_check').checked;localStorage.setItem('gesamtmuenzen_aktiv_resi_base', gesamtmuenzen_aktiv); toplist_aktiv = document.getElementById('toplist_check').checked;localStorage.setItem('toplist_aktiv_resi_base', toplist_aktiv);einsatzliste_max_aktiv = document.getElementById('einsatzliste_max_check').checked;localStorage.setItem('einsatzliste_max_aktiv_resi_base', einsatzliste_max_aktiv); flogout_aktiv = document.getElementById('flogout_check').checked;localStorage.setItem('flogout_aktiv_resi_base', flogout_aktiv);autocomplete_aktiv = document.getElementById('autocomplete_check').checked;localStorage.setItem('autocomplete_aktiv_resi_base', autocomplete_aktiv);streamer_aktiv = document.getElementById('streamer_check').checked;localStorage.setItem('streamer_aktiv_resi_base', streamer_aktiv);sounds_aktiv = document.getElementById('sounds_check').checked;localStorage.setItem('sounds_aktiv_resi_base', sounds_aktiv); window.top.location.reload()};</script><div class='panel' style='color:white;'><h3 class='panel-headline'>ReSi-Codebase</h3><p><input id='gesamtmuenzen_check' type='checkbox'> Gesamtmümzenzähler aktivieren<br><input id='toplist_check' type='checkbox'> Topliste aktivieren<br><input id='einsatzliste_max_check' type='checkbox'> Maximierte Einsatzliste aktivieren<br><input id='flogout_check' type='checkbox'> FastLogout aktivieren<br><input id='streamer_check' type='checkbox'> Eigenen Streammode-Text aktivieren<br><input id='sounds_check' type='checkbox'> Eigene Sounds aktivieren<br><input id='autocomplete_check' type='checkbox'> Autocomplet verhindern aktivieren<br><button onclick='speichern()'>Speichern</button></p></div>");
+            frame.contents().find("body").append("<script src='https://rettungssimulator.online/js/jquery-3.5.0.min.js'></script><link rel='stylesheet' href='css/index.css?v=0.6a' charset='utf-8'><script>var speichern = function(){ gesamtmuenzen_aktiv = document.getElementById('gesamtmuenzen_check').checked;localStorage.setItem('gesamtmuenzen_aktiv_resi_base', gesamtmuenzen_aktiv); toplist_aktiv = document.getElementById('toplist_check').checked;localStorage.setItem('toplist_aktiv_resi_base', toplist_aktiv);einsatzliste_max_aktiv = document.getElementById('einsatzliste_max_check').checked;localStorage.setItem('einsatzliste_max_aktiv_resi_base', einsatzliste_max_aktiv); flogout_aktiv = document.getElementById('flogout_check').checked;localStorage.setItem('flogout_aktiv_resi_base', flogout_aktiv);autocomplete_aktiv = document.getElementById('autocomplete_check').checked;localStorage.setItem('autocomplete_aktiv_resi_base', autocomplete_aktiv);streamer_aktiv = document.getElementById('streamer_check').checked;localStorage.setItem('streamer_aktiv_resi_base', streamer_aktiv);sounds_aktiv = document.getElementById('sounds_check').checked;localStorage.setItem('sounds_aktiv_resi_base', sounds_aktiv); window.top.location.reload()}; if(localStorage.getItem('toplist_aktiv_resi_base')=='true'){$('#toplist_check').attr('checked', true);}if(localStorage.getItem('gesamtmuenzen_aktiv_resi_base')=='true'){$('#gesamtmuenzen_check').attr('checked', true);}if(localStorage.getItem('flogout_aktiv_resi_base')=='true'){$('#flogout_check').attr('checked', true);}if(localStorage.getItem('einsatzliste_max_aktiv_resi_base')=='true'){$('#einsatzliste_max_check').attr('checked', true);}if(localStorage.getItem('streamer_aktiv_resi_base')=='true'){$('#streamer_check').attr('checked', true);}if(localStorage.getItem('autocomplete_aktiv_resi_base')=='true'){$('#autocomplete_check').attr('checked', true);}if(localStorage.getItem('sounds_aktiv_resi_base')=='true'){$('#sounds_check').attr('checked', true);};</script><div class='panel' class='dark' style='background-color: #282c35; color: white;'><h3 class='panel-headline'>ReSi-Codebase</h3><p><input id='gesamtmuenzen_check' type='checkbox'> Gesamtmümzenzähler aktivieren<br><input id='toplist_check' type='checkbox'> Topliste aktivieren<br><input id='einsatzliste_max_check' type='checkbox'> Maximierte Einsatzliste aktivieren<br><input id='flogout_check' type='checkbox'> FastLogout aktivieren<br><input id='streamer_check' type='checkbox'> Eigenen Streammode-Text aktivieren<br><input id='sounds_check' type='checkbox'> Eigene Sounds aktivieren<br><input id='autocomplete_check' type='checkbox'> Autocomplet verhindern aktivieren<br><button onclick='speichern()'>Speichern</button></p></div>");
             frame.off("load");
         })
     });
@@ -129,12 +129,8 @@
         $("#newMissionCityInput").attr("autocomplete", "off");
     };
     var streamerinfos = function(){
-        var twitter = "Twitter: @rettungssim";
-        var youtube = "Youtube: TutePlays";
-        var facebook = "Facebook: facebook.com/rettungssimulator"
-        var insta = "Instagram: instagram.com/rettungssimulator"
         var text = "Es handelt sich um ein Spiel mit fiktiven Einsätzen, es sind keine echten Szenarien!"
-        text = "<div class='panel-headline'>Streamer-Modus</div><p>Es handelt sich um ein Spiel mit fiktiven Einsätzen, es sind keine echten Szenarien!<br><hr style='width:100%;'><br>" + twitter + "<br>" + youtube + "<br>" + facebook + "<br>" + insta + "</p>"
+        text = "<div class='panel-headline'>Streamer-Modus</div><p>Es handelt sich um ein Spiel mit fiktiven Einsätzen, es sind keine echten Szenarien!</p>"
         $("#chat").html(text);
         document.getElementById("chat").style.padding = "15px";
     };
@@ -170,6 +166,6 @@
     if(streamer_aktiv == "true"){streamerinfos()};
     if(einsatzliste_max_aktiv == "true"){einsatzliste_max();};
     if(sounds_aktiv == "true"){custom_sounds();};
-    console.log("Running ReSi-Codebase in Version 1.0; " + "Topliste: " + toplist_aktiv + " Gesamtnmünzen: " + gesamtmuenzen_aktiv + " flogout: " + flogout_aktiv + " Autocomplete: " + autocomplete_aktiv + " Streamer: " + streamer_aktiv + " Einsatzliste: " + einsatzliste_max_aktiv + " Sounds: " + sounds_aktiv + "; Das Team der Codebase wünscht viel Spaß! Bei Fehlern, kopiere bitte diesen Text und füg ihn in deine Fehlermeldung ein! Der Text enthält wichtige Informationenn zu deinen verwendeten Modulen!;")
+    console.log("Running ReSi-Codebase in Version 1.0; Topliste: " + toplist_aktiv + " Gesamtnmünzen: " + gesamtmuenzen_aktiv + " flogout: " + flogout_aktiv + " Autocomplete: " + autocomplete_aktiv + " Streamer: " + streamer_aktiv + " Einsatzliste: " + einsatzliste_max_aktiv + " Sounds: " + sounds_aktiv + "; Das Team der Codebase wünscht viel Spaß! Bei Fehlern, kopiere bitte diesen Text und füg ihn in deine Fehlermeldung ein! Der Text enthält wichtige Informationenn zu deinen verwendeten Modulen!;")
     //Ende auführen
-    })();
+})();
