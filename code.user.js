@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ReSi-Codebase BETA
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.3.1
 // @description  Erweitert viele Funktionen und fügt neue hinzu. Das alle kostenlos in einem Browsergamne!
 // @author       NiZi112
 // @match        https://rettungssimulator.online/
