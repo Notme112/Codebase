@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         ReSi-Codebase
+// @name         ReSi-Codebase BETA
 // @version      1.4.0
 // @description  Erweitert viele Funktionen und fügt neue hinzu. Das alle kostenlos in einem Browsergamne!
 // @author       NiZi112
@@ -344,10 +344,10 @@
     };
     var zeitwechsel = function(){
         var überprüfen = function(){
-            const min = parseInt(localStorage.getItem("uhr_min_resi_base"));
-            const max = parseInt(localStorage.getItem("uhr_max_resi_base"));
-            const date = new Date();
-            const tag = $("#darkMode").html();
+            var min = parseInt(localStorage.getItem("uhr_min_resi_base"));
+            var max = parseInt(localStorage.getItem("uhr_max_resi_base"));
+            var date = new Date();
+            var tag = $("#darkMode").html();
             if(min < date.getHours() && max > date.getHours() && tag.includes("Tag")){
                 $("#darkMode").click();
             }else if(min > date.getHours() || max < date.getHours() && tag.includes("Nacht")){
@@ -360,10 +360,10 @@
         const hallo = document.createElement("div");
         document.getElementsByClassName("brand")[0].after(hallo);
         const aktualisieren= function(){
-            const date = new Date();
-            const stunde = date.getHours();
-            const minute = date.getMinutes();
-            const sekunde = date.getSeconds();
+            var date = new Date();
+            var stunde = date.getHours();
+            var minute = date.getMinutes();
+            var sekunde = date.getSeconds();
             if(sekunde < 10){sekunde = "0" + sekunde};
             if(minute < 10){minute = "0" + minute};
             hallo.innerHTML = stunde + " : " + minute + " Uhr"
