@@ -19,19 +19,19 @@
         localStorage.setItem("storage_resi_base", JSON.stringify({'toplist': false, 'gesamtmuenzen': false, 'einsatzzealer': false, 'einsatzliste_max': false, 'flogout': false, 'autocomplete': false, 'streamer': false, 'sounds': false, 'einsatzzaeler': false, 'chat_alarm': false, 'push_fms': false, 'zeitwechsel': false, 'uhr': false}));
     }else{
         storage = JSON.parse(localStorage.storage_resi_base);
-        var toplist_aktiv = storage.toplist;
-        var gesamtmuenzen_aktiv = storage.gesamtmuenzen;
-        var einsatzliste_max_aktiv = storage.einsatzliste_max;
-        var flogout_aktiv = storage.flogout;
-        var autocomplete_aktiv = storage.autocomplete;
-        var sounds_aktiv = storage.sounds;
-        var streamer_aktiv = storage.streamer;
-        var chat_alarm_aktiv = storage.chat_alarm;
-        var push_fms_aktiv = storage.push_fms;
-        var zeitwechsel_aktiv = storage.zeitwechsel;
-        var uhr_aktiv = storage.uhr;
-        var einsatzzaehler_aktiv = storage.einsatzzaeler;
-    };
+        const toplist_aktiv = storage.toplist;
+        const gesamtmuenzen_aktiv = storage.gesamtmuenzen;
+        const einsatzliste_max_aktiv = storage.einsatzliste_max;
+        const flogout_aktiv = storage.flogout;
+        const autocomplete_aktiv = storage.autocomplete;
+        const sounds_aktiv = storage.sounds;
+        const streamer_aktiv = storage.streamer;
+        const chat_alarm_aktiv = storage.chat_alarm;
+        const push_fms_aktiv = storage.push_fms;
+        const zeitwechsel_aktiv = storage.zeitwechsel;
+        const uhr_aktiv = storage.uhr;
+        const einsatzzaehler_aktiv = storage.einsatzzaeler;
+    }
     //Start löschen ENTFERNEN!!
     localStorage.removeItem("toplist_aktiv_resi_base")
     localStorage.removeItem("gesamtmuenzen_aktiv_resi_base")
@@ -48,38 +48,38 @@
     //Ende löschen ENTFERNEN!!
     if(!localStorage.getItem('chat_alarm_audio_resi_base')){
         localStorage.setItem("chat_alarm_audio_resi_base", "");
-    };
+    }
     if(!localStorage.getItem('newCall_audio_resi_base')){
         localStorage.setItem("newCall_audio_resi_base", "");
-    };
+    }
     if(!localStorage.getItem('fms_audio_resi_base')){
         localStorage.setItem("fms_audio_resi_base", "");
-    };
+    }
     if(!localStorage.getItem('fms5_audio_resi_base')){
         localStorage.setItem("fms5_audio_resi_base", "");
-    };
+    }
     if(!localStorage.getItem('error_audio_resi_base')){
         localStorage.setItem("error_audio_resi_base", "");
-    };
+    }
     if(!localStorage.getItem('stream_text_resi_base')){
         localStorage.setItem("stream_text_resi_base", "Es handelt sich um ein Spiel mit fiktiven Einsätzen, es sind keine echten Szenarien!");
-    };
+    }
     if(!localStorage.getItem('finish_audio_resi_base')){
         localStorage.setItem("finish_audio_resi_base", "");
-    };
+    }
     if(!localStorage.getItem('uhr_min_resi_base')){
         localStorage.setItem("uhr_min_resi_base", "7");
-    };
+    }
     if(!localStorage.getItem('uhr_max_resi_base')){
         localStorage.setItem("uhr_max_resi_base", "19");
-    };
-    if($("#darkMode").html().includes("Tag")){localStorage.setItem("darkmode_resi_base", "true");}else{localStorage.setItem("darkmode_resi_base", "false");};
-    var btn = document.getElementById("darkMode");
-    btn.addEventListener("click", function() {if(localStorage.getItem("darkmode_resi_base") == "true"){localStorage.setItem("darkmode_resi_base", "false");}else{localStorage.setItem("darkmode_resi_base", "true");};});
+    }
+    if($("#darkMode").html().includes("Tag")){localStorage.setItem("darkmode_resi_base", "true");}else{localStorage.setItem("darkmode_resi_base", "false");}
+    const btn = document.getElementById("darkMode");
+    btn.addEventListener("click", function() {if(localStorage.getItem("darkmode_resi_base") == "true"){localStorage.setItem("darkmode_resi_base", "false");}else{localStorage.setItem("darkmode_resi_base", "true");}});
     //Ende Storage-Abfrage
     //Start eigener Frame
-    var listenelement = document.createElement("li");
-    var vater = $("#darkMode");
+    const listenelement = document.createElement("li");
+    const vater = $("#darkMode");
     vater.after(listenelement)
     listenelement.innerHTML = "ReSi-Codebase";
     $(listenelement).on("click", () => {
@@ -94,11 +94,11 @@
             <script src='https://rettungssimulator.online/js/controlCenter.js?v=0.6.1e'></script>
             <script src='https://rettungssimulator.online/js/tippy.js?v=0.6.1e'></script>
             <script>
-            if(localStorage.getItem('darkmode_resi_base')=='true'){document.getElementsByTagName('body')[0].classList.add('dark');};
+            if(localStorage.getItem('darkmode_resi_base')=='true'){document.getElementsByTagName('body')[0].classList.add('dark');}
             var aenderungen = false;
             $('.checkbox-container').on('click', function(){aenderungen = true; console.log(aenderungen)})
             $('.input-round').on('keydown', function(){aenderungen = true;console.log(aenderungen)})
-            var speichern = function(){
+            const speichern = function(){
             gesamtmuenzen_aktiv = document.getElementById('gesamtmuenzen_check').checked;
             toplist_aktiv = document.getElementById('toplist_check').checked;
             einsatzliste_max_aktiv = document.getElementById('einsatzliste_max_check').checked;
@@ -112,51 +112,51 @@
             zeitwechsel_aktiv = document.getElementById('zeitwechsel_check').checked;
             uhr_aktiv = document.getElementById('uhr_check').checked;
             localStorage.setItem("storage_resi_base", JSON.stringify({'toplist': toplist_aktiv, 'gesamtmuenzen': gesamtmuenzen_aktiv, 'einsatzzealer': einsatzzaehler_aktiv, 'einsatzliste_max': einsatzliste_max_aktiv, 'flogout': flogout_aktiv, 'autocomplete': autocomplete_aktiv, 'streamer': streamer_aktiv, 'sounds': sounds_aktiv, 'einsatzzaeler': einsatzzaehler_aktiv, 'chat_alarm': chat_alarm_aktiv, 'push_fms': push_fms_aktiv, 'zeitwechsel': zeitwechsel_aktiv, 'uhr': uhr_aktiv}));
-            var sound_input_chat = $('#sound_chat_input').val();
+            const sound_input_chat = $('#sound_chat_input').val();
             localStorage.setItem('chat_alarm_audio_resi_base', valide(sound_input_chat));
-            var sound_input_fms = $('#sound_fms_input').val();
+            const sound_input_fms = $('#sound_fms_input').val();
             localStorage.setItem('fms_audio_resi_base', valide(sound_input_fms));
-            var sound_input_fms5 = $('#sound_fms5_input').val();
+            const sound_input_fms5 = $('#sound_fms5_input').val();
             localStorage.setItem('fms5_audio_resi_base', valide(sound_input_fms5));
-            var sound_input_error = $('#sound_error_input').val();
+            const sound_input_error = $('#sound_error_input').val();
             localStorage.setItem('error_audio_resi_base', valide(sound_input_error));
-            var sound_input_newCall = $('#sound_newCall_input').val();
+            const sound_input_newCall = $('#sound_newCall_input').val();
             localStorage.setItem('newCall_audio_resi_base', valide(sound_input_newCall));
-            var sound_input_finish = $('#sound_finish_input').val();
+            const sound_input_finish = $('#sound_finish_input').val();
             localStorage.setItem('finish_audio_resi_base', valide(sound_input_finish));
-            var text_input_stream = $('#text_stream_input').val();
+            const text_input_stream = $('#text_stream_input').val();
             localStorage.setItem('stream_text_resi_base', valide(text_input_stream));
-            var uhr_min_input = $('#uhr_min_input').val();
+            const uhr_min_input = $('#uhr_min_input').val();
             localStorage.setItem('uhr_min_resi_base', valide(uhr_min_input));
-            var uhr_max_input = $('#uhr_max_input').val();
+            const uhr_max_input = $('#uhr_max_input').val();
             localStorage.setItem('uhr_max_resi_base', valide(uhr_max_input));
             window.top.location.reload()
-            };
+            }
             storage = JSON.parse(localStorage.storage_resi_base);
-            var toplist_aktiv = storage.toplist;
-            var gesamtmuenzen_aktiv = storage.gesamtmuenzen;
-            var einsatzliste_max_aktiv = storage.einsatzliste_max;
-            var flogout_aktiv = storage.flogout;
-            var autocomplete_aktiv = storage.autocomplete;
-            var sounds_aktiv = storage.sounds;
-            var streamer_aktiv = storage.streamer;
-            var chat_alarm_aktiv = storage.chat_alarm;
-            var push_fms_aktiv = storage.push_fms;
-            var zeitwechsel_aktiv = storage.zeitwechsel;
-            var uhr_aktiv = storage.uhr;
-            var einsatzzaehler_aktiv = storage.einsatzzaeler;
+            const toplist_aktiv = storage.toplist;
+            const gesamtmuenzen_aktiv = storage.gesamtmuenzen;
+            const einsatzliste_max_aktiv = storage.einsatzliste_max;
+            const flogout_aktiv = storage.flogout;
+            const autocomplete_aktiv = storage.autocomplete;
+            const sounds_aktiv = storage.sounds;
+            const streamer_aktiv = storage.streamer;
+            const chat_alarm_aktiv = storage.chat_alarm;
+            const push_fms_aktiv = storage.push_fms;
+            const zeitwechsel_aktiv = storage.zeitwechsel;
+            const uhr_aktiv = storage.uhr;
+            const einsatzzaehler_aktiv = storage.einsatzzaeler;
             if(toplist_aktiv){$('#toplist_check').attr('checked', true);}
             if(gesamtmuenzen_aktiv){$('#gesamtmuenzen_check').attr('checked', true);}
             if(flogout_aktiv){$('#flogout_check').attr('checked', true);}
             if(einsatzliste_max_aktiv){$('#einsatzliste_max_check').attr('checked', true);}
             if(streamer_aktiv){$('#streamer_check').attr('checked', true);}
             if(autocomplete_aktiv){$('#autocomplete_check').attr('checked', true);}
-            if(einsatzzaehler_aktiv){$('#einsatzaehler_check').attr('checked', true);};
-            if(chat_alarm_aktiv){$('#chat_alarm_check').attr('checked', true);};
-            if(push_fms_aktiv){$('#push_fms_check').attr('checked', true);};
-            if(zeitwechsel_aktiv){$('#zeitwechsel_check').attr('checked', true);};
-            if(uhr_aktiv){$('#uhr_check').attr('checked', true);};
-            if(sounds_aktiv){$('#sounds_check').attr('checked', true);};
+            if(einsatzzaehler_aktiv){$('#einsatzaehler_check').attr('checked', true);}
+            if(chat_alarm_aktiv){$('#chat_alarm_check').attr('checked', true);}
+            if(push_fms_aktiv){$('#push_fms_check').attr('checked', true);}
+            if(zeitwechsel_aktiv){$('#zeitwechsel_check').attr('checked', true);}
+            if(uhr_aktiv){$('#uhr_check').attr('checked', true);}
+            if(sounds_aktiv){$('#sounds_check').attr('checked', true);}
             $('#uhr_min_input').val(parseInt(localStorage.getItem('uhr_min_resi_base')));
             $('#uhr_max_input').val(parseInt(localStorage.getItem('uhr_max_resi_base')));
             $('#sound_newCall_input').val(localStorage.getItem('newCall_audio_resi_base'));
@@ -169,8 +169,7 @@
             var valide = function(wert){
             var ausgabe='';
             for (var i=0; i < wert.length; i++) {
-            if(wert[i]=='<'){ausgabe += ''}else if(wert[i]== '>'){ausgabe += ''}else{ausgabe += wert[i]};};
-            console.log(ausgabe);
+            if(wert[i]=='<'){ausgabe += ''}else if(wert[i]== '>'){ausgabe += ''}else{ausgabe += wert[i]}}
             return ausgabe
             ;};
             $('body').on('keyup', function(e){if(e.keyCode===27){$(".right").click();}});
@@ -281,7 +280,7 @@
                 success : function(r) {
                     document.getElementsByClassName("frame-opener")[5].innerHTML = "Topliste: " + r.toplistRank;
                 }
-            });};
+            });}
     };
     const custom_sounds = function(){
         const audioElement_fms = new Audio(localStorage.getItem("fms_audio_resi_base"));
@@ -305,10 +304,10 @@
     const einsatzzaehler = function(){
         const datum = new Date();
         const datum_heute = datum.getDate()
-        if(!localStorage.getItem("finished_missions_nizi")){localStorage.setItem("finished_missions_nizi", "0")};
-        if(!localStorage.getItem("finished_missions_nizi_time")){localStorage.setItem("finished_missions_nizi_time", datum_heute)};
-        if(localStorage.getItem("finished_missions_nizi_time") != datum_heute){localStorage.setItem("finished_missions_nizi", "0")};
-        if(localStorage.getItem("finished_missions_nizi_time") != datum_heute){localStorage.setItem("finished_missions_nizi_time", datum_heute)};
+        if(!localStorage.getItem("finished_missions_nizi")){localStorage.setItem("finished_missions_nizi", "0")}
+        if(!localStorage.getItem("finished_missions_nizi_time")){localStorage.setItem("finished_missions_nizi_time", datum_heute)}
+        if(localStorage.getItem("finished_missions_nizi_time") != datum_heute){localStorage.setItem("finished_missions_nizi", "0")}
+        if(localStorage.getItem("finished_missions_nizi_time") != datum_heute){localStorage.setItem("finished_missions_nizi_time", datum_heute)}
         const neue_liste = document.createElement("li");
         neue_liste.innerHTML = "Einsätze heute: " + localStorage.finished_missions_nizi;
         $("#darkMode").after(neue_liste);
@@ -363,27 +362,25 @@
             var date = new Date();
             var stunde = date.getHours();
             var minute = date.getMinutes();
-            var sekunde = date.getSeconds();
-            if(sekunde < 10){sekunde = "0" + sekunde};
-            if(minute < 10){minute = "0" + minute};
+            if(minute < 10){minute = "0" + minute}
             hallo.innerHTML = stunde + " : " + minute + " Uhr"
         };
         setInterval(aktualisieren, 50)
     };
     //Ende function-definding
     //Start ausführen
-    if(toplist_aktiv == true){toplist();};
-    if(gesamtmuenzen_aktiv == true){gesamtmuenzenanzeiger();};
-    if(flogout_aktiv == true){flogout();};
-    if(autocomplete_aktiv == true){autocomplete();};
-    if(streamer_aktiv == true){streamerinfos()};
-    if(einsatzliste_max_aktiv == true){einsatzliste_max();};
-    if(sounds_aktiv == true){custom_sounds();};
-    if(chat_alarm_aktiv == true){chat_alarm();};
-    if(einsatzzaehler_aktiv == true){einsatzzaehler();};
-    if(push_fms_aktiv == true){push_fms();};
-    if(zeitwechsel_aktiv == true){zeitwechsel();};
-    if(uhr_aktiv == true){uhr();};
+    if(toplist_aktiv == true){toplist();}
+    if(gesamtmuenzen_aktiv == true){gesamtmuenzenanzeiger();}
+    if(flogout_aktiv == true){flogout();}
+    if(autocomplete_aktiv == true){autocomplete();}
+    if(streamer_aktiv == true){streamerinfos()}
+    if(einsatzliste_max_aktiv == true){einsatzliste_max();}
+    if(sounds_aktiv == true){custom_sounds();}
+    if(chat_alarm_aktiv == true){chat_alarm();}
+    if(einsatzzaehler_aktiv == true){einsatzzaehler();}
+    if(push_fms_aktiv == true){push_fms();}
+    if(zeitwechsel_aktiv == true){zeitwechsel();}
+    if(uhr_aktiv == true){uhr();}
     console.log(`Running ReSi-Codebase in Version 1.4.0!
 - Topliste: ${toplist_aktiv};
 - Gesamtmünzen: ${gesamtmuenzen_aktiv};
