@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         ReSi-Codebase
-// @version      1.4.0
+// @name         ReSi-Codebase BETA
+// @version      1.4.1
 // @description  Erweitert viele Funktionen und fügt neue hinzu. Das alle kostenlos in einem Browsergamne!
 // @author       NiZi112
 // @match        https://rettungssimulator.online/
@@ -8,11 +8,20 @@
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @updateURL    https://github.com/NiZi112/Codebase/raw/main/code.user.js
 // @downloadURL  https://github.com/NiZi112/Codebase/raw/main/code.user.js
+// @grant        GM_addStyle
 /* global $ sounds openFrame socket*/
 // ==/UserScript==
 
 (function () {
     'use strict';
+    const css = `7
+    <style>
+    .codebase:focus{
+      outline: none;
+    }
+    </style>`;
+    const head = document.head || $("head:first");
+    $(head).append(css);
     let storage;
     //Start Storage-Abfrage
     if (!localStorage.getItem('storage_resi_base')) {
@@ -32,6 +41,8 @@
                 push_fms: false,
                 zeitwechsel: false,
                 uhr: false,
+                settings: false,
+                chat_count: false,
             })
         );
     } else {
@@ -48,21 +59,9 @@
         var zeitwechsel_aktiv = storage.zeitwechsel;
         var uhr_aktiv = storage.uhr;
         var einsatzzaehler_aktiv = storage.einsatzzaeler;
+        var settings = storage.settings;
+        var chat_count_aktiv = storage.chat_count;
     }
-    //Start löschen ENTFERNEN!!
-    localStorage.removeItem('toplist_aktiv_resi_base');
-    localStorage.removeItem('gesamtmuenzen_aktiv_resi_base');
-    localStorage.removeItem('einsatzliste_max_aktiv_resi_base');
-    localStorage.removeItem('flogout_aktiv_resi_base');
-    localStorage.removeItem('autocomplete_aktiv_resi_base');
-    localStorage.removeItem('streamer_aktiv_resi_base');
-    localStorage.removeItem('sounds_aktiv_resi_base');
-    localStorage.removeItem('streamer_aktiv_resi_base');
-    localStorage.removeItem('chat_alarm_aktiv_resi_base');
-    localStorage.removeItem('push_fms_aktiv_resi_base');
-    localStorage.removeItem('zeitwechsel_aktiv_resi_base');
-    localStorage.removeItem('uhr_aktiv_resi_base');
-    //Ende löschen ENTFERNEN!!
     if (!localStorage.getItem('chat_alarm_audio_resi_base'))
         localStorage.setItem('chat_alarm_audio_resi_base', '');
 
@@ -109,6 +108,8 @@
     const vater = $('#darkMode');
     vater.after(listenelement);
     listenelement.innerHTML = 'ReSi-Codebase';
+    listenelement.id='Codebase'
+    if(settings) $(".brand").after(`<i class="fas fa-cogs codebase" focusable="false" data-tooltip="ReSi-Codebase-Einstellungen" onclick="$('#Codebase').click()"></i>`);
     $(listenelement).on('click', () => {
         openFrame('', '1/1/4/5');
         const frame = $('#iframe');
@@ -124,12 +125,10 @@
             if(localStorage.getItem('darkmode_resi_base')=='true'){document.getElementsByTagName('body')[0].classList.add('dark');}
             var changes = false;
             $('.checkbox-container').on('click', function(){
-              changes = true; 
-              console.log(changes);
+              changes = true;
             })
             $('.input-round').on('keydown', function(){
               changes = true;
-              console.log(changes)
             })
             const speichern = function(){
               gesamtmuenzen_aktiv = document.getElementById('gesamtmuenzen_check').checked;
@@ -144,7 +143,9 @@
               push_fms_aktiv = document.getElementById('push_fms_check').checked;
               zeitwechsel_aktiv = document.getElementById('zeitwechsel_check').checked;
               uhr_aktiv = document.getElementById('uhr_check').checked;
-              localStorage.setItem("storage_resi_base", JSON.stringify({'toplist': toplist_aktiv, 'gesamtmuenzen': gesamtmuenzen_aktiv, 'einsatzzealer': einsatzzaehler_aktiv, 'einsatzliste_max': einsatzliste_max_aktiv, 'flogout': flogout_aktiv, 'autocomplete': autocomplete_aktiv, 'streamer': streamer_aktiv, 'sounds': sounds_aktiv, 'einsatzzaeler': einsatzzaehler_aktiv, 'chat_alarm': chat_alarm_aktiv, 'push_fms': push_fms_aktiv, 'zeitwechsel': zeitwechsel_aktiv, 'uhr': uhr_aktiv}));
+              settings_aktiv = document.getElementById('settings_check').checked;
+              chat_count_aktiv = document.getElementById('chat_count_check').checked;
+              localStorage.setItem("storage_resi_base", JSON.stringify({'toplist': toplist_aktiv, 'gesamtmuenzen': gesamtmuenzen_aktiv, 'einsatzzealer': einsatzzaehler_aktiv, 'einsatzliste_max': einsatzliste_max_aktiv, 'flogout': flogout_aktiv, 'autocomplete': autocomplete_aktiv, 'streamer': streamer_aktiv, 'sounds': sounds_aktiv, 'einsatzzaeler': einsatzzaehler_aktiv, 'chat_alarm': chat_alarm_aktiv, 'push_fms': push_fms_aktiv, 'zeitwechsel': zeitwechsel_aktiv, 'uhr': uhr_aktiv, 'chat_count': chat_count_aktiv, 'settings': settings_aktiv}));
               const sound_input_chat = $('#sound_chat_input').val();
               localStorage.setItem('chat_alarm_audio_resi_base', valide(sound_input_chat));
               const sound_input_fms = $('#sound_fms_input').val();
@@ -178,6 +179,8 @@
             var zeitwechsel_aktiv = storage.zeitwechsel;
             var uhr_aktiv = storage.uhr;
             var einsatzzaehler_aktiv = storage.einsatzzaeler;
+            var chat_count_aktiv = storage.chat_count;
+            var settings_aktiv = storage.settings;
             if(toplist_aktiv){$('#toplist_check').attr('checked', true);}
             if(gesamtmuenzen_aktiv){$('#gesamtmuenzen_check').attr('checked', true);}
             if(flogout_aktiv){$('#flogout_check').attr('checked', true);}
@@ -190,6 +193,8 @@
             if(zeitwechsel_aktiv){$('#zeitwechsel_check').attr('checked', true);}
             if(uhr_aktiv){$('#uhr_check').attr('checked', true);}
             if(sounds_aktiv){$('#sounds_check').attr('checked', true);}
+            if(chat_count_aktiv){$('#chat_count_check').attr('checked', true);}
+            if(settings_aktiv){$('#settings_check').attr('checked', true);}
             $('#uhr_min_input').val(parseInt(localStorage.getItem('uhr_min_resi_base')));
             $('#uhr_max_input').val(parseInt(localStorage.getItem('uhr_max_resi_base')));
             $('#sound_newCall_input').val(localStorage.getItem('newCall_audio_resi_base'));
@@ -214,18 +219,20 @@
             <div class='tab-container'>
             <div class='tab-content tab-content-active' id='tab_settings-moduls'>
             <h2>Module:</h2>
-            <div class='checkbox-container'><input id='gesamtmuenzen_check' type='checkbox'><label for='gesamtmuenzen_check'>Gesamtmünzenzähler aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Gesamtm%C3%BCnzenz%C3%A4hler' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input id='toplist_check' type='checkbox'><label for='toplist_check'>Topliste aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Toplist-Position' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input id='einsatzliste_max_check' type='checkbox'><label for='einsatzliste_max_check'>Maximierte Einsatzliste aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Maximierte-Einsatzliste' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input id='flogout_check' type='checkbox'><label for='flogout_check'>FastLogout aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Flogout' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input id='streamer_check' type='checkbox'><label for='streamer_check'>Eigenen Streammode-Text aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Eigener-Streammode-Text' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input id='sounds_check' type='checkbox'><label for='sounds_check'>Eigene Sounds aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Eigene-Sounds' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input id='autocomplete_check' type='checkbox'><label for='autocomplete_check'>Autocomplet verhindern aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Autocomplete-verhindern' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input id='einsatzaehler_check' type='checkbox'><label for='einsatzaehler_check'>Einsatzzähler aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Einsatzz%C3%A4hler' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input id='chat_alarm_check' type='checkbox'><label for='chat_alarm_check'>Chat-Alarm aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Chat-Alarm' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input type='checkbox' id='push_fms_check'><label for='push_fms_check'>Push-FMS5 aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Push-FMS5' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input type='checkbox' id='zeitwechsel_check'><label for='zeitwechsel_check'>Wechsel in den Darkmode nach Uhrzeit aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Darkmode-nach-Uhrzeit' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
-            <div class='checkbox-container'><input type='checkbox' id='uhr_check' ><label for='uhr_check'>Uhr aktivieren<a class='no-prevent' href='https://github.com/NiZi112/Codebase/wiki/Uhr' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input id='gesamtmuenzen_check' type='checkbox'><label for='gesamtmuenzen_check'>Gesamtmünzenzähler aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Gesamtm%C3%BCnzenz%C3%A4hler' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input id='toplist_check' type='checkbox'><label for='toplist_check'>Topliste aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Toplist-Position' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input id='einsatzliste_max_check' type='checkbox'><label for='einsatzliste_max_check'>Maximierte Einsatzliste aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Maximierte-Einsatzliste' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input id='flogout_check' type='checkbox'><label for='flogout_check'>FastLogout aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Flogout' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input id='streamer_check' type='checkbox'><label for='streamer_check'>Eigenen Streammode-Text aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Eigener-Streammode-Text' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input id='sounds_check' type='checkbox'><label for='sounds_check'>Eigene Sounds aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Eigene-Sounds' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input id='autocomplete_check' type='checkbox'><label for='autocomplete_check'>Autocomplet verhindern aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Autocomplete-verhindern' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input id='einsatzaehler_check' type='checkbox'><label for='einsatzaehler_check'>Einsatzzähler aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Einsatzz%C3%A4hler' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input id='chat_alarm_check' type='checkbox'><label for='chat_alarm_check'>Chat-Alarm aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Chat-Alarm' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input type='checkbox' id='push_fms_check'><label for='push_fms_check'>Push-FMS5 aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Push-FMS5' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input type='checkbox' id='zeitwechsel_check'><label for='zeitwechsel_check'>Wechsel in den Darkmode nach Uhrzeit aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Darkmode-nach-Uhrzeit' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input type='checkbox' id='uhr_check' ><label for='uhr_check'>Uhr aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Uhr' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input type='checkbox' id='settings_check' ><label for='settings_check'>Einstellungen über die Navbar aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Settings-Modul' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input type='checkbox' id='chat_count_check' ><label for='chat_count_check'>Chat-Count aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Chat-Count' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
             <button class='button-success button button-round' onclick='speichern()'>Speichern</button>
             </div>
             <div class='tab-content' id='tab_settings-inputs'>
@@ -434,6 +441,30 @@
         };
         setInterval(aktualisieren, 50);
     };
+    function chat_count(){
+        $("#chatInput").css("width", "85%");
+        $("#chatInput").after(`&nbsp;<span class="label label-success" id="chracktarsChatCount" style="width: 12%">000</span>`);
+        function countCharackters(){
+            var charackters = $("#chatInput").val().length;
+            if(charackters < 10){
+                charackters = "00" + charackters
+            }else if(charackters < 100){
+                charackters = "0" + charackters
+            }else{charackters = charackters
+                 };
+            $("#chracktarsChatCount").html(charackters);
+            if(charackters > 300){
+                $("#chracktarsChatCount").addClass("label-danger");
+                $("#chracktarsChatCount").removeClass("label-success");
+            }else{
+                $("#chracktarsChatCount").addClass("label-success");
+                $("#chracktarsChatCount").removeClass("label-danger");
+            }
+        };
+        $("#chatInput").on("keyup", countCharackters);
+        $("#chatInput").on("change", countCharackters);
+        $("#chatForm").on("submit", countCharackters);
+    };
     //Ende function-definding
     //Start ausführen
     if (toplist_aktiv === true) toplist();
@@ -460,6 +491,8 @@
 
     if (uhr_aktiv === true) uhr();
 
+    if(chat_count_aktiv) chat_count();
+
     console.log(`Running ReSi-Codebase in Version 1.4.0!
 - Topliste: ${toplist_aktiv};
 - Gesamtmünzen: ${gesamtmuenzen_aktiv};
@@ -473,6 +506,8 @@
 - Push-FMS: ${push_fms_aktiv};
 - Uhr: ${uhr_aktiv};
 - Darkmode nach Zeit: ${zeitwechsel_aktiv};
+- Chat-Count: ${chat_count_aktiv};
+- Settings: ${settings};
 Das Team der Codebase wünscht viel Spaß!
 Bei Fehlern, kopiere bitte diesen Text und füg ihn in deine Fehlermeldung ein!
 Der Text enthält wichtige Informationenn zu deinen verwendeten Modulen!;`);
