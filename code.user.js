@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         ReSi-Codebase BETA
+// @name         ReSi-Codebase
 // @version      1.4.1
 // @description  Erweitert viele Funktionen und fügt neue hinzu. Das alle kostenlos in einem Browsergamne!
 // @author       NiZi112
