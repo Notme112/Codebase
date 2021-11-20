@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         ReSi-Codebase
-// @version      1.4.1
+// @name         ReSi-Codebase BETA
+// @version      1.4.2
 // @description  Erweitert viele Funktionen und fügt neue hinzu. Das alle kostenlos in einem Browsergamne!
 // @author       NiZi112
 // @match        https://rettungssimulator.online/
@@ -9,12 +9,12 @@
 // @updateURL    https://github.com/NiZi112/Codebase/raw/main/code.user.js
 // @downloadURL  https://github.com/NiZi112/Codebase/raw/main/code.user.js
 // @grant        GM_addStyle
-/* global $ sounds openFrame socket*/
+/* global $ sounds openFrame socket systemMessage */
 // ==/UserScript==
 
 (function () {
     'use strict';
-    const css = `7
+    const css = `
     <style>
     .codebase:focus{
       outline: none;
@@ -43,8 +43,20 @@
                 uhr: false,
                 settings: false,
                 chat_count: false,
+                alert_chat: false,
+                greet_user: false,
             })
         );
+        systemMessage({
+            title: 'Willkommen bei der ReSi-Codebase!',
+            message: `Schön, dass Du dich entschlossen hast, die ReSi-Codebase zu nutzen!<br><br>
+            Du kannst jeden Modul einzeln aktivieren, die Möglichkeit findest Du in einem Einstellungs-Panel, welches Du über die Seitenleiste aufrufen kannst.<br>
+            Probier doch einfach mal alle Module aus. Wenn Du nicht weißt, was ein Modul tut, dann klick einfach auf das [?] hinter dem Namen, damit kommst Du zur Wikiseite des Moduls.<br><br>
+            Fehler bitte im Forum melden - oder im Thread ReSi-Codebase auf Discord im Bereich <code>#skripting</code><br><br>
+            Viel Spaß,<br>
+            Dein Team der ReSi-Codebase`,
+            type: 'info'
+        });
     } else {
         storage = JSON.parse(localStorage.storage_resi_base);
         var toplist_aktiv = storage.toplist;
@@ -61,7 +73,9 @@
         var einsatzzaehler_aktiv = storage.einsatzzaeler;
         var settings = storage.settings;
         var chat_count_aktiv = storage.chat_count;
-    }
+        var alert_chat_aktiv = storage.alert_chat;
+        var greet_user_aktiv = storage.greet_user
+        }
     if (!localStorage.getItem('chat_alarm_audio_resi_base'))
         localStorage.setItem('chat_alarm_audio_resi_base', '');
 
@@ -145,7 +159,9 @@
               uhr_aktiv = document.getElementById('uhr_check').checked;
               settings_aktiv = document.getElementById('settings_check').checked;
               chat_count_aktiv = document.getElementById('chat_count_check').checked;
-              localStorage.setItem("storage_resi_base", JSON.stringify({'toplist': toplist_aktiv, 'gesamtmuenzen': gesamtmuenzen_aktiv, 'einsatzzealer': einsatzzaehler_aktiv, 'einsatzliste_max': einsatzliste_max_aktiv, 'flogout': flogout_aktiv, 'autocomplete': autocomplete_aktiv, 'streamer': streamer_aktiv, 'sounds': sounds_aktiv, 'einsatzzaeler': einsatzzaehler_aktiv, 'chat_alarm': chat_alarm_aktiv, 'push_fms': push_fms_aktiv, 'zeitwechsel': zeitwechsel_aktiv, 'uhr': uhr_aktiv, 'chat_count': chat_count_aktiv, 'settings': settings_aktiv}));
+              alert_chat_aktiv = document.getElementById('alert_chat_check').checked;
+              greet_user_aktiv = document.getElementById('greet_user_check').checked;
+              localStorage.setItem("storage_resi_base", JSON.stringify({'toplist': toplist_aktiv, 'gesamtmuenzen': gesamtmuenzen_aktiv, 'einsatzzealer': einsatzzaehler_aktiv, 'einsatzliste_max': einsatzliste_max_aktiv, 'flogout': flogout_aktiv, 'autocomplete': autocomplete_aktiv, 'streamer': streamer_aktiv, 'sounds': sounds_aktiv, 'einsatzzaeler': einsatzzaehler_aktiv, 'chat_alarm': chat_alarm_aktiv, 'push_fms': push_fms_aktiv, 'zeitwechsel': zeitwechsel_aktiv, 'uhr': uhr_aktiv, 'chat_count': chat_count_aktiv, 'settings': settings_aktiv, 'alert_chat':alert_chat_aktiv, 'greet_user': greet_user_aktiv}));
               const sound_input_chat = $('#sound_chat_input').val();
               localStorage.setItem('chat_alarm_audio_resi_base', valide(sound_input_chat));
               const sound_input_fms = $('#sound_fms_input').val();
@@ -181,6 +197,8 @@
             var einsatzzaehler_aktiv = storage.einsatzzaeler;
             var chat_count_aktiv = storage.chat_count;
             var settings_aktiv = storage.settings;
+            var alert_chat_aktiv = storage.alert_chat;
+            var greet_user_aktiv = storage.greet_user;
             if(toplist_aktiv){$('#toplist_check').attr('checked', true);}
             if(gesamtmuenzen_aktiv){$('#gesamtmuenzen_check').attr('checked', true);}
             if(flogout_aktiv){$('#flogout_check').attr('checked', true);}
@@ -195,6 +213,8 @@
             if(sounds_aktiv){$('#sounds_check').attr('checked', true);}
             if(chat_count_aktiv){$('#chat_count_check').attr('checked', true);}
             if(settings_aktiv){$('#settings_check').attr('checked', true);}
+            if(alert_chat_aktiv){$('#alert_chat_check').attr('checked', true);}
+            if(greet_user_aktiv){$('#greet_user_check').attr('checked', true);}
             $('#uhr_min_input').val(parseInt(localStorage.getItem('uhr_min_resi_base')));
             $('#uhr_max_input').val(parseInt(localStorage.getItem('uhr_max_resi_base')));
             $('#sound_newCall_input').val(localStorage.getItem('newCall_audio_resi_base'));
@@ -214,7 +234,7 @@
             <div class='tabs tabs-horizotal'>
             <div class='tab tab-active' for='settings-moduls'>Module</div>
             <div class='tab' for='settings-inputs'>Texte & URL's</div>
-            <div class='tab' for='licence'>Lizenzen</div>
+            <div class='tab' for='licence'>Sonstiges & Lizenzen</div>
             </div>
             <div class='tab-container'>
             <div class='tab-content tab-content-active' id='tab_settings-moduls'>
@@ -233,26 +253,37 @@
             <div class='checkbox-container'><input type='checkbox' id='uhr_check' ><label for='uhr_check'>Uhr aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Uhr' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
             <div class='checkbox-container'><input type='checkbox' id='settings_check' ><label for='settings_check'>Einstellungen über die Navbar aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Settings-Modul' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
             <div class='checkbox-container'><input type='checkbox' id='chat_count_check' ><label for='chat_count_check'>Chat-Count aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Chat-Count' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input type='checkbox' id='alert_chat_check' ><label for='alert_chat_check'>Chat mit Popup in der Ecke anzeigen aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Alert-Chat' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
+            <div class='checkbox-container'><input type='checkbox' id='greet_user_check' ><label for='greet_user_check'>Begrüßung durch das System aktivieren<a class='no-prevent' href='https://github.com/Notme112/Codebase/wiki/Greet-User' target='_blank' title='Hilfe zu diesem Modul'> [?] </a></label></div>
             <button class='button-success button button-round' onclick='speichern()'>Speichern</button>
             </div>
             <div class='tab-content' id='tab_settings-inputs'>
             <h2>Texte & URL's:</h2>
+            <h3>Eigene Sounds:</h3>
             <div class='input-container'><div class='input-label'>Neuer-Anruf-Sound (URL)</div><div class='input-icon'></div><input class='input-round' autocomplete='off' id='sound_newCall_input' placeholder='Link'></div>
             <div class='input-container'><div class='input-label'>FMS-Sound (URL)</div><div class='input-icon'></div><input class='input-round' autocomplete='off' id='sound_fms_input' placeholder='Link'></div>
             <div class='input-container'><div class='input-label'>FMS-5-Sound (URL)</div><div class='input-icon'></div><input class='input-round' autocomplete='off' id='sound_fms5_input' placeholder='Link'></div>
             <div class='input-container'><div class='input-label'>Mission-fertiggestellt-Sound (URL)</div><div class='input-icon'></div><input class='input-round' autocomplete='off' id='sound_finish_input' placeholder='Link'></div>
             <div class='input-container'><div class='input-label'>Error-Alarm-Sound (URL)</div><div class='input-icon'></div><input class='input-round' autocomplete='off' id='sound_error_input' placeholder='Link'></div>
+            <h3>Streammode-Text:</h3>
             <div class='input-container'><div class='input-label'>Streammode-Text (TEXT)</div><div class='input-icon'></div><input class='input-round' autocomplete='off' id='text_stream_input' placeholder='Link'></div>
+            <h3>Chat-Alarm:</h3>
             <div class='input-container'><div class='input-label'>Chat-Alarm-Sound (URL)</div><div class='input-icon'></div><input class='input-round' autocomplete='off' id='sound_chat_input' placeholder='Link'></div>
+            <h3>Darkmode nach Zeit:</h3>
             <div class='input-container'><div class='input-label'>Darkmode ausschalten um ... Uhr (ZAHL)</div><div class='input-icon'></div><input class='input-round' autocomplete='off' id='uhr_min_input' type='number'></div>
             <div class='input-container'><div class='input-label'>Darkmode einschalten um ... Uhr (ZAHL)</div><div class='input-icon'></div><input class='input-round' autocomplete='off' id='uhr_max_input' type='number'></div><br>
             <button class='button-success button button-round' onclick='speichern()'>Speichern</button>
             </div>
             <div class='tab-content' id='tab_licence'>
+            <h2>Fehler melden:</h2>
+            <p>
+            <a href='https://github.com/Notme112/Codebase/issues/new?assignees=NiZi112&labels=bug&template=bugs---fehler.md&title=BUG%3A+' class='no-prevent button button-success button-round' target='_blank'>Github</a> - <a href='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-0/&action=lastPost' class='no-prevent button button-success button-round' target='_blank'>Forum</a> - Discord: im Thread ReSi-Codebase im Bereich <code>#skripting</code>
+            <h3>Vielen Danke für deine Mithilfe!</h3>
+            </p>
             <h2>Open-Source:</h2>
             <p>
             Icons:
-            Icons by <a href='https://fontawesome.com/' target='_blank'><u>Fontawesome</u></a> unter <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank'><u>CC-BY 4.0-Lizenz</u></a>.
+            Icons by <a href='https://fontawesome.com/' target='_blank' class='no-prevent'><u>Fontawesome</u></a> unter <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank'><u>CC-BY 4.0-Lizenz</u></a>.
             </p>
             <p>
             JQuery:
@@ -465,6 +496,24 @@
         $("#chatInput").on("change", countCharackters);
         $("#chatForm").on("submit", countCharackters);
     };
+    function alertChat(){
+        socket.on("associationMessage", (msg) =>{
+            if(msg.message && msg.userName != $(".username .frame-opener").html()){
+                systemMessage({
+                    'title':`${msg.userName}`,
+                    'message':`${msg.message}`,
+                    'type':'info'
+                });
+            }
+        });
+    };
+    function greetUser(){
+        systemMessage({
+            'title':'Willkommen!',
+            'message':`Hallo ${$(".username").text()}, du hast ${parseInt($(".call-next").text()) + 1} offene Anrufe. Es gibt ${$(".mission-list-icon-1").length} rote Einsätze!`,
+            'type':'info'
+        });
+    };
     //Ende function-definding
     //Start ausführen
     if (toplist_aktiv === true) toplist();
@@ -493,7 +542,11 @@
 
     if(chat_count_aktiv) chat_count();
 
-    console.log(`Running ReSi-Codebase in Version 1.4.0!
+    if(greet_user_aktiv) greetUser();
+
+    if(alert_chat_aktiv) alertChat();
+
+    console.log(`Running ReSi-Codebase in Version 1.4.2!
 - Topliste: ${toplist_aktiv};
 - Gesamtmünzen: ${gesamtmuenzen_aktiv};
 - Flogout: ${flogout_aktiv};
@@ -508,6 +561,8 @@
 - Darkmode nach Zeit: ${zeitwechsel_aktiv};
 - Chat-Count: ${chat_count_aktiv};
 - Settings: ${settings};
+- Alert Chat: ${alert_chat_aktiv};
+- Begrüßung: ${greet_user_aktiv};
 Das Team der Codebase wünscht viel Spaß!
 Bei Fehlern, kopiere bitte diesen Text und füg ihn in deine Fehlermeldung ein!
 Der Text enthält wichtige Informationenn zu deinen verwendeten Modulen!;`);
