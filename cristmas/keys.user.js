@@ -14,9 +14,9 @@
     var called = false;
     function triggerKeyEvent(e){
         if(called || $('input').is(":focus")) return;
-        if(e.keyCode === 89){
+        if(e.keyCode === 120){
             $('.alarming-submit').click();
-        }else if(e.keyCode === 88){
+        }else if(e.keyCode === 121){
             $('.alarming-submit-close').click();
         }else if(e.keyCode === 49){
             $('.mission-aao').eq(0).click();
