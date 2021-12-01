@@ -1,46 +1,40 @@
 // ==UserScript==
 // @name         KeysInMission
-// @version      1.0.0
-// @description  Erlaubt es,
-// @author       You
+// @version      1.1
+// @description  Allows to click some elements via keypress
+// @author       Notme112, Ron31
 // @match        https://rettungssimulator.online/mission/*
 // @icon         https://www.google.com/s2/favicons?domain=rettungssimulator.online
+// @updateURL    https://github.com/Notme112/Codebase/raw/main/cristmas/keys.user.js
 // @grant        none
 // ==/UserScript==
 /* global $ */
 
-(function() {
+(function () {
     'use strict';
-    var called = false;
-    function triggerKeyEvent(e){
-        if(called || $('input').is(":focus")) return;
-        if(e.keyCode === 120){
-            $('.alarming-submit').click();
-        }else if(e.keyCode === 121){
-            $('.alarming-submit-close').click();
-        }else if(e.keyCode === 49){
-            $('.mission-aao').eq(0).click();
-        }else if(e.keyCode === 50){
-            $('.mission-aao').eq(1).click();
-        }else if(e.keyCode === 51){
-            $('.mission-aao').eq(2).click();
-        }else if(e.keyCode === 52){
-            $('.mission-aao').eq(3).click();
-        }else if(e.keyCode === 53){
-            $('.mission-aao').eq(4).click();
-        }else if(e.keyCode === 54){
-            $('.mission-aao').eq(5).click();
-        }else if(e.keyCode === 55){
-            $('.mission-aao').eq(6).click();
-        }else if(e.keyCode === 56){
-            $('.mission-aao').eq(7).click();
-        }else if(e.keyCode === 57){
-            $('.mission-aao').eq(8).click();
-        };
+    const hotkeys = {
+        120: '.alarming-submit',
+        121: '.alarming-submit-close',
+        49: '.mission-aao:nth-of-type(1)',
+        50: '.mission-aao:nth-of-type(2)',
+        51: '.mission-aao:nth-of-type(3)',
+        52: '.mission-aao:nth-of-type(4)',
+        53: '.mission-aao:nth-of-type(5)',
+        54: '.mission-aao:nth-of-type(6)',
+        55: '.mission-aao:nth-of-type(7)',
+        56: '.mission-aao:nth-of-type(8)',
+        57: '.mission-aao:nth-of-type(9)',
+    };
+    let called = false;
+    function triggerKeyEvent(e) {
+        if (called || $('input').is(':focus')) return;
+        if (hotkeys[e.keyCode])
+            document.querySelector(hotkeys[e.keyCode]).click();
+
         called = true;
-        setTimeout(function(){
+        setTimeout(() => {
             called = false;
         }, 20);
-    };
+    }
     $('*').keypress(triggerKeyEvent);
 })();
