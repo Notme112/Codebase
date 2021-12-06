@@ -3,7 +3,7 @@
 // @version      1.0.0
 // @description  Macht Platz für Scripte! ;-)
 // @author       NiZi112
-// @match        https://rettungssimulator.online/
+// @match        https://rettungssimulator.online/*
 // ==/UserScript==
 
 (function() {
