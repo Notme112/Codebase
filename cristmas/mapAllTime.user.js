@@ -6,13 +6,18 @@
 // @match        https://rettungssimulator.online/
 // @icon         https://www.google.com/s2/favicons?domain=rettungssimulator.online
 // ==/UserScript==
+/* global $ toggleMap */
 
 (function() {
     const CopyOfCloseFrame = closeFrame;
     closeFrame = function(){
         CopyOfCloseFrame();
-        if(!$("#map").hasClass("expanded")){
+        if($("#map").hasClass("expanded")){
+            toggleMap();
+            toggleMap();
+        }else{
             toggleMap();
         };
     }
+    toggleMap();
 })();
