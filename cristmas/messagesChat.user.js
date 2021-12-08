@@ -11,7 +11,7 @@
 
 (function() {
     'use strict';
-    const worte = ['Nachricht eins', 'Nachricht zwei', 'Nachricht 3'];
+    const worte = ['Nachricht eins', 'Nachricht zwei', 'Nachricht drei'];
     let html = '<div>';
     for(var i = 0; i < worte.length; i++){
         html += `<input type='radio' class='sendStatus' val='${worte[i]}' name='statusCheck' id='check_${i}'><label for='check_${i}' class='labelChatSend'>${worte[i]}</label><br>`;
@@ -30,7 +30,7 @@
             noticeModal('Fehler', 'Bitte lade die Seite neu! Wenn der Fehler weiter auftritt, wende dich an NiZi112!', 'Schließen');
         };
         if(worte.indexOf(query.innerText) == -1 || !query.innerText){
-            noticeModal('Fehler2', 'Bitte lade die Seite neu! Wenn der Fehler weiter auftritt, wende dich an NiZi112!', 'Schließen');
+            noticeModal('Fehler', 'Bitte lade die Seite neu! Wenn der Fehler weiter auftritt, wende dich an NiZi112!', 'Schließen');
         }
         $.ajax({
             url: "/api/sendAssociationChatMessage",
