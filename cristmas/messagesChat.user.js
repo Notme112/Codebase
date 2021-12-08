@@ -20,7 +20,7 @@
     $('#ad').append(html);
     $('#sendMessageStatus').on('click', function(){
         if($('.sendStatus.active').length != 1){
-            noticeModal('Fehler', 'Du musst einen Status auswählen! Wenn ein Status ausgewählt ist, wähle ihn bitte nochmal aus!', 'Schließen');
+            noticeModal('Fehler', 'Du musst eine Nachricht auswählen! Wenn eine Nachricht ausgewählt ist, wähle sie bitte nochmal aus!', 'Schließen');
             return;
         };
         var für = $(".sendStatus.active").attr("id");
