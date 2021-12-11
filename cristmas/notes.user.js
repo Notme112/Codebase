@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Notes
-// @version      1.0.0
+// @version      1.0.2
 // @description  Fügt dem Spiel eine Notizfunktion hinzu!
 // @author       NiZi112
 // @match        https://rettungssimulator.online/
@@ -12,7 +12,7 @@
     'use strict';
     if(!localStorage.notesNiZi) localStorage.notesNiZi = "Notizen";
     if($("#darkMode").html().includes("Tag")){localStorage.setItem("darkmode_resi_base", "true");}else{localStorage.setItem("darkmode_resi_base", "false");};
-    var btn = $("darkMode");
+    var btn = $("#darkMode");
     $(btn).on("click", function() {if(localStorage.getItem("darkmode_resi_base") == "true"){localStorage.setItem("darkmode_resi_base", "false");}else{localStorage.setItem("darkmode_resi_base", "true");};});
     $(btn).after('<li id="notes_nizi">Notizen</li>')
     $("#notes_nizi").on("click", () => {
