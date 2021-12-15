@@ -23,9 +23,9 @@
         yellow = $('.mission-list-progress-2').length;
         green = $('.mission-list-progress-3').length;
         var all = red + yellow + green;
-        rPer = red/all*100;
-        yPer = yellow/all*100;
-        gPer = green/all*100;
+        rPer = Math.floor(red/all*100);
+        yPer = Math.floor(yellow/all*100);
+        gPer = Math.floor(green/all*100);
         if(isNaN(rPer)) rPer = 0;
         if(isNaN(yPer)) yPer = 0;
         if(isNaN(gPer)) gPer = 0;
