@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         AssociationDashboard
-// @version      1.0.0
+// @version      1.0.1
 // @description  Shows a Dashboard with data to your Association!
 // @author       NiZi112
 // @match        *://rettungssimulator.online/
@@ -97,8 +97,8 @@ text += `</tbody></table>`;
 user += `</tbody></table>`;
 text += `<h2>Status</h2>
          Verbandsname: ${apidata.associationName}<br>
-         Admin's online: ${adminOnline}<br>
-         Co-Admin's online: ${coadminOnline}<br>
+         Admins online: ${adminOnline}<br>
+         Co-Admins online: ${coadminOnline}<br>
          Schuldirektoren online: ${schooldirektorOnline}<br>
          Mitglieder online: ${onlineUser}<br>
          Mitglieder gesamt: ${apidata.associationUsers.length}<br>
