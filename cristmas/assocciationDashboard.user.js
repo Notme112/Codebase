@@ -105,7 +105,7 @@ text += `<h2>Status</h2>
          Geteilte Gebäude: ${apidata.associationSharedBuildings.length}<br>
          ID: ${apidata.associationID}<br>
          Münzen (gesamt verdient): ${apidata.associationMuenzenTotal}<br>
-         Münzen (aktull in der Kasse): ${apidata.associationMuenzenBank}
+         Münzen (aktuell in der Kasse): ${apidata.associationMuenzenBank}
          `
 text += `<h2>Mitglieder</h2>
 ${user}`;
