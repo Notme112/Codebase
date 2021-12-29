@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ReSi-Codebase BETA
-// @version      1.4.2
+// @version      1.4.3
 // @description  Erweitert viele Funktionen und fügt neue hinzu. Das alle kostenlos in einem Browsergamne!
 // @author       NiZi112
 // @match        https://rettungssimulator.online/
