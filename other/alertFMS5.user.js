@@ -6,13 +6,14 @@
 // @match        *://rettungssimulator.online/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
+/* global socket modal openFrame */
 
 (function() {
     'use strict';
     try {
         socket.on("vehicleFMS", (obj) => {
             if(obj.userVehicleFMS != 5) return
-            noticeModal(`Sprechwunsch`, `${obj.userVehicleName} hat einen Sprechwunsch`, 'öffnen', () => {
+            modal(`Sprechwunsch`, `${obj.userVehicleName} hat einen Sprechwunsch`, 'öffnen', 'schließen', () => {
                 if(obj.vehicleID == 43){
                     openFrame(`/vehicle/${obj.userVehicleID}`, '1/2/4/4')
                 }else{
