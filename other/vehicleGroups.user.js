@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         VehicleGroups
-// @version      1.0.0
+// @version      1.0.1
 // @description  Let you group vehicle and set them to S2 / S.
 // @author       NiZi112
 // @match        https://rettungssimulator.online/
@@ -25,7 +25,6 @@
         const e = [];
         v.forEach((el) => {
             setTimeout(() => {
-                console.log(`Sending ${el}`)
                 $.ajax({
                     url: "/api/editVehicle",
                     dataType: "json",
@@ -45,7 +44,7 @@
             t = t + 800;
         })
         setTimeout(() => {
-            noticeModal('Fahrzeuge in Status ' + fms + ' gesetzt', `Diese Fahrzeuge wurden erfolgreich in Status ${fms} gesetzt:<br> ${s.join(', ')}<br>Bei diesen Fahrzeug gab es einen Fehler:<br>${e.join(', ')}`);
+            noticeModal('Fahrzeuge in Status ' + fms + ' gesetzt', `Diese Fahrzeuge wurden erfolgreich in Status ${fms} gesetzt:<br> ${s.length ? s.join(', ') : '- keine -'}<br>Bei diesen Fahrzeugen gab es einen Fehler:<br>${e.length ? e.join(', ') : '- keine -'}`);
         }, t+200)
     }
     $('#darkMode').after('<li id="groupVehicle">Reservefahrzeuge</li>');
