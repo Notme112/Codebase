@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Statistiken
-// @version      1.0.0
+// @version      1.0.1
 // @description  Zeigt Einsatzstatistiken!
 // @author       NiZi112
 // @match        https://rettungssimulator.online/
@@ -23,9 +23,9 @@
         yellow = $('.mission-list-progress-2').length;
         green = $('.mission-list-progress-3').length;
         var all = red + yellow + green;
-        rPer = Math.floor(red/all*100);
-        yPer = Math.floor(yellow/all*100);
-        gPer = Math.floor(green/all*100);
+        rPer = red/all*100;
+        yPer = yellow/all*100;
+        gPer = green/all*100;
         if(isNaN(rPer)) rPer = 0;
         if(isNaN(yPer)) yPer = 0;
         if(isNaN(gPer)) gPer = 0;
@@ -33,7 +33,7 @@
         $('#missionPercent').attr('data-tooltip', data)
     };
     calcPercent();
-    $('.panel-expand').before(`<span class="fa fa-info-circle nizi112" id="missionPercent" data-tooltip="${data}"></span>`);
+    $('#missions .panel-expand').before(`<span class="fa fa-info-circle nizi112" id="missionPercent" data-tooltip="${data}"></span>`);
     socket.on('missionStatus', function(obj){
         calcPercent();
     });
