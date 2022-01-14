@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Filter
-// @version      1.0.0
+// @version      1.0.1
 // @description  Filtert Missionen nach Status!
 // @author       NiZi112
 // @match        https://rettungssimulator.online/
@@ -50,11 +50,17 @@
         localStorage.missionsHide = JSON.stringify(hide);
     };
 
-    $(".panel-expand").before("<span class='label label-danger' id='hideMissions1'>&bull;</span><span id='hideMissions2' class='label label-warning'>&bull;</span><span id='hideMissions3' class='label label-success'>&bull;</span>")
+    $("#missions .panel-expand").before("<span class='label label-danger' id='hideMissions1'>&bull;</span><span id='hideMissions2' class='label label-warning'>&bull;</span><span id='hideMissions3' class='label label-success'>&bull;</span>")
 
-    $('#hideMissions1').on('click', () => {hideMissions(1)})
-    $('#hideMissions2').on('click', () => {hideMissions(2)})
-    $('#hideMissions3').on('click', () => {hideMissions(3)})
+    $('#hideMissions1').on('click', () => {
+        hideMissions(1)
+    })
+    $('#hideMissions2').on('click', () => {
+        hideMissions(2)
+    })
+    $('#hideMissions3').on('click', () => {
+        hideMissions(3)
+    })
 
     socket.on("missionStatus", (missionStatusObject) => {
         if(missionStatusObject.userMissionStatus == 1 && hide.red){$(".mission-list-progress-1").parent().hide();}
