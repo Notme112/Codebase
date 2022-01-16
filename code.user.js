@@ -1,10 +1,3 @@
-GM_info = {
-    script: {
-        version: 'ALPHA',
-        name: 'ReSi-Codebase DEV'
-    }
-};
-//*** => CODEBASE <= ***//
 // ==UserScript==
 // @name         ReSi-Codebase BETA
 // @version      1.5.0
