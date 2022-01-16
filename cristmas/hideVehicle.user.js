@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Hide Vehicle
-// @version      1.0
+// @version      1.1.0
 // @description  Filter die Fahrzeuge im Einsatzfenster nach Entfernung
 // @author       NiZi112
 // @match        *://rettungssimulator.online/mission/*
@@ -14,24 +14,28 @@
     localStorage.distaceVehicle ? '' : localStorage.distaceVehicle = 10;
     var d = parseFloat(localStorage.distaceVehicle);
     function applyFilter(dis){
-        for(var i = 0; i < $('.mission-vehicle').length; i++){
-            if(parseFloat($('.vehicle-distance').eq(i).text()) > dis){
+        const el = document.getElementsByClassName('mission-vehicle')
+        const km = document.getElementsByClassName('vehicle-distance')
+        for(var i = 0; i < el.length; i++){
+            var e = el[i];
+            if(parseFloat(km[i].innerText) > dis){
                 //verstecken
-                $('.mission-vehicle').eq(i).removeClass('vehicle').hide();
+                e.classList.remove('vehicle');
+                e.style.display = 'none';
             }else{
                 //zeigen
-                if(!$('.mission-vehicle').eq(i).hasClass('vehicle')){
-                    $('.mission-vehicle').eq(i).addClass('vehicle').show();
+                if(!e.classList.contains('vehicle')){
+                    e.classList.add('vehicle');
+                    e.style.display = '';
                 };
             };
-            updateAAOButtons()
         }
+        updateAAOButtons()
     };
     function saveSettings(){
         var n = parseFloat($('#vehicleDistance').val());
         localStorage.distaceVehicle = n;
-        d = n;
-        applyFilter(d);
+        applyFilter(n);
     }
     $('.onscene:first').after(`<div class="card">
     <div class="card-headline card-headline-danger">
