@@ -10,7 +10,7 @@
 
 (async function() {
     'use strict';
-    getAPI = async function (name) {
+    async function getAPI(name) {
         if (
             !sessionStorage.getItem(`a${name}`) || JSON.parse(sessionStorage.getItem(`a${name}`)).lastUpdate > (new Date).getTime() * 1000 * 60 * 5
         ) {
