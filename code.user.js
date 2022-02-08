@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         ReSi-Codebase BETA
-// @version      1.5.0
+// @version      1.5.1
 // @description  Erweitert viele Funktionen und fügt neue hinzu. Das alle kostenlos in einem Browsergamne!
 // @author       NiZi112
 // @match        https://rettungssimulator.online/
 // @include      www.rettungssimulator.online
 // @match        https://rettungssimulator.online/vehicle/*
+// @match        https://rettungssimulator.online/missionNew/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @updateURL    https://github.com/Notme112/Codebase/raw/main/code.user.js
 // @downloadURL  https://github.com/Notme112/Codebase/raw/main/code.user.js
@@ -14,10 +15,12 @@
 // ==/UserScript==
 
 (async function () {
-    if(localStorage.resiBaseRemovedStorage != '1.5.0'){
+    //remove storage if necessary
+    if (localStorage.resiBaseRemovedStorage != '1.5.0') {
         localStorage.removeItem('storage_resi_base');
         localStorage.resiBaseRemovedStorage = '1.5.0';
     }
+    //define getAPI function
     getAPI = async function (name) {
         if (
             !sessionStorage.getItem(`a${name}`) || JSON.parse(sessionStorage.getItem(`a${name}`)).lastUpdate > (new Date).getTime() * 1000 * 60 * 5
@@ -48,10 +51,25 @@
             })
         }
     }
-
+    //define validate function
     function validate(text) {
         return text.replace('<', '').replace('>', '');
     }
+    //define notification function
+    async function checkNotificationPermission() {
+        if (Notification.permission === "granted") {
+            return true;
+        } else if (Notification.permission !== 'denied') {
+            await Notification.requestPermission(function (permission) {
+                if (permission === "granted") {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        }
+    }
+    //add own css to head
     const css = `
     <style>
     .codebase:focus{
@@ -60,9 +78,9 @@
     </style>`;
     const head = document.head || $("head:first");
     $(head).append(css);
-    let storage;
-    //Start Storage-Abfrage
+    //new user
     if (!localStorage.getItem('storage_resi_base')) {
+        //set storage
         localStorage.setItem(
             'storage_resi_base',
             JSON.stringify({
@@ -106,6 +124,7 @@
                 }
             })
         );
+        //show welcome message
         systemMessage({
             title: 'Willkommen bei der ReSi-Codebase!',
             message: `Schön, dass Du dich entschlossen hast, die ReSi-Codebase zu nutzen!<br><br>
@@ -117,8 +136,18 @@
             type: 'info'
         });
     }
+    //load storage
     const s = JSON.parse(localStorage.storage_resi_base);
-
+    //codebase class
+    class ReSiCodebase {
+        constructor() {
+            this.version = GM_info.script.version
+            this.settings = s;
+        }
+    }
+    //create object from codebase class
+    codebase = new ReSiCodebase();
+    //save darkmode-settings in localstorage
     try {
         if ($('#darkMode').html().includes('Tag'))
             localStorage.setItem('darkmode_resi_base', 'true');
@@ -126,13 +155,12 @@
     } catch {
         console.error('Darkmode-Button nicht gefunden');
     };
-
     $('#darkMode').on('click', () => {
         if (localStorage.getItem('darkmode_resi_base') == 'true')
             localStorage.setItem('darkmode_resi_base', 'false');
         else localStorage.setItem('darkmode_resi_base', 'true');
     });
-    /*{
+    /*setting{
         subtarget: "",
         target: "gesamtmuenzenSetting1",
         name: "Testsettings",
@@ -140,6 +168,7 @@
         settingsKey: "testsettings",
         preset: "URL"
     }*/
+    //initialize modules
     const modules = [{
             name: "Gesamtmünzenzähler",
             description: "Zeigt in der Seitenleiste die gesamt verdienten Münzen an.",
@@ -289,12 +318,12 @@
         },
         {
             name: "Autocomplete verhindern",
-            description: "Verhindert den Autocomplete des Brwosers bei den Feldern der Einsatzannahme und des Chats",
+            description: "Verhindert den Autocomplete des Browsers bei den Feldern der Einsatzannahme und des Chats.",
             helpLink: "",
             settingsTarget: "autocomplete",
             target: "autocompleteCheck",
             keywords: ['Browser', 'complete', 'verhindern', 'autocomplete'],
-            allSite: false,
+            allSite: true,
             func: async (s) => {
                 $('#chatInput').attr('autocomplete', 'off');
                 $('#newMissionNameInput').attr('autocomplete', 'off');
@@ -352,18 +381,7 @@
             keywords: ['Browserbenachrichtigung', 'Browser', 'Push', 'Ping', 'PushFMS', 'FMS', 'Status', '5', 'Sprechwunsch'],
             allSite: false,
             func: async (s) => {
-                function notifyMe() {
-                    if (Notification.permission === "granted") {
-                        var news = true;
-                    } else if (Notification.permission !== 'denied') {
-                        Notification.requestPermission(function (permission) {
-                            if (permission === "granted") {
-                                news = true;
-                            }
-                        });
-                    }
-                }
-                notifyMe();
+                if (!await checkNotificationPermission()) return;
 
                 socket.on("vehicleFMS", (vehicleFMSObject) => {
                     var hallo = `${vehicleFMSObject.userVehicleFMS}`;
@@ -418,19 +436,14 @@
             func: async (s) => {
                 var hallo = document.createElement("div");
                 document.getElementsByClassName("brand")[0].after(hallo);
-                $("#darkMode").after("<li>Icons by Fontawesome<br>unter CC-BY</li>");
                 var aktualisieren = function () {
                     var date = new Date();
                     var stunde = date.getHours();
                     var minute = date.getMinutes();
-                    var sekunde = date.getSeconds();
-                    if (sekunde < 10) {
-                        sekunde = "0" + sekunde
-                    };
                     if (minute < 10) {
                         minute = "0" + minute
                     };
-                    hallo.innerHTML = stunde + ":" + minute + ":" + sekunde + " <i class='far fa-clock'></i>";
+                    hallo.innerHTML = `${stunde}:${minute} <i class='far fa-clock'></i>`;
                 };
                 setInterval(aktualisieren, 50)
             },
@@ -528,7 +541,6 @@
                     var val = s.filterKHSettings.maxDistanceKH;
                     var own = s.filterKHSettings.ownKH;
                     var alli = s.filterKHSettings.alliKH;
-                    console.log(own, alli, val);
 
                     var active = s.filterKHActive;
 
@@ -608,9 +620,104 @@
                 preset: "ZAHL"
             }],
         },
-    ]
-    //Ende Storage-Abfrage
-    //Start eigener Frame
+        {
+            name: "Alarmansichtswechsler",
+            description: "Wechselt im Einsatz mit der Taste \"U\" zwischen der Wachen- und Fahrzeugansicht.",
+            settingsTarget: "switchAlarmingMode",
+            helpLink: "",
+            target: "switchAlarmingModeCheck",
+            func: async (s) => {
+                if (!location.pathname.includes('/mission/')) return
+                $(document).on('keyup', (e) => {
+                    if (e.keyCode == 85) {
+                        $('.detail-right .button-gray').click()
+                    }
+                })
+            },
+            keywords: ['Switch', 'Einsatz', 'Mission', 'Wachenansicht', 'wechseln', 'Fahrzeugansicht'],
+            hasSettings: false,
+            allSite: true,
+            settings: [],
+        },
+        {
+            name: "Einsatzstatistiken",
+            description: "Wechselt im Einsatz mit der Taste \"U\" zwischen der Wachen- und Fahrzeugansicht.",
+            settingsTarget: "switchAlarmingMode",
+            helpLink: "",
+            target: "statisticsCheck",
+            func: async (s) => {
+                var red = 0;
+                var yellow = 0;
+                var green = 0;
+                var rPer = 0;
+                var yPer = 0;
+                var gPer = 0;
+                var data;
+
+                function calcPercent() {
+                    red = $('.mission-list-progress-1').length;
+                    yellow = $('.mission-list-progress-2').length;
+                    green = $('.mission-list-progress-3').length;
+                    var all = red + yellow + green;
+                    rPer = Math.floor(red / all * 100);
+                    yPer = Math.floor(yellow / all * 100);
+                    gPer = Math.floor(green / all * 100);
+                    if (isNaN(rPer)) rPer = 0;
+                    if (isNaN(yPer)) yPer = 0;
+                    if (isNaN(gPer)) gPer = 0;
+                    data = `Rot: ${red} (${rPer}%), Gelb: ${yellow} (${yPer}%), Grün: ${green} (${gPer}%)`
+                    $('#missionPercent').attr('data-tooltip', data)
+                };
+                calcPercent();
+                $('#missions .panel-expand').before(`<span class="fa fa-info-circle nizi112" id="missionPercent" data-tooltip="${data}"></span>`);
+                socket.on('missionStatus', function (obj) {
+                    calcPercent();
+                });
+                socket.on('finishMission', function (obj) {
+                    calcPercent();
+                });
+            },
+            keywords: ['Statistiken', 'Einsatz', 'Mission', 'Status', 'Einsätze', 'Info'],
+            hasSettings: false,
+            allSite: false,
+            settings: [],
+        },
+        {
+            name: "ShowNAChance",
+            description: "Zeigt im Einsatz mit Patienten die Chance der Grundvarinate, dass ein Notazt gebraucht wird.",
+            settingsTarget: "ShowNAChance",
+            helpLink: "",
+            target: "ShowNAChanceCheck",
+            func: async (s) => {
+              if(!location.pathname.include('/mission/')) return
+              const api = await getAPI('missions')
+              const data = api[parseInt($('.detail-title').attr('missionid'))]
+              if(data.patients){
+                $('#s5').after(`<span class='label label-info'>Grundvariante: ${data.patients.min}-${data.patients.max} Patienten, ${data.patients.naChance}\% NA-Wahrscheinlichkeit`)
+              }
+            },
+            keywords: ['Notarzt', 'Einsatz', 'Mission', 'Wahrscheinlichkeit', 'Einsätze', 'Info'],
+            hasSettings: false,
+            allSite: false,
+            settings: [],
+        },
+    ];
+    //function check settings and catching errors when there is a new branch
+    function checkSettings() {
+        if (!localStorage.storage_resi_base) reload();
+        modules.forEach((el) => {
+            if (el.hasSettings) {
+                el.settings.forEach((setting) => {
+                    if (setting.subtarget && !s[setting.subtarget]) {
+                        s[setting.subtarget] = {};
+                    }
+                })
+            }
+        });
+    }
+    checkSettings();
+    //own frame
+    //create
     const listenelement = document.createElement('li');
     $('#darkMode').after(listenelement);
     listenelement.innerHTML = 'ReSi-Codebase';
@@ -620,6 +727,7 @@
         openFrame('', '1/1/4/5');
         const frame = $('#iframe');
         frame.on('load', () => {
+            //build frame content
             var frameContent = `<div class='panel-body'>
             <script src='https://rettungssimulator.online/js/jquery-3.5.0.min.js'></script>
             <link rel='stylesheet' href='https://rettungssimulator.online/css/index.css' charset='utf-8'>
@@ -674,6 +782,7 @@
             <div class='detail-header'>
             <div class='detail-title'>ReSi-Codebase <div class='right pointer' onclick='if(changes === true){modal("Ohne Speichern verlassen?","Du hast Änderungen vorgenommen, willst du diese Seichern?","Speichern","Ohne speichern verlassen",() => {$("#saveCodebaseSettings").click()}, () => {parent.closeFrame()})}else{parent.closeFrame()}'> &times; </div></div>
             <div class='detail-subtitle'>Verwalte hier deine Einstellungen für die ReSi-Codebase
+            <button class="button button-round button-success" id="showStorage">Gespeicherte Daten der Scripte anzeigen</button>
             <div class="input-container nochange" style="float:right"><label for='input_search'>Suche</label>
             <input class="input-round input-inline nochange" type="text" value="" style="padding-left:20px;padding-right:20px;" id="input_search" placeholder="Suche..." autocomplete="off">
             </div>
@@ -688,6 +797,7 @@
             <div class='tab-content tab-content-active' id='tab_settings-moduls'>
             <h2>Module:</h2>
             <h4 class='label label-info searchNoResult hidden'>Die Suche lieferte keine Ergebnisse! Bitte probiere es mit einem anderen Suchwort!</h4>`;
+            //checkboxes for modules
             modules.forEach((el) => {
                 frameContent += `<div class='checkbox-container searchable'><input id='${el.target}' type='checkbox' ${s[el.settingsTarget] ? 'checked' : ''}><label for='${el.target}'>${el.name} aktivieren<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></label><div class='hidden keyword-serach'>${el.keywords.join(' ')}</div></div>`
             });
@@ -695,6 +805,7 @@
             </div>
             <div class='tab-content' id='tab_settings-inputs'>
             <h2>Texte & URL's:</h2>`
+            //settings for modules
             modules.forEach((el) => {
                 if (el.hasSettings) {
                     frameContent += `<h3>${el.name}</h3>
@@ -718,6 +829,7 @@
                     })
                 }
             })
+            //other
             frameContent += `<br>
             <button class='button-success button button-round' id='saveCodebaseSettings'>Speichern</button>
             </div>
@@ -743,8 +855,25 @@
             <h3>Danke für die Nutzung der ReSi-Codebase!</h3>
             </div>`
             frame.contents().find('body').append(frameContent);
-
+            //show localStorge & sessionStorage
+            frame.contents().find('#showStorage').on('click', () => {
+                var table = '<table class="table-divider striped"><thead><tr><th>Key</th><th>Wert</th></tr><tbody>'
+                for (var i = 0; i < localStorage.length; i++) {
+                    key = localStorage.key(i);
+                    table += `<tr><td>${key}</td><td>${localStorage[key]}</td><td onclick='localStorage.removeItem("${key}");$(this).parent().remove()'>löschen</td></tr>`
+                }
+                var table2 = '<table class="table-divider striped"><thead><tr><th>Session-Storage: Key</th><th>Value</th></tr><tbody>'
+                for (var i = 0; i < sessionStorage.length; i++) {
+                    key = sessionStorage.key(i);
+                    table2 += `<tr><td>${key}</td><td>${sessionStorage[key]}</td><td onclick='sessionStorage.removeItem("${key}");$(this).parent().remove()'>löschen</td></tr>`
+                }
+                table += '</tbody></table>'
+                table2 += '</tbody></table>'
+                noticeModal('Gescheicherte Daten', `<div style="height: 200px;overflow:auto">Hier siehst du, welche Daten im sog. local- & session-Storage gespeichert wurden. Davon ausgenommen sind sog. indexDB und Cookies${table}${table2}</div>`)
+            })
+            //save settings
             function saveCodebaseSettings() {
+                checkSettings();
                 modules.forEach((el) => {
                     s[el.settingsTarget] = $('#iframe').contents().find(`#${el.target}`).prop('checked');
                     if (el.hasSettings) {
@@ -784,10 +913,7 @@
             frame.off('load');
         });
     });
-    //Ende eigener Frame
-    //Start function-definding
-    //Ende function-definding
-    //Start ausführen
+    //run functions
     modules.forEach(async (el) => {
         try {
             if (s[el.settingsTarget]) {
@@ -803,6 +929,7 @@
             console.error(`Fehler im Modul ${el.name}`)
         }
     })
+    //write log on main site
     if (window.location.pathname == '/') {
         var log = `Running ${GM_info.script.name} in Version ${GM_info.script.version} on site ${window.location.href}!`
         modules.forEach((el) => {
@@ -812,5 +939,4 @@
 Bei Fehlern kopiere bitte diesen Text und füge ihn in deine Fehlermeldung ein. Der Text enthält wichtige Informationenn zu deinen verwendeten Modulen.`;
         console.log(log);
     }
-    //Ende auführen
 })();
