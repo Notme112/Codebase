@@ -14,6 +14,6 @@
 (() => {
     let script = document.createElement('script');
     script.src = 'https://raw.githubusercontent.com/Notme112/Codebase/main/src/codebase.min.js';
-    script.type = 'text/plain'
+    script.type = 'text/plain';
     document.head.appendChild(script);
 })();
