@@ -62,12 +62,11 @@ GM_info = {
 		}
 	}
 	//add own css to head
-	const css = `
-    <style>
-    .codebase:focus{
-      outline: none;
-    }
-    </style>`;
+	const css = `<style>
+.codebase:focus{
+outline: none;
+}
+</style>`;
 	const head = document.head || $("head:first");
 	$(head).append(css);
 	//new user
@@ -120,11 +119,11 @@ GM_info = {
 		systemMessage({
 			title: 'Willkommen bei der ReSi-Codebase!',
 			message: `Schön, dass Du dich entschlossen hast, die ReSi-Codebase zu nutzen!<br><br>
-            Du kannst jeden Modul einzeln aktivieren, die Möglichkeit findest Du in einem Einstellungs-Panel, welches Du über die Seitenleiste aufrufen kannst.<br>
-            Probier doch einfach mal alle Module aus. Wenn Du nicht weißt, was ein Modul tut, dann klick einfach auf das [?] hinter dem Namen, damit kommst Du zur Wikiseite des Moduls.<br><br>
-            Fehler bitte im Forum melden - oder im Thread ReSi-Codebase auf Discord im Bereich <code>#skripting</code><br><br>
-            Viel Spaß,<br>
-            Dein Team der ReSi-Codebase`,
+Du kannst jeden Modul einzeln aktivieren, die Möglichkeit findest Du in einem Einstellungs-Panel, welches Du über die Seitenleiste aufrufen kannst.<br>
+Probier doch einfach mal alle Module aus. Wenn Du nicht weißt, was ein Modul tut, dann klick einfach auf das [?] hinter dem Namen, damit kommst Du zur Wikiseite des Moduls.<br><br>
+Fehler bitte im Forum melden - oder im Thread ReSi-Codebase auf Discord im Bereich <code>#skripting</code><br><br>
+Viel Spaß,<br>
+Dein Team der ReSi-Codebase`,
 			type: 'info'
 		});
 	}
