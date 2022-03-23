@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ReSi-Codebase
-// @version      1.5.2
+// @version      1.6.0
 // @description  Erweitert viele Funktionen und fügt neue hinzu. Das alle kostenlos in einem Browsergamne!
 // @author       NiZi112
 // @match        https://rettungssimulator.online/*
@@ -13,4 +13,4 @@
 /* global $ sounds openFrame socket systemMessage */
 (() => {
     document.head.appendChild((document.createElement('script')).src = 'https://raw.githubusercontent.com/Notme112/Codebase/main/src/codebase.min.js')
-})
+})();
