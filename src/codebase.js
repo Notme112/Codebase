@@ -1,4 +1,11 @@
-(async function () {
+GM_info = {
+	script: {
+		name: 'ReSi-Codebase',
+		version: 'DEV'
+	}
+};
+/* => ab hier <= */
+(async () => {
 	if ($('.landing-header').length) return
 	//remove storage if necessary
 	if (localStorage.resiBaseRemovedStorage != '1.5.0') {
@@ -768,10 +775,10 @@
 			helpLink: "",
 			target: "titleChangeCheck",
 			func: async (s) => {
-				document.title = s.titleChangeSettings.title
+				document.title = s.titleChangeSettings ? s.titleChangeSettings.title ? s.titleChangeSettings.title : 'rettungssimulator.online' : 'rettungssimulator.online'
 			},
 			keywords: ['Title', 'Titel', 'Browser', 'ReSi', 'Webseite', 'Info'],
-			hasSettings: false,
+			hasSettings: true,
 			allSite: true,
 			settings: [{
 				subtarget: "titleChangeSettings",
