@@ -12,5 +12,7 @@
 // ==/UserScript==
 /* global $ sounds openFrame socket systemMessage */
 (() => {
-    document.head.appendChild((document.createElement('script')).src = 'https://raw.githubusercontent.com/Notme112/Codebase/main/src/codebase.min.js')
+    let script = document.createElement('script');
+    script.src = 'https://raw.githubusercontent.com/Notme112/Codebase/main/src/codebase.min.js';
+    document.head.appendChild(script)
 })();
