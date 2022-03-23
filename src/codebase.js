@@ -1,7 +1,8 @@
 GM_info = {
 	script: {
 		name: 'ReSi-Codebase',
-		version: 'DEV'
+		version: 'DEV',
+		test: 'test'
 	}
 };
 /* => ab hier <= */
