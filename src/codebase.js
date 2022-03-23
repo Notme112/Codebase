@@ -1,5 +1,5 @@
 (async function () {
-  if($('.landing-header').length) return
+  if ($('.landing-header').length) return
   //remove storage if necessary
   if (localStorage.resiBaseRemovedStorage != '1.5.0') {
     localStorage.removeItem('storage_resi_base');
@@ -170,7 +170,7 @@
       hasSettings: false,
       allSite: false,
       settings: [],
-        },
+    },
     {
       name: "Toplist-Position",
       description: "Zeigt in Seitenleiste im Toplist-Link direkt die aktuelle Position auf der Topliste.",
@@ -185,7 +185,7 @@
       },
       hasSettings: false,
       settings: [],
-        },
+    },
     {
       name: "Maximierte Einsatzliste",
       description: "Maximiert die Einsatzliste dauerhaft.",
@@ -199,7 +199,7 @@
       },
       hasSettings: false,
       settings: [],
-        },
+    },
     {
       name: "Flogout (Fast Logout)",
       description: "Zeigt direkt oben links am Rand ein Logout-Symbol",
@@ -225,7 +225,7 @@
       },
       hasSettings: false,
       settings: [],
-        },
+    },
     {
       name: "Eigener Streammode-Text",
       description: "Zeigt statt dem Chat euren eigenen Text an",
@@ -246,8 +246,8 @@
         type: "input-text",
         settingsKey: "stream_mode",
         preset: "TEXT"
-            }],
-        },
+      }],
+    },
     {
       name: "Eigene Sounds",
       description: "Erlaubt euch, eigene Sounds in das Spiel zu bringen",
@@ -271,36 +271,36 @@
         type: "input-text",
         settingsKey: "newCall",
         preset: "URL"
-            }, {
+      }, {
         subtarget: "audio",
         target: "fmsAudio",
         name: "FMS-Sound",
         type: "input-text",
         settingsKey: "fms",
         preset: "URL"
-            }, {
+      }, {
         subtarget: "audio",
         target: "fms5Audio",
         name: "FMS5-Sound",
         type: "input-text",
         settingsKey: "fms5",
         preset: "URL"
-            }, {
+      }, {
         subtarget: "audio",
         target: "errorAudio",
         name: "Error-Sound",
         type: "input-text",
         settingsKey: "error",
         preset: "URL"
-            }, {
+      }, {
         subtarget: "audio",
         target: "finischAudio",
         name: "Einsatz-abgeschlossen-Sound",
         type: "input-text",
         settingsKey: "finish",
         preset: "URL"
-            }],
-        },
+      }],
+    },
     {
       name: "Autocomplete verhindern",
       description: "Verhindert den Autocomplete des Browsers bei den Feldern der Einsatzannahme und des Chats.",
@@ -319,7 +319,7 @@
       },
       hasSettings: false,
       settings: [],
-        },
+    },
     {
       name: "Einsatzzähler",
       description: "Zeigt in Seitenleiste die Zahl der heute absolvierten Einsätze.",
@@ -356,7 +356,7 @@
       },
       hasSettings: false,
       settings: [],
-        },
+    },
     {
       name: "Push FMS5",
       description: "Sendet eine Brwoserbenachrichtigung bei einem Sprechwunsch.",
@@ -379,7 +379,7 @@
       },
       hasSettings: false,
       settings: [],
-        },
+    },
     {
       name: "Darkmode nach Uhrzeit (noch nicht verfügbar)",
       description: "Wechselt automatisch in den White- / Darkmode bei von euch bestimmter Einstellung",
@@ -399,7 +399,7 @@
           type: "input-number",
           settingsKey: "min",
           preset: "URL"
-                },
+        },
         {
           subtarget: "darkmodeSettings",
           target: "uhrMax",
@@ -407,9 +407,9 @@
           type: "input-number",
           settingsKey: "max",
           preset: "URL"
-                }
-            ],
-        },
+        }
+      ],
+    },
     {
       name: "Uhr",
       description: "Zeigt in der Navbar eine kleine Uhr.",
@@ -434,7 +434,7 @@
       },
       hasSettings: false,
       settings: [],
-        },
+    },
     {
       name: "Settings in der Navbar",
       description: "Die Codebase-Einstellungen lassen sich so auch direkt über die Navbar aufrufen.",
@@ -448,7 +448,7 @@
       },
       hasSettings: false,
       settings: [],
-        },
+    },
     {
       name: "Chat-Count",
       description: "Zählt die Zeichen im Chat.",
@@ -490,7 +490,7 @@
       },
       hasSettings: false,
       settings: [],
-        },
+    },
     {
       name: "AlertChat",
       description: "Sendet kleine Popups bei einer Chatnachricht.",
@@ -512,7 +512,7 @@
       },
       hasSettings: false,
       settings: [],
-        },
+    },
     {
       name: "FilterKH",
       description: "Filtert die Krankenhäuser in einem Sprechwunsch.",
@@ -589,22 +589,22 @@
         type: "checkbox",
         settingsKey: "ownKH",
         preset: "CHECKBOX"
-            }, {
+      }, {
         subtarget: "filterKHSettings",
         target: "alliKH",
         name: "Verbandskrankenhäuser anzeigen",
         type: "checkbox",
         settingsKey: "alliKH",
         preset: "CHECKBOX"
-            }, {
+      }, {
         subtarget: "filterKHSettings",
         target: "maxDistanceKH",
         name: "Maximale Entfernung der Krankenhäuser",
         type: "input-number",
         settingsKey: "maxDistanceKH",
         preset: "ZAHL"
-            }],
-        },
+      }],
+    },
     {
       name: "Alarmansichtswechsler",
       description: "Wechselt im Einsatz mit der Taste \"U\" zwischen der Wachen- und Fahrzeugansicht.",
@@ -623,7 +623,7 @@
       hasSettings: false,
       allSite: true,
       settings: [],
-        },
+    },
     {
       name: "Einsatzstatistiken",
       description: "Zeigt in der Einsatzliste, wie viele Einsätze in welchem Status (rot, gelb, grün) ihr aktuell offen habt und wie viel Prozent von euren gesamten Einsötzen dieser Anteil ausmacht.",
@@ -666,7 +666,7 @@
       hasSettings: false,
       allSite: false,
       settings: [],
-        },
+    },
     {
       name: "ShowNAChance",
       description: "Zeigt im Einsatz mit Patienten die Chance der Grundvarinate, dass ein Notazt gebraucht wird.",
@@ -685,7 +685,7 @@
       hasSettings: false,
       allSite: false,
       settings: [],
-        },
+    },
     {
       name: "Münzendifferenz",
       description: "Auf dem Nutzerprofil eines anderen Nutzer sehr ihr, wie viele Münzen mehr / wneiger dieser Nutzer hat.",
@@ -705,7 +705,7 @@
       hasSettings: false,
       allSite: true,
       settings: [],
-        },
+    },
     {
       name: "DistaceVehicle",
       description: "Filtert die Fahrzeuge im Einsatz, die weiter als x Kilometer entfernt sind.",
@@ -734,13 +734,13 @@
           }
           updateAAOButtons()
         };
-        if(s.filterKMActualActive) applyFilter(parseInt(distance) ? parseInt(distance) : 10)
+        if (s.filterKMActualActive) applyFilter(parseInt(distance) ? parseInt(distance) : 10)
         else applyFilter(1000000)
         $('.enroute:first').before(`<button class="button button-round button-${s.filterKMActualActive ? 'success' : 'danger'}" id="toggleVehicleFilter">Fahrzeuge ${s.filterKMActualActive ? 'nicht ' : ''}filtern</button>`)
         $('#toggleVehicleFilter').on('click', () => {
           s.filterKMActualActive = !s.filterKMActualActive;
           localStorage.storage_resi_base = JSON.stringify(s)
-          if(s.filterKMActualActive){
+          if (s.filterKMActualActive) {
             applyFilter(parseInt(distance) ? parseInt(distance) : 10)
             $('#toggleVehicleFilter').html('Fahrzeuge nicht filtern').removeClass('button-danger').addClass('button-success')
           } else {
@@ -759,9 +759,9 @@
         type: "input-number",
         settingsKey: "distance",
         preset: "ZAHL"
-            }],
-        },
-    ];
+      }],
+    },
+  ];
   //function check settings and catching errors when there is a new branch
   function checkSettings() {
     if (!localStorage.storage_resi_base) reload();
@@ -789,89 +789,87 @@
     frame.on('load', async () => {
       //build frame content
       var frameContent = `<div class='panel-body'>
-            <script src='https://rettungssimulator.online/js/jquery-3.5.0.min.js'></script>
-            <link rel='stylesheet' href='https://rettungssimulator.online/css/index.css' charset='utf-8'>
-            <script src='https://rettungssimulator.online/js/index.js'></script>
-            <script src='https://rettungssimulator.online/js/iframe.js'></script>
-            <script src='https://rettungssimulator.online/js/controlCenter.js'></script>
-            <script src="https://rettungssimulator.online/js/popper.js" charset="utf-8"></script>
-            <script src='https://rettungssimulator.online/js/tippy.js'></script>
-            <style>
-            .searchHidden{
-              display: none;
-            };
-            </style>
-            <script>
-            if(localStorage.getItem('darkmode_resi_base')=='true'){document.getElementsByTagName('body')[0].classList.add('dark');}
-            var changes = false;
-            $('.checkbox-container').on('click', function(){
-              if(!$(this).hasClass('nochange')){
-                changes = true;
-              }
-            })
-            $('.input-round').on('keydown', function(){
-              if(!$(this).hasClass('nochange')){
-                changes = true;
-              }
-            })
-            function valide (value) { value = value.replaceAll('>', ''); value = value.replaceAll('<', ''); return value; }
-            $('body').on('keyup', function(e){if(e.keyCode===27){$(".right").click();}});
-            function search(){
-              var searchWord = $('#input_search').val().toLowerCase();
-              if(searchWord == ''){
-                $('.searchable').removeClass('searchHidden');
-                $('.searchNoResult').addClass('hidden');
-                return;
-              }
-              for(var j = 0; j <= $('.searchable').length; j++){
-                if($('.searchable').eq(j).text().toLowerCase().includes(searchWord)){
-                  $('.searchable').eq(j).removeClass('searchHidden');
-                  $('.searchNoResult').addClass('hidden');
-                }else{
-                  $('.searchable').eq(j).addClass('searchHidden');
-                }
-              }
-              if($('.searchable').length == $('.searchHidden').length){
-                $('.searchNoResult').removeClass('hidden');
-              }
-            };
-            $('#input_search').on('input', search);
-            $('#input_search').on('change', search);
-            $('#input_search').on('keyup', search);
-            </script>
-            <div class='detail-header'>
-            <div class='detail-title'>ReSi-Codebase <div class='right pointer' onclick='if(changes === true){modal("Ohne Speichern verlassen?","Du hast Änderungen vorgenommen, willst du diese Seichern?","Speichern","Ohne speichern verlassen",() => {$("#saveCodebaseSettings").click()}, () => {parent.closeFrame()})}else{parent.closeFrame()}'> &times; </div><div class='right pointer share' data-tooltip='Die ReSi-Codebase weiterempfelen' share-url='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-5/&action=firstNew'>&hookrightarrow;</div></div>
-            <div class='detail-subtitle'>Verwalte hier deine Einstellungen für die ReSi-Codebase
-            <button class="button button-round button-success" id="showStorage">Gespeicherte Daten der Scripte anzeigen</button>
-            <button id="exportSettings" class="button button-round button-success">Einstellungen exportieren</button>
-            <button id="importSettings" class="button button-round button-success">Einstellungen importieren</button>
-            <div class="input-container nochange" style="float:right"><label for='input_search'>Suche</label>
-            <input class="input-round input-inline nochange" type="text" value="" style="padding-left:20px;padding-right:20px;" id="input_search" placeholder="Suche..." autocomplete="off">
-            </div>
-            </div>
-            </div>
-            <div class='tabs tabs-horizotal'>
-            <div class='tab tab-active' for='settings-moduls'>Module</div>
-            <div class='tab' for='settings-inputs'>Texte & URL's</div>
-            <div class='tab' for='licence'>Sonstiges & Lizenzen</div>
-            </div>
-            <div class='tab-container'>
-            <div class='tab-content tab-content-active' id='tab_settings-moduls'>
-            <h2>Module:</h2>
-            <h4 class='label label-info searchNoResult hidden'>Die Suche lieferte keine Ergebnisse! Bitte probiere es mit einem anderen Suchwort!</h4>`;
+<script src='https://rettungssimulator.online/js/jquery-3.5.0.min.js'></script>
+<link rel='stylesheet' href='https://rettungssimulator.online/css/index.css' charset='utf-8'>
+<script src='https://rettungssimulator.online/js/index.js'></script>
+<script src='https://rettungssimulator.online/js/iframe.js'></script>
+<script src='https://rettungssimulator.online/js/controlCenter.js'></script>
+<script src="https://rettungssimulator.online/js/popper.js" charset="utf-8"></script>
+<script src='https://rettungssimulator.online/js/tippy.js'></script>
+<style>
+.searchHidden{
+display: none;
+};
+</style>
+<script>
+if(localStorage.getItem('darkmode_resi_base')=='true'){document.getElementsByTagName('body')[0].classList.add('dark');}
+var changes = false;
+$('.checkbox-container').on('click', function(){
+if(!$(this).hasClass('nochange')){
+changes = true;
+}
+})
+$('.input-round').on('keydown', function(){
+if(!$(this).hasClass('nochange')){
+changes = true;
+}
+})
+function valide (value) { value = value.replaceAll('>', ''); value = value.replaceAll('<', ''); return value; }
+$('body').on('keyup', function(e){if(e.keyCode===27){$(".right").click();}});
+function search(){
+var searchWord = $('#input_search').val().toLowerCase();
+if(searchWord == ''){
+$('.searchable').removeClass('searchHidden');
+$('.searchNoResult').addClass('hidden');
+return;
+}
+for(var j = 0; j <= $('.searchable').length; j++){
+if($('.searchable').eq(j).text().toLowerCase().includes(searchWord)){
+$('.searchable').eq(j).removeClass('searchHidden');
+$('.searchNoResult').addClass('hidden');
+}else{
+$('.searchable').eq(j).addClass('searchHidden');
+}
+}
+if($('.searchable').length == $('.searchHidden').length){
+$('.searchNoResult').removeClass('hidden');
+}
+};
+$('#input_search').on('input change keyup', search);
+</script>
+<div class='detail-header'>
+<div class='detail-title'>ReSi-Codebase <div class='right pointer' onclick='if(changes === true){modal("Ohne Speichern verlassen?","Du hast Änderungen vorgenommen, willst du diese Seichern?","Speichern","Ohne speichern verlassen",() => {$("#saveCodebaseSettings").click()}, () => {parent.closeFrame()})}else{parent.closeFrame()}'> &times; </div><div class='right pointer share' data-tooltip='Die ReSi-Codebase weiterempfelen' share-url='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-5/&action=firstNew'>&hookrightarrow;</div></div>
+<div class='detail-subtitle'>Verwalte hier deine Einstellungen für die ReSi-Codebase
+<button class="button button-round button-success" id="showStorage">Gespeicherte Daten der Scripte anzeigen</button>
+<button id="exportSettings" class="button button-round button-success">Einstellungen exportieren</button>
+<button id="importSettings" class="button button-round button-success">Einstellungen importieren</button>
+<div class="input-container nochange" style="float:right"><label for='input_search'>Suche</label>
+<input class="input-round input-inline nochange" type="text" value="" style="padding-left:20px;padding-right:20px;" id="input_search" placeholder="Suche..." autocomplete="off">
+</div>
+</div>
+</div>
+<div class='tabs tabs-horizotal'>
+<div class='tab tab-active' for='settings-moduls'>Module</div>
+<div class='tab' for='settings-inputs'>Texte & URL's</div>
+<div class='tab' for='licence'>Sonstiges & Lizenzen</div>
+</div>
+<div class='tab-container'>
+<div class='tab-content tab-content-active' id='tab_settings-moduls'>
+<h2>Module:</h2>
+<h4 class='label label-info searchNoResult hidden'>Die Suche lieferte keine Ergebnisse! Bitte probiere es mit einem anderen Suchwort!</h4>`;
       //checkboxes for modules
       modules.forEach((el) => {
         frameContent += `<div class='checkbox-container searchable'><input id='${el.target}' type='checkbox' ${s[el.settingsTarget] ? 'checked' : ''}><label for='${el.target}'>${el.name} aktivieren<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></label><div class='hidden keyword-serach'>${el.keywords.join(' ')}</div></div>`
       });
       frameContent += `<button class='button-success button button-round' onclick='$("#saveCodebaseSettings").click()'>Speichern</button>
-            </div>
-            <div class='tab-content' id='tab_settings-inputs'>
-            <h2>Texte & URL's:</h2>`
+</div>
+<div class='tab-content' id='tab_settings-inputs'>
+<h2>Texte & URL's:</h2>`
       //settings for modules
       modules.forEach((el) => {
         if (el.hasSettings) {
           frameContent += `<h3>${el.name}</h3>
-                    <h4 class='label label-info searchNoResult hidden'>Die Suche lieferte keine Ergebnisse! Bitte probiere es mit einem anderen Suchwort!</h4>`
+<h4 class='label label-info searchNoResult hidden'>Die Suche lieferte keine Ergebnisse! Bitte probiere es mit einem anderen Suchwort!</h4>`
           el.settings.forEach((setting) => {
             var value = setting.subtarget ? s[setting.subtarget][setting.settingsKey] : s[setting.settingsKey];
             switch (setting.type) {
@@ -893,29 +891,29 @@
       })
       //other
       frameContent += `<br>
-            <button class='button-success button button-round' id='saveCodebaseSettings'>Speichern</button>
-            </div>
-            <div class='tab-content' id='tab_licence'>
-            <h2>Fehler melden:</h2>
-            <p>
-            <a href='https://github.com/Notme112/Codebase/issues/new?assignees=NiZi112&labels=bug&template=bugs---fehler.md&title=BUG%3A+' class='no-prevent button button-success button-round' target='_blank'>Github</a> - <a href='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-0/&action=lastPost' class='no-prevent button button-success button-round' target='_blank'>Forum</a> - Discord: im Thread ReSi-Codebase im Bereich <code>#skripting</code>
-            <h3>Vielen Danke für deine Mithilfe!</h3>
-            </p>
-            <h2>Open-Source:</h2>
-            <p>
-            Icons:
-            Icons by <a href='https://fontawesome.com/' target='_blank' class='no-prevent'><u>Fontawesome</u></a> unter <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank'><u>CC-BY 4.0-Lizenz</u></a>.
-            </p>
-            <p>
-            JQuery:
-            Copyright (c) 2021 OpenJS Foundation and other contributors, https://openjsf.org/, <br>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-            <br>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br>
-            THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-            </p>
-            </div>
-            </div>
-            <h3>Danke für die Nutzung der ReSi-Codebase!</h3>
-            </div>`
+<button class='button-success button button-round' id='saveCodebaseSettings'>Speichern</button>
+</div>
+<div class='tab-content' id='tab_licence'>
+<h2>Fehler melden:</h2>
+<p>
+<a href='https://github.com/Notme112/Codebase/issues/new?assignees=NiZi112&labels=bug&template=bugs---fehler.md&title=BUG%3A+' class='no-prevent button button-success button-round' target='_blank'>Github</a> - <a href='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-0/&action=lastPost' class='no-prevent button button-success button-round' target='_blank'>Forum</a> - Discord: im Thread ReSi-Codebase im Bereich <code>#skripting</code>
+<h3>Vielen Danke für deine Mithilfe!</h3>
+</p>
+<h2>Open-Source:</h2>
+<p>
+Icons:
+Icons by <a href='https://fontawesome.com/' target='_blank' class='no-prevent'><u>Fontawesome</u></a> unter <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank'><u>CC-BY 4.0-Lizenz</u></a>.
+</p>
+<p>
+JQuery:
+Copyright (c) 2021 OpenJS Foundation and other contributors, https://openjsf.org/, <br>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+<br>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br>
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+</div>
+</div>
+<h3>Danke für die Nutzung der ReSi-Codebase!</h3>
+</div>`
       frame.contents().find('body').append(frameContent);
       //show localStorge & sessionStorage
       frame.contents().find('#showStorage').on('click', () => {
