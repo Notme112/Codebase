@@ -1,21 +1,3 @@
-// ==UserScript==
-// @name         ReSi-Codebase BETA
-// @version      1.5.2
-// @description  Erweitert viele Funktionen und fügt neue hinzu. Das alle kostenlos in einem Browsergamne!
-// @author       NiZi112
-// @match        https://rettungssimulator.online/
-// @include      www.rettungssimulator.online
-// @match        https://rettungssimulator.online/vehicle/*
-// @match        https://rettungssimulator.online/missionNew/*
-// @match        https://rettungssimulator.online/mission/*
-// @match        https://rettungssimulator.online/profile/*
-// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @updateURL    https://github.com/Notme112/Codebase/raw/main/code.user.js
-// @downloadURL  https://github.com/Notme112/Codebase/raw/main/code.user.js
-// @grant        none
-/* global $ sounds openFrame socket systemMessage */
-// ==/UserScript==
-
 (async function () {
   if($('.landing-header').length) return
   //remove storage if necessary
