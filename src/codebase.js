@@ -791,7 +791,7 @@ Dein Team der ReSi-Codebase`,
 		},
 		{
 			name: "AlertFMS5",
-			description: "Sobald ein fahrzeug einen Sprechwunsch hat, wird euch das per Mitteilungsbox angezeigt.",
+			description: "Sobald ein Fahrzeug einen Sprechwunsch hat, wird euch das per Mitteilungsbox angezeigt.",
 			settingsTarget: "alertFMS5",
 			helpLink: "",
 			target: "alertFMS5Check",
@@ -812,6 +812,121 @@ Dein Team der ReSi-Codebase`,
 				}
 			},
 			keywords: ['FMS', 'FMS5', 'Sprechwunsch', 'Benachrichtigung', 'Popup', 'Alert', 'Info'],
+			hasSettings: false,
+			allSite: true,
+			settings: []
+		},
+		{
+			name: "Statistics LST",
+			description: "Dieses Modul zeit euch in eurer Leitstelle Fahrzeug- sowie Gebäudestatistiken. Weiter gibt es Statistiken zu den heute verdienten Münzen, absolvierten Einsätzen und transportierten Patienten.",
+			settingsTarget: "statisticsLST",
+			helpLink: "",
+			target: "statisticsLSTCheck",
+			func: async (s) => {
+				if (!localStorage.counterConfig) localStorage.counterConfig = JSON.stringify({
+					dayReset: (new Date()).getDate(),
+					yearReset: (new Date()).getFullYear(),
+					missionsToday: 0,
+					missionsYear: 0,
+					moneyToday: 0,
+					moneyYear: 0,
+					patientsToday: 0,
+					patientsYear: 0
+				});
+				if ($('#tab_controlCenter_stats').length && location.pathname.includes('/department/')) {
+					var config = JSON.parse(localStorage.counterConfig)
+					//vehicles
+					const userVehicles = await getAPI('userVehicles');
+					const vehicleCategories = await getAPI('vehicleCategories');
+					for (var i in userVehicles) {
+						for (var j in vehicleCategories) {
+							if (!vehicleCategories[j].count) vehicleCategories[j].count = 0
+							if (vehicleCategories[j].ids.includes(userVehicles[i].vehicleID)) {
+								++vehicleCategories[j].count;
+							}
+						}
+					}
+					//buildings
+					const userBuildings = await getAPI('userBuildings');
+					const buildingCategories = await getAPI('buildings');
+					userBuildings.forEach((el) => {
+						if (!buildingCategories[(el.buildingType - 1)].count) buildingCategories[(el.buildingType - 1)].count = 0
+						buildingCategories[(el.buildingType - 1)].count++
+					})
+					//insert into #tab_controlCenter_stats
+					var table = `<table class="table-divider striped"><thead><tr><th><u>Wachentyp</u></th><th><u>Anzahl</u></th></tr></thead></tbody>`;
+					buildingCategories.forEach((el) => {
+						table += `<tr><td>${el.buildingName}</td><td>${el.count ? el.count : 0}</td></tr>`;
+					});
+					table += `</tbody><thead><tr><th><u>Fahrzeugtyp</u></th><th><u>Anzahl</u></th></tr></thead></tbody>`;
+					for (i in vehicleCategories) {
+						if (!vehicleCategories[i].ids.length || vehicleCategories[i].ids[0] > 10000) continue
+						table += `
+						<tr><td>${vehicleCategories[i].name}</td><td>${vehicleCategories[i].count ? vehicleCategories[i].count : 0}</td></tr>`
+					}
+					table += `</tbody><thead><tr><th><u>Typ</u></th><th><u>Anzahl</u></th></tr></thead><tbody><tr><td>Einsätze heute</td><td>${config.missionsToday.toLocaleString()}</td></tr><tr><td>Einsätze dieses Jahr</td><td>${config.missionsYear.toLocaleString()}</td></tr><tr><td>Patienten heute</td><td>${config.patientsToday.toLocaleString()}</td></tr><tr><td>Patienten dieses Jahr</td><td>${config.patientsYear.toLocaleString()}</td></tr><tr><td>Münzen heute</td><td>${config.moneyToday.toLocaleString()}</td></tr><tr><td>Münzen dieses Jahr</td><td>${config.moneyYear.toLocaleString()}</td></tr></tbody></table>`;
+					$('#tab_controlCenter_stats').append(table)
+					$('#tab_controlCenter_stats').find('.label').css('text-decoration', 'line-through')
+				}
+				if (location.pathname == '/') {
+					const config = JSON.parse(localStorage.counterConfig);
+
+					function changeConfig(type, plus = 1) {
+						if (config.yearReset != (new Date()).getFullYear()) {
+							for (i in config) {
+								if (i.includes('Year')) continue
+								config[i] = 0;
+							}
+							config.yearReset = (new Date()).getFullYear();
+							config.dayReset = (new Date()).getDate();
+						}
+						if (config.dayReset != (new Date()).getDate()) {
+							for (var i in config) {
+								if (i.includes('Year')) continue
+								config[i] = 0
+							}
+							config.dayReset = (new Date()).getDate();
+						}
+						if (type) {
+							switch (type) {
+								case 'patients':
+									config.patientsToday++;
+									config.patientsYear++;
+									break;
+								case 'money':
+									config.moneyToday += plus;
+									config.moneyYear += plus;
+									break;
+								case 'missions':
+									config.missionsToday++;
+									config.missionsYear++
+									break;
+								default:
+									console.error(`Unknown config type "${type}" => changeConfig@Statistics LST (V${GM_info.script.version})`);
+							}
+						}
+						localStorage.counterConfig = JSON.stringify(config)
+					}
+					socket.on('patientStatus', (e) => {
+						if (e.userPatientStatus != 4)
+							changeConfig('patients')
+					})
+					var actual = parseInt($('.muenzen:first').text().replaceAll('.', ''));
+					socket.on('muenzenUpdate', (e) => {
+						e = parseInt(e.toString().replaceAll('.', ''))
+						actual = parseInt(actual.toString().replaceAll('.', ''))
+						if (e > actual) {
+							var diff = e - actual;
+							changeConfig('money', diff)
+						}
+						actual = e;
+					})
+					socket.on('finishMission', (e) => {
+						changeConfig('missions')
+					})
+				}
+			},
+			keywords: ['LST', 'Leitstelle', 'Statistiken', 'Übersicht', 'Fahrzeuge', 'Gebäude', 'Info'],
 			hasSettings: false,
 			allSite: true,
 			settings: []
@@ -870,7 +985,7 @@ changes = true;
 }
 })
 function valide (value) { value = value.replaceAll('>', ''); value = value.replaceAll('<', ''); return value; }
-$('body').on('keyup', function(e){if(e.keyCode===27){$(".right").click();}});
+$('body').on('keyup', function(e){if(e.keyCode===27){$(".right:first").click();}});
 function search(){
 var searchWord = $('#input_search').val().toLowerCase();
 if(searchWord == ''){
