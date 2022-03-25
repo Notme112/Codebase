@@ -216,19 +216,19 @@ Dein Team der ReSi-Codebase`,
 			keywords: ['FastLogout', 'Logout', 'Fast', 'Logout', 'scneller', 'Logout'],
 			allSite: false,
 			func: async (s) => {
-				const platz = document.getElementsByClassName('brand-img')[0];
-				platz.style.display = 'inline';
-				platz.style.paddingRight = '20px';
-				platz.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
-				platz.addEventListener('click', () => {
-					$.ajax({
-						url: '/api/deauthenticate',
-						type: 'GET',
-						success() {
-							window.location.reload();
-						},
+				const platz = $('.brand-img:first')
+					.css('display', 'inline')
+					.css('padding-right', '20px')
+					.html('<i class="fas fa-sign-out-alt"></i>')
+					.on('click', () => {
+						$.ajax({
+							url: '/api/deauthenticate',
+							type: 'GET',
+							success() {
+								window.location.reload();
+							},
+						});
 					});
-				});
 			},
 			hasSettings: false,
 			settings: [],
