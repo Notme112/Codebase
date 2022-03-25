@@ -12,6 +12,6 @@
 // ==/UserScript==
 (() => {
     let script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/gh/Notme112/Codebase@main/src/codebase.min.js';
+    script.src = 'https://cdn.jsdelivr.net/gh/Notme112/Codebase@latest/src/codebase.min.js';
     document.body.appendChild(script);
 })();
