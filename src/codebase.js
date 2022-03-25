@@ -50,17 +50,19 @@ GM_info = {
 	}
 	//define notification function
 	async function checkNotificationPermission() {
-		if (Notification.permission === "granted") {
-			return true;
-		} else if (Notification.permission !== 'denied') {
-			await Notification.requestPermission(function (permission) {
-				if (permission === "granted") {
-					return true;
-				} else {
-					return false;
-				}
-			});
-		}
+		return new Promise((res) => {
+			if (Notification.permission === "granted") {
+				res(true)
+			} else if (Notification.permission !== 'denied') {
+				await Notification.requestPermission(function (permission) {
+					if (permission === "granted") {
+						res(true)
+					} else {
+						res(false)
+					}
+				});
+			}
+		})
 	}
 	//add own css to head
 	const css = `<style>
@@ -68,77 +70,7 @@ GM_info = {
 outline: none;
 }
 </style>`;
-	const head = document.head || $("head:first");
-	$(head).append(css);
-	//new user
-	if (!localStorage.getItem('storage_resi_base')) {
-		//set storage
-		localStorage.setItem(
-			'storage_resi_base',
-			JSON.stringify({
-				toplist: false,
-				gesamtmuenzen: false,
-				einsatzzealer: false,
-				einsatzliste_max: false,
-				flogout: false,
-				autocomplete: false,
-				streamer: false,
-				sounds: false,
-				einsatzzaeler: false,
-				chat_alarm: false,
-				push_fms: false,
-				zeitwechsel: false,
-				uhr: false,
-				settings: false,
-				chat_count: false,
-				alert_chat: false,
-				greet_user: false,
-				filterKH: false,
-				audio: {
-					finish: "",
-					fms: "",
-					fms5: "",
-					error: "",
-					newCall: "",
-					chatMessage: ""
-				},
-				darkmodeSettings: {
-					min: 7,
-					max: 19
-				},
-				filterKHSettings: {
-					ownKH: true,
-					alliKH: true,
-					maxDistanceKH: 10
-				},
-				text: {
-					stream_mode: "Es handelt sich um ein Spiel mit fiktiven Einsätzen."
-				}
-			})
-		);
-		//show welcome message
-		systemMessage({
-			title: 'Willkommen bei der ReSi-Codebase!',
-			message: `Schön, dass Du dich entschlossen hast, die ReSi-Codebase zu nutzen!<br><br>
-Du kannst jeden Modul einzeln aktivieren, die Möglichkeit findest Du in einem Einstellungs-Panel, welches Du über die Seitenleiste aufrufen kannst.<br>
-Probier doch einfach mal alle Module aus. Wenn Du nicht weißt, was ein Modul tut, dann klick einfach auf das [?] hinter dem Namen, damit kommst Du zur Wikiseite des Moduls.<br><br>
-Fehler bitte im Forum melden - oder im Thread ReSi-Codebase auf Discord im Bereich <code>#skripting</code><br><br>
-Viel Spaß,<br>
-Dein Team der ReSi-Codebase`,
-			type: 'info'
-		});
-	}
-	//load storage
-	const s = JSON.parse(localStorage.storage_resi_base);
-	//codebase class
-	class ReSiCodebase {
-		constructor() {
-			this.version = GM_info.script.version
-			this.settings = s;
-		}
-	}
-	//create object from codebase class
-	codebase = new ReSiCodebase();
+	$(document.head).append(css);
 	//save darkmode-settings in localstorage
 	try {
 		if ($('#darkMode').html().includes('Tag'))
@@ -152,14 +84,6 @@ Dein Team der ReSi-Codebase`,
 			localStorage.setItem('darkmode_resi_base', 'false');
 		else localStorage.setItem('darkmode_resi_base', 'true');
 	});
-	/*setting{
-	    subtarget: "",
-	    target: "gesamtmuenzenSetting1",
-	    name: "Testsettings",
-	    type: "checkbox",
-	    settingsKey: "testsettings",
-	    preset: "URL"
-	}*/
 	//initialize modules
 	const modules = [{
 			name: "Gesamtmünzenzähler",
@@ -216,7 +140,7 @@ Dein Team der ReSi-Codebase`,
 			keywords: ['FastLogout', 'Logout', 'Fast', 'Logout', 'scneller', 'Logout'],
 			allSite: false,
 			func: async (s) => {
-				const platz = $('.brand-img:first')
+				$('.brand-img:first')
 					.css('display', 'inline')
 					.css('padding-right', '20px')
 					.html('<i class="fas fa-sign-out-alt"></i>')
@@ -242,8 +166,9 @@ Dein Team der ReSi-Codebase`,
 			keywords: ['Streamer', 'Youtube', 'Streammode-Text', 'Streammode', 'Streamer-Modus', 'Twitch', 'YT'],
 			allSite: false,
 			func: async (s) => {
-				$("#chat").html(s.text.stream_mode ? s.text.stream_mode : '');
-				document.getElementById("chat").style.padding = "15px";
+				$("#chat")
+					.html(s.text.stream_mode ? s.text.stream_mode : '')
+					.css('padding', '15px');
 			},
 			hasSettings: true,
 			settings: [{
@@ -252,7 +177,8 @@ Dein Team der ReSi-Codebase`,
 				name: "Text",
 				type: "input-text",
 				settingsKey: "stream_mode",
-				preset: "TEXT"
+				preset: "TEXT",
+				default: 'Lade dir JETZT die ReSi-Codebase herunter: <a href="https://github.com/Notme112/Codebase/raw/main/install.user.js" target="_blank">github.com/Notme112/Codebase/raw/main/install.user.js</a>'
 			}],
 		},
 		{
@@ -277,35 +203,40 @@ Dein Team der ReSi-Codebase`,
 				name: "Neuer-Anruf-Sound",
 				type: "input-text",
 				settingsKey: "newCall",
-				preset: "URL"
+				preset: "URL",
+				default: '/sounds/newCall.mp3'
 			}, {
 				subtarget: "audio",
 				target: "fmsAudio",
 				name: "FMS-Sound",
 				type: "input-text",
 				settingsKey: "fms",
-				preset: "URL"
+				preset: "URL",
+				default: '/sounds/radioFMS.mp3'
 			}, {
 				subtarget: "audio",
 				target: "fms5Audio",
 				name: "FMS5-Sound",
 				type: "input-text",
 				settingsKey: "fms5",
-				preset: "URL"
+				preset: "URL",
+				default: '/sounds/fms5.mp3'
 			}, {
 				subtarget: "audio",
 				target: "errorAudio",
 				name: "Error-Sound",
 				type: "input-text",
 				settingsKey: "error",
-				preset: "URL"
+				preset: "URL",
+				default: '/sounds/error.mp3'
 			}, {
 				subtarget: "audio",
 				target: "finischAudio",
 				name: "Einsatz-abgeschlossen-Sound",
 				type: "input-text",
 				settingsKey: "finish",
-				preset: "URL"
+				preset: "URL",
+				default: '/sounds/finishedMission.mp3'
 			}],
 		},
 		{
@@ -336,29 +267,22 @@ Dein Team der ReSi-Codebase`,
 			keywords: ["Einsatz", "Zahl", "Zähler", "zählen", "Einsatze", "zählen"],
 			allSite: false,
 			func: async (s) => {
-				var datum = new Date();
-				var datum_heute = datum.getDate()
-				if (!localStorage.getItem("finished_missions_nizi")) {
-					localStorage.setItem("finished_missions_nizi", "0")
+				let today = (new Date()).getDate()
+				if (!localStorage.getItem("finished_missions_nizi") || !localStorage.getItem("finished_missions_nizi_time")) {
+					localStorage
+						.setItem("finished_missions_nizi", "0")
+						.setItem("finished_missions_nizi_time", today)
 				};
-				if (!localStorage.getItem("finished_missions_nizi_time")) {
-					localStorage.setItem("finished_missions_nizi_time", datum_heute)
+				if (localStorage.getItem("finished_missions_nizi_time") != today) {
+					localStorage
+						.setItem("finished_missions_nizi", "0")
+						.setItem("finished_missions_nizi_time", today)
 				};
-				if (localStorage.getItem("finished_missions_nizi_time") != datum_heute) {
-					localStorage.setItem("finished_missions_nizi", "0")
-				};
-				if (localStorage.getItem("finished_missions_nizi_time") != datum_heute) {
-					localStorage.setItem("finished_missions_nizi_time", datum_heute)
-				};
-				var neue_liste = document.createElement("li");
-				var hallo = $("#darkMode")
-				neue_liste.innerHTML = "Einsätze heute: " + localStorage.getItem("finished_missions_nizi");
-				hallo.after(neue_liste);
+				$("#darkMode").after(`<li id="finishedMissionsToday">Einsätze heute: ${localStorage.getItem("finished_missions_nizi")}</li>`)
 				socket.on("finishMission", (userMissionID) => {
-					var mission = localStorage.getItem("finished_missions_nizi");
-					mission++;
-					localStorage.setItem("finished_missions_nizi", mission);
-					neue_liste.innerHTML = "Einsätze heute: " + mission;
+					var missions = parseInt(localStorage.getItem("finished_missions_nizi"));
+					localStorage.setItem("finished_missions_nizi", missions++);
+					$('#finishedMissionsToday').html(`Einsätze heute: ${localStorage.getItem("finished_missions_nizi")}`)
 				});
 			},
 			hasSettings: false,
@@ -374,10 +298,9 @@ Dein Team der ReSi-Codebase`,
 			allSite: false,
 			func: async (s) => {
 				if (!await checkNotificationPermission()) return;
-
 				socket.on("vehicleFMS", (vehicleFMSObject) => {
-					var hallo = `${vehicleFMSObject.userVehicleFMS}`;
-					if (hallo.includes("5")) {
+					var fms = `${vehicleFMSObject.userVehicleFMS}`;
+					if (`${vehicleFMSObject.userVehicleFMS}`.includes("5")) {
 						new Notification("Sprechwunsch!", {
 							body: `Dein Fahrzueg ${vehicleFMSObject.userVehicleName} im Rettungssimulator hat einen Sprechwunsch!`
 						});
@@ -405,7 +328,8 @@ Dein Team der ReSi-Codebase`,
 					name: "Darkmode um ... Uhr ausschlaten",
 					type: "input-number",
 					settingsKey: "min",
-					preset: "URL"
+					preset: "ZAHL",
+					default: 7
 				},
 				{
 					subtarget: "darkmodeSettings",
@@ -413,7 +337,8 @@ Dein Team der ReSi-Codebase`,
 					name: "Darkmode um ... Uhr einschalten",
 					type: "input-number",
 					settingsKey: "max",
-					preset: "URL"
+					preset: "ZAHL",
+					default: 19
 				}
 			],
 		},
@@ -427,17 +352,17 @@ Dein Team der ReSi-Codebase`,
 			allSite: false,
 			func: async (s) => {
 				var hallo = document.createElement("div");
-				document.getElementsByClassName("brand")[0].after(hallo);
-				var aktualisieren = function () {
+				$(".brand:first").after(`<div id="clock"></div>`);
+				var updateClock = function () {
 					var date = new Date();
 					var stunde = date.getHours();
 					var minute = date.getMinutes();
 					if (minute < 10) {
-						minute = "0" + minute
+						minute = `0${minute}`
 					};
-					hallo.innerHTML = `${stunde}:${minute} <i class='far fa-clock'></i>`;
+					$('#clock').html(`${stunde}:${minute} <i class='far fa-clock'></i>`);
 				};
-				setInterval(aktualisieren, 50)
+				setInterval(updateClock, 50)
 			},
 			hasSettings: false,
 			settings: [],
@@ -451,7 +376,10 @@ Dein Team der ReSi-Codebase`,
 			keywords: ["schnell", "Zugriff", "Einstellungen", "Navbar"],
 			allSite: false,
 			func: async (s) => {
-				//
+				$(".brand").after(`<i class="fas fa-cogs codebase openCodebaseSettings" focusable="false" data-tooltip="ReSi-Codebase-Einstellungen"></i>`);
+				$('.openCodebaseSettings').on('click', () => {
+					$('#Codebase').click()
+				})
 			},
 			hasSettings: false,
 			settings: [],
@@ -471,9 +399,7 @@ Dein Team der ReSi-Codebase`,
 						charackters = "00" + charackters
 					} else if (charackters < 100) {
 						charackters = "0" + charackters
-					} else {
-						charackters = charackters
-					};
+					}
 					$("#chracktarsChatCount").html(charackters);
 					if (charackters > 300) {
 						$("#chracktarsChatCount").addClass("label-danger");
@@ -508,7 +434,7 @@ Dein Team der ReSi-Codebase`,
 			allSite: false,
 			func: async (s) => {
 				socket.on("associationMessage", (msg) => {
-					if (msg.message && msg.userName != $(".username .frame-opener").html()) {
+					if (msg.message && msg.userName != ReSi.userName) {
 						systemMessage({
 							'title': `${msg.userName}`,
 							'message': `${msg.message}`,
@@ -567,15 +493,16 @@ Dein Team der ReSi-Codebase`,
 					$('#changeFilterKHMode').on('click', function () {
 						if ($('#changeFilterKHMode').hasClass('button-danger')) {
 							addFilter();
-							$('#changeFilterKHMode').removeClass('button-danger');
-							$('#changeFilterKHMode').addClass('button-success');
-							$('#changeFilterKHMode').text('Filter aktiviert');
+							$('#changeFilterKHMode').removeClass('button-danger')
+								.addClass('button-success')
+								.text('Filter aktiviert');
 							s.filterKHActive = true;
 						} else {
 							removeFilter();
-							$('#changeFilterKHMode').removeClass('button-sucsess');
-							$('#changeFilterKHMode').addClass('button-danger');
-							$('#changeFilterKHMode').text('Filter deaktiviert');
+							$('#changeFilterKHMode')
+								.removeClass('button-sucsess')
+								.addClass('button-danger')
+								.text('Filter deaktiviert');
 							s.filterKHActive = false;
 						}
 						localStorage.storage_resi_base = JSON.stringify(s)
@@ -595,21 +522,24 @@ Dein Team der ReSi-Codebase`,
 				name: "Eigene Krankenhäuser anzeigen",
 				type: "checkbox",
 				settingsKey: "ownKH",
-				preset: "CHECKBOX"
+				preset: "CHECKBOX",
+				default: true
 			}, {
 				subtarget: "filterKHSettings",
 				target: "alliKH",
 				name: "Verbandskrankenhäuser anzeigen",
 				type: "checkbox",
 				settingsKey: "alliKH",
-				preset: "CHECKBOX"
+				preset: "CHECKBOX",
+				default: true
 			}, {
 				subtarget: "filterKHSettings",
 				target: "maxDistanceKH",
 				name: "Maximale Entfernung der Krankenhäuser",
 				type: "input-number",
 				settingsKey: "maxDistanceKH",
-				preset: "ZAHL"
+				preset: "ZAHL",
+				default: 20
 			}],
 		},
 		{
@@ -621,9 +551,7 @@ Dein Team der ReSi-Codebase`,
 			func: async (s) => {
 				if (!location.pathname.includes('/mission/')) return
 				$(document).on('keyup', (e) => {
-					if (e.keyCode == 85) {
-						$('.detail-right .button-gray').click()
-					}
+					if (e.keyCode == 85) $('.detail-right .button-gray').click()
 				})
 			},
 			keywords: ['Switch', 'Einsatz', 'Mission', 'Wachenansicht', 'wechseln', 'Fahrzeugansicht'],
@@ -662,10 +590,10 @@ Dein Team der ReSi-Codebase`,
 				};
 				calcPercent();
 				$('#missions .panel-expand').before(`<span class="fa fa-info-circle nizi112" id="missionPercent" data-tooltip="${data}"></span>`);
-				socket.on('missionStatus', function (vehicleFMSObject) {
+				socket.on('missionStatus', () => {
 					calcPercent();
 				});
-				socket.on('finishMission', function (vehicleFMSObject) {
+				socket.on('finishMission', () => {
 					calcPercent();
 				});
 			},
@@ -682,11 +610,8 @@ Dein Team der ReSi-Codebase`,
 			target: "ShowNAChanceCheck",
 			func: async (s) => {
 				if (!location.pathname.includes('/mission/')) return
-				const api = await getAPI('missions')
-				const data = api[parseInt($('.detail-title').attr('missionid'))]
-				if (data.patients) {
-					$('#s5').after(`<span class='label label-info'>Grundvariante: ${data.patients.min}-${data.patients.max} Patienten, ${data.patients.naChance}\% NA-Wahrscheinlichkeit`)
-				}
+				const api = (await getAPI('missions'))[parseInt($('.detail-title').attr('missionid'))]
+				if (data.patients) $('#s5').after(`<span class='label label-info'>Grundvariante: ${data.patients.min}-${data.patients.max} Patienten, ${data.patients.naChance}\% NA-Wahrscheinlichkeit`)
 			},
 			keywords: ['Notarzt', 'Einsatz', 'Mission', 'Wahrscheinlichkeit', 'Einsätze', 'Info'],
 			hasSettings: false,
@@ -749,10 +674,16 @@ Dein Team der ReSi-Codebase`,
 					localStorage.storage_resi_base = JSON.stringify(s)
 					if (s.filterKMActualActive) {
 						applyFilter(parseInt(distance) ? parseInt(distance) : 10)
-						$('#toggleVehicleFilter').html('Fahrzeuge nicht filtern').removeClass('button-danger').addClass('button-success')
+						$('#toggleVehicleFilter')
+							.html('Fahrzeuge nicht filtern')
+							.removeClass('button-danger')
+							.addClass('button-success')
 					} else {
 						applyFilter(1000000)
-						$('#toggleVehicleFilter').html('Fahrzeuge filtern').removeClass('button-success').addClass('button-danger')
+						$('#toggleVehicleFilter')
+							.html('Fahrzeuge filtern')
+							.removeClass('button-success')
+							.addClass('button-danger')
 					}
 				})
 			},
@@ -765,7 +696,8 @@ Dein Team der ReSi-Codebase`,
 				name: "Entfernung",
 				type: "input-number",
 				settingsKey: "distance",
-				preset: "ZAHL"
+				preset: "ZAHL",
+				default: 20
 			}],
 		},
 		{
@@ -786,7 +718,8 @@ Dein Team der ReSi-Codebase`,
 				name: "Titel",
 				type: "input-text",
 				settingsKey: "title",
-				preset: "TEXT"
+				preset: "TEXT",
+				default: 'rettungssimulator.online'
 			}],
 		},
 		{
@@ -946,14 +879,55 @@ Dein Team der ReSi-Codebase`,
 		});
 	}
 	checkSettings();
+	//function build default storage object from modules
+	function buildDefaultStotrage() {
+		let obj = {};
+		modules.forEach((el) => {
+			obj[el.settingsTarget] = false;
+			if (el.hasSettings) {
+				el.settings.forEach((setting) => {
+					let dest = setting.subtarget ? obj[setting.subtarget] : obj;
+					dest[setting.settingsKey] = setting.defaultValue;
+				});
+			}
+			return obj;
+		});
+	}
+	//new user
+	if (!localStorage.getItem('storage_resi_base')) {
+		//set storage
+		localStorage.setItem(
+			'storage_resi_base',
+			JSON.stringify(buildDefaultStotrage())
+		);
+		//show welcome message
+		systemMessage({
+			title: 'Willkommen bei der ReSi-Codebase!',
+			message: `Schön, dass Du dich entschlossen hast, die ReSi-Codebase zu nutzen!<br><br>
+Du kannst jeden Modul einzeln aktivieren, die Möglichkeit findest Du in einem Einstellungs-Panel, welches Du über die Seitenleiste aufrufen kannst.<br>
+Probier doch einfach mal alle Module aus. Wenn Du nicht weißt, was ein Modul tut, dann klick einfach auf das [?] hinter dem Namen, damit kommst Du zur Wikiseite des Moduls.<br><br>
+Fehler bitte im Forum melden - oder im Thread ReSi-Codebase auf Discord im Bereich <code>#skripting</code><br><br>
+Viel Spaß,<br>
+Dein Team der ReSi-Codebase`,
+			type: 'info'
+		});
+	}
+	//load storage
+	const s = JSON.parse(localStorage.storage_resi_base);
+	//codebase class
+	class ReSiCodebase {
+		constructor() {
+			this.version = GM_info.script.version
+			this.settings = s;
+		}
+	}
+	//create object from codebase class
+	codebase = new ReSiCodebase();
 	//own frame
 	//create
 	const listenelement = document.createElement('li');
-	$('#darkMode').after(listenelement);
-	listenelement.innerHTML = 'ReSi-Codebase';
-	listenelement.id = 'Codebase'
-	if (s.settings) $(".brand").after(`<i class="fas fa-cogs codebase" focusable="false" data-tooltip="ReSi-Codebase-Einstellungen" onclick="$('#Codebase').click()"></i>`);
-	$(listenelement).on('click', async () => {
+	$('#darkMode').after(`<li id='Codebase'>ReSi-Codebase</li>`);
+	$('#Codebase').on('click', async () => {
 		openFrame('', '1/1/4/5');
 		const frame = $('#iframe');
 		frame.on('load', async () => {
@@ -972,20 +946,17 @@ display: none;
 };
 </style>
 <script>
-if(localStorage.getItem('darkmode_resi_base')=='true'){document.getElementsByTagName('body')[0].classList.add('dark');}
-var changes = false;
-$('.checkbox-container').on('click', function(){
+if(localStorage.getItem('darkmode_resi_base')=='true') $('body:first').addClass('dark');
+let changes = false;
+$('.checkbox-container, .input-round').on('click keydown', () => {
 if(!$(this).hasClass('nochange')){
 changes = true;
 }
 })
-$('.input-round').on('keydown', function(){
-if(!$(this).hasClass('nochange')){
-changes = true;
-}
-})
-function valide (value) { value = value.replaceAll('>', ''); value = value.replaceAll('<', ''); return value; }
-$('body').on('keyup', function(e){if(e.keyCode===27){$(".right:first").click();}});
+lert valide = value => value.replaceAll('>', '').replaceAll('<', '');
+$('body').on('keyup', (e) => {
+if(e.keyCode === 27) $(".right:first").click();
+});
 function search(){
 var searchWord = $('#input_search').val().toLowerCase();
 if(searchWord == ''){
