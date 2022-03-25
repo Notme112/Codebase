@@ -463,6 +463,7 @@ outline: none;
 
 					$('.card:first').after(`<button class='button button-round button-danger' id='changeFilterKHMode'>Filter aktivieren</button>`)
 
+					if(s.filterKHSettings ? s.filterKHSettings.showPatientsInfo : false) $('.card:first').hide();
 					function addFilter() {
 						for (var i = 1; i < $('.pointer').length + 1; i++) {
 							var j = 1 + (i * 2) - 1;
@@ -539,6 +540,15 @@ outline: none;
 				settingsKey: "maxDistanceKH",
 				preset: "ZAHL",
 				default: 20
+			},
+			{
+				subtarget: "filterKHSettings",
+				target: "showPatientsInfoCheck",
+				name: "Patienteninformationen verstecken",
+				type: "checkbox",
+				settingsKey: "showPatientsInfo",
+				preset: "CHECKBOX",
+				default: false
 			}],
 		},
 		{
@@ -749,7 +759,7 @@ outline: none;
 			settings: []
 		},
 		{
-			name: "Statistics LST",
+			name: "StatisticsLST",
 			description: "Dieses Modul zeit euch in eurer Leitstelle Fahrzeug- sowie Gebäudestatistiken. Weiter gibt es Statistiken zu den heute verdienten Münzen, absolvierten Einsätzen und transportierten Patienten.",
 			settingsTarget: "statisticsLST",
 			helpLink: "",
