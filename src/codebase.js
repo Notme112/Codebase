@@ -650,7 +650,7 @@ outline: none;
 			settings: [],
 		},
 		{
-			name: "DistaceVehicle",
+			name: "DistanceVehicle",
 			description: "Filtert die Fahrzeuge im Einsatz, die weiter als x Kilometer entfernt sind.",
 			settingsTarget: "vehicleDistance",
 			helpLink: "",
@@ -661,11 +661,11 @@ outline: none;
 				s.distaceVehicle ? distance = s.distaceVehicle.distance : '';
 
 				function applyFilter(dis) {
-					const el = document.getElementsByClassName('mission-vehicle')
-					const km = document.getElementsByClassName('vehicle-distance')
+					const el = document.querySelectorAll('.mission-vehicle')
+					const km = document.querySelectorAll('.vehicle-distance')
 					for (var i = 0; i < el.length; i++) {
 						var e = el[i];
-						if (parseFloat(km[i].innerText) > dis) {
+						if (parseFloat(km[i].innerText.replace('~', '')) > dis) {
 							e.classList.remove('vehicle');
 							e.style.display = 'none';
 						} else {
