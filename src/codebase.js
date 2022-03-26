@@ -49,15 +49,15 @@ GM_info = {
 	}
 	//define notification function
 	async function checkNotificationPermission() {
-		return new Promise((res) => {
+		return new Promise(async (res) => {
 			if (Notification.permission === "granted") {
-				res(true)
+				res(true);
 			} else if (Notification.permission !== 'denied') {
-				await Notification.requestPermission(function (permission) {
-					if (permission === "granted") {
-						res(true)
+				await Notification.requestPermission((perm) => {
+					if (perm === "granted") {
+						res(true);
 					} else {
-						res(false)
+						res(false);
 					}
 				});
 			}
@@ -463,7 +463,8 @@ outline: none;
 
 					$('.card:first').after(`<button class='button button-round button-danger' id='changeFilterKHMode'>Filter aktivieren</button>`)
 
-					if(s.filterKHSettings ? s.filterKHSettings.showPatientsInfo : false) $('.card:first').hide();
+					if (s.filterKHSettings ? s.filterKHSettings.showPatientsInfo : false) $('.card:first').hide();
+
 					function addFilter() {
 						for (var i = 1; i < $('.pointer').length + 1; i++) {
 							var j = 1 + (i * 2) - 1;
@@ -517,39 +518,40 @@ outline: none;
 			},
 			hasSettings: true,
 			settings: [{
-				subtarget: "filterKHSettings",
-				target: "ownKH",
-				name: "Eigene Krankenhäuser anzeigen",
-				type: "checkbox",
-				settingsKey: "ownKH",
-				preset: "CHECKBOX",
-				default: true
-			}, {
-				subtarget: "filterKHSettings",
-				target: "alliKH",
-				name: "Verbandskrankenhäuser anzeigen",
-				type: "checkbox",
-				settingsKey: "alliKH",
-				preset: "CHECKBOX",
-				default: true
-			}, {
-				subtarget: "filterKHSettings",
-				target: "maxDistanceKH",
-				name: "Maximale Entfernung der Krankenhäuser",
-				type: "input-number",
-				settingsKey: "maxDistanceKH",
-				preset: "ZAHL",
-				default: 20
-			},
-			{
-				subtarget: "filterKHSettings",
-				target: "showPatientsInfoCheck",
-				name: "Patienteninformationen verstecken",
-				type: "checkbox",
-				settingsKey: "showPatientsInfo",
-				preset: "CHECKBOX",
-				default: false
-			}],
+					subtarget: "filterKHSettings",
+					target: "ownKH",
+					name: "Eigene Krankenhäuser anzeigen",
+					type: "checkbox",
+					settingsKey: "ownKH",
+					preset: "CHECKBOX",
+					default: true
+				}, {
+					subtarget: "filterKHSettings",
+					target: "alliKH",
+					name: "Verbandskrankenhäuser anzeigen",
+					type: "checkbox",
+					settingsKey: "alliKH",
+					preset: "CHECKBOX",
+					default: true
+				}, {
+					subtarget: "filterKHSettings",
+					target: "maxDistanceKH",
+					name: "Maximale Entfernung der Krankenhäuser",
+					type: "input-number",
+					settingsKey: "maxDistanceKH",
+					preset: "ZAHL",
+					default: 20
+				},
+				{
+					subtarget: "filterKHSettings",
+					target: "showPatientsInfoCheck",
+					name: "Patienteninformationen verstecken",
+					type: "checkbox",
+					settingsKey: "showPatientsInfo",
+					preset: "CHECKBOX",
+					default: false
+				}
+			],
 		},
 		{
 			name: "Alarmansichtswechsler",
