@@ -876,20 +876,6 @@ outline: none;
 			settings: []
 		}
 	];
-	//function check settings and catching errors when there is a new branch
-	function checkSettings() {
-		if (!localStorage.storage_resi_base) reload();
-		modules.forEach((el) => {
-			if (el.hasSettings) {
-				el.settings.forEach((setting) => {
-					if (setting.subtarget && !s[setting.subtarget]) {
-						s[setting.subtarget] = {};
-					}
-				})
-			}
-		});
-	}
-	checkSettings();
 	//function build default storage object from modules
 	function buildDefaultStotrage() {
 		let obj = {};
@@ -932,6 +918,20 @@ Dein Team der ReSi-Codebase`,
 			this.settings = s;
 		}
 	}
+	//function check settings and catching errors when there is a new branch
+	function checkSettings() {
+		if (!localStorage.storage_resi_base) reload();
+		modules.forEach((el) => {
+			if (el.hasSettings) {
+				el.settings.forEach((setting) => {
+					if (setting.subtarget && !s[setting.subtarget]) {
+						s[setting.subtarget] = {};
+					}
+				})
+			}
+		});
+	}
+	checkSettings();
 	//create object from codebase class
 	codebase = new ReSiCodebase();
 	//own frame
