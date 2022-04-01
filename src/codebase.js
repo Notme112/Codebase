@@ -958,7 +958,7 @@ display: none;
 </style>
 <script>
 if(localStorage.darkmode_resi_base'=='true') {
-$('body:first').addClass('dark');
+$('body').addClass('dark');
 }
 let changes = false;
 $('.checkbox-container, .input-round').on('click keydown', () => {
