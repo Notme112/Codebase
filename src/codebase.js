@@ -605,7 +605,7 @@ outline: none;
 		{
 			name: "Einsatzstatistiken",
 			description: "Zeigt in der Einsatzliste, wie viele Einsätze in welchem Status (rot, gelb, grün) ihr aktuell offen habt und wie viel Prozent von euren gesamten Einsötzen dieser Anteil ausmacht.",
-			settingsTarget: "switchAlarmingMode",
+			settingsTarget: "missionStatistics",
 			helpLink: "",
 			version: "1.0.0",
 			author: "NiZi112",
