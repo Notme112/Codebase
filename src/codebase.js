@@ -1107,7 +1107,7 @@ Einstellungen zu ${el.name}
 <div class='tab-content' id='tab_licence'>
 <h2>Fehler melden:</h2>
 <p>
-<a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent button button-round button-success">Discord-Server</a> - <a href='https://github.com/Notme112/Codebase/issues/new?assignees=NiZi112&labels=bug&template=bugs---fehler.md&title=BUG%3A+' class='no-prevent button button-success button-round' target='_blank'>Github</a> - <a href='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-0/&action=lastPost' class='no-prevent button button-success button-round' target='_blank'>Forum</a> - ReSi-Discord: im Thread ReSi-Codebase im Bereich <code>#skripting</code>
+<a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent button button-round button-success">Discord-Server</a> - <a href='https://github.com/Notme112/Codebase/issues/new/choose' class='no-prevent button button-success button-round' target='_blank'>Github</a> - <a href='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-0/&action=lastPost' class='no-prevent button button-success button-round' target='_blank'>Forum</a> - ReSi-Discord: im Thread ReSi-Codebase im Bereich <code>#skripting</code>
 <h3>Vielen Danke für deine Mithilfe!</h3>
 </p>
 <h2>Open-Source:</h2>
