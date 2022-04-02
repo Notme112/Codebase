@@ -924,7 +924,6 @@ outline: none;
 	];
 	//function build default storage object from modules
 	function buildDefaultStotrage() {
-		console.log('hey');
 		let obj = {};
 		modules.forEach((el) => {
 			obj[el.settingsTarget] = false;
@@ -936,7 +935,6 @@ outline: none;
 				});
 			}
 		});
-		console.log(obj);
 		return obj;
 	}
 	//new user
@@ -1023,7 +1021,7 @@ if(e.keyCode === 27) $(".right:first").click();
 $('.open-profile').on('click', (e) => {
 let author = $(e.currentTarget).attr('profile');
 e.preventDefault()
-if(changes) modal('Profil des Authors aufrufen?', 'Willst du das Profil von '+author+' Author aufrufen? Du hast ungespeicherte Optionen in den Einstellungen.', 'Aufrufen', 'Hier bleiben', () => {
+if(changes) modal('Profil des Autors aufrufen?', 'Willst du das Profil von '+author+' aufrufen? Du hast ungespeicherte Optionen in den Einstellungen.', 'Aufrufen', 'Hier bleiben', () => {
 location.href = '/profile/'+author;
 }, () => {});
 else location.href = '/profile/'+author;
@@ -1109,7 +1107,7 @@ Einstellungen zu ${el.name}
 <div class='tab-content' id='tab_licence'>
 <h2>Fehler melden:</h2>
 <p>
-<a href='https://github.com/Notme112/Codebase/issues/new?assignees=NiZi112&labels=bug&template=bugs---fehler.md&title=BUG%3A+' class='no-prevent button button-success button-round' target='_blank'>Github</a> - <a href='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-0/&action=lastPost' class='no-prevent button button-success button-round' target='_blank'>Forum</a> - Discord: im Thread ReSi-Codebase im Bereich <code>#skripting</code>
+<a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent button button-round button-success">Discord-Server</a> - <a href='https://github.com/Notme112/Codebase/issues/new?assignees=NiZi112&labels=bug&template=bugs---fehler.md&title=BUG%3A+' class='no-prevent button button-success button-round' target='_blank'>Github</a> - <a href='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-0/&action=lastPost' class='no-prevent button button-success button-round' target='_blank'>Forum</a> - ReSi-Discord: im Thread ReSi-Codebase im Bereich <code>#skripting</code>
 <h3>Vielen Danke für deine Mithilfe!</h3>
 </p>
 <h2>Open-Source:</h2>
@@ -1130,6 +1128,13 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
 </div>`
 			frame.contents().find('body').html('')
 			frame.contents().find('body').append(frameContent);
+			closeFrameOrig = closeFrame;
+
+			function closeFrame() {
+				frame.contents().find('html').html('');
+				closeFrameOrig()
+				closeFrame = closeFrameOrig;
+			}
 			//show localStorge & sessionStorage
 			frame.contents().find('#showStorage').on('click', () => {
 				var table = '<table class="table-divider striped"><thead><tr><th>Key</th><th>Wert</th></tr><tbody>'
@@ -1167,9 +1172,8 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
 					invalid()
 					error = true;
 				}
-				//if nor error save
+				//if no error save
 				if (!error) {
-					console.log(true);
 					localStorage.storage_resi_base = newSettings;
 					reload()
 				}
@@ -1184,8 +1188,10 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
 				})
 			});
 			frame.contents().find('#resetStorage').on('click', () => {
-				localStorage.storage_resi_base = buildDefaultStotrage();
-				reload()
+				modal('Alle Einstellungen zurücksetzen', 'Willst du wirklich alle Einstellungen zurücksetzten? Die aktuellen Einstellungen sind dann unwiderruflich verloren!', 'Ja, zurücksetzen', 'Nein, behalten', () => {
+					localStorage.storage_resi_base = JSON.stringify(buildDefaultStotrage());
+					reload()
+				}, () => {});
 			})
 			//save settings
 			function saveCodebaseSettings() {
@@ -1225,7 +1231,7 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
 				localStorage.storage_resi_base = JSON.stringify(s)
 				reload()
 			}
-			$('#iframe').contents().find('#saveCodebaseSettings').on('click', saveCodebaseSettings)
+			$('#iframe').contents().find('#saveCodebaseSettings').on('click', saveCodebaseSettings);
 			frame.off('load');
 		});
 	});
