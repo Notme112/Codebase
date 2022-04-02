@@ -957,7 +957,7 @@ display: none;
 };
 </style>
 <script>
-if(localStorage.darkmode_resi_base'=='true') {
+if(localStorage.darkmode_resi_base=='true') {
 $('body').addClass('dark');
 }
 let changes = false;
