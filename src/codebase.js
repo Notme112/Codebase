@@ -89,6 +89,8 @@ outline: none;
 			description: "Zeigt in der Seitenleiste die gesamt verdienten Münzen an.",
 			settingsTarget: "gesamtmuenzen",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			target: "gesamtmuenzenCheck",
 			func: async (s) => {
 				const r = await getAPI('user');
@@ -105,6 +107,8 @@ outline: none;
 			name: "Toplist-Position",
 			description: "Zeigt in Seitenleiste im Toplist-Link direkt die aktuelle Position auf der Topliste.",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "toplist",
 			target: "toplistCheck",
 			keywords: ['Toplist', 'Toplist-Position', 'Position', 'Topliste', 'Toplisten-Position'],
@@ -120,6 +124,8 @@ outline: none;
 			name: "Maximierte Einsatzliste",
 			description: "Maximiert die Einsatzliste dauerhaft.",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "einsatzlisteMax",
 			target: "maxMissionlistCheck",
 			keywords: ['erweitert', 'Einsatzliste', 'erweiterte Einsatzliste', 'maximiert', 'maximierte Einsatzliste'],
@@ -134,6 +140,8 @@ outline: none;
 			name: "Flogout (Fast Logout)",
 			description: "Zeigt direkt oben links am Rand ein Logout-Symbol",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "flogout",
 			target: "flogoutCheck",
 			keywords: ['FastLogout', 'Logout', 'Fast', 'Logout', 'scneller', 'Logout'],
@@ -160,6 +168,8 @@ outline: none;
 			name: "Eigener Streammode-Text",
 			description: "Zeigt statt dem Chat euren eigenen Text an",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "streammode",
 			target: "streammodeCheck",
 			keywords: ['Streamer', 'Youtube', 'Streammode-Text', 'Streammode', 'Streamer-Modus', 'Twitch', 'YT'],
@@ -184,6 +194,8 @@ outline: none;
 			name: "Eigene Sounds",
 			description: "Erlaubt euch, eigene Sounds in das Spiel zu bringen",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "ownSound",
 			target: "ownSoundCheck",
 			keywords: ['Streamer', 'Youtube', 'Streammode-Text', 'Streammode', 'Streamer-Modus'],
@@ -242,6 +254,8 @@ outline: none;
 			name: "Autocomplete verhindern",
 			description: "Verhindert den Autocomplete des Browsers bei den Feldern der Einsatzannahme und des Chats.",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "autocomplete",
 			target: "autocompleteCheck",
 			keywords: ['Browser', 'complete', 'verhindern', 'autocomplete'],
@@ -261,6 +275,8 @@ outline: none;
 			name: "Einsatzzähler",
 			description: "Zeigt in Seitenleiste die Zahl der heute absolvierten Einsätze.",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "einsatzzaehler",
 			target: "einsatzzeahlerCheck",
 			keywords: ["Einsatz", "Zahl", "Zähler", "zählen", "Einsatze", "zählen"],
@@ -291,6 +307,8 @@ outline: none;
 			name: "Push FMS5",
 			description: "Sendet eine Brwoserbenachrichtigung bei einem Sprechwunsch.",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "pushFMS",
 			target: "pushFMSChack",
 			keywords: ['Browserbenachrichtigung', 'Browser', 'Push', 'Ping', 'PushFMS', 'FMS', 'Status', '5', 'Sprechwunsch'],
@@ -313,6 +331,8 @@ outline: none;
 			name: "Darkmode nach Uhrzeit (noch nicht verfügbar)",
 			description: "Wechselt automatisch in den White- / Darkmode bei von euch bestimmter Einstellung",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "zeitwechsel",
 			target: "darkModeCheck",
 			keywords: ['Darkmode', 'Uhrzeit', 'automatisch'],
@@ -345,6 +365,8 @@ outline: none;
 			name: "Uhr",
 			description: "Zeigt in der Navbar eine kleine Uhr.",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "uhr",
 			target: "uhrCheck",
 			keywords: ["Uhr", "Zeit", "Uhrzeit", "Navbar"],
@@ -370,6 +392,8 @@ outline: none;
 			name: "Settings in der Navbar",
 			description: "Die Codebase-Einstellungen lassen sich so auch direkt über die Navbar aufrufen.",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "settings",
 			target: "settingsCheck",
 			keywords: ["schnell", "Zugriff", "Einstellungen", "Navbar"],
@@ -387,6 +411,8 @@ outline: none;
 			name: "Chat-Count",
 			description: "Zählt die Zeichen im Chat.",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "chatCount",
 			target: "chatCountCheck",
 			keywords: ["Chat", "zählen", "Zeichen", "maximale", "Zeichen", "Zeichen", "zählen"],
@@ -427,6 +453,8 @@ outline: none;
 			name: "AlertChat",
 			description: "Sendet kleine Popups bei einer Chatnachricht.",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "alertChat",
 			target: "alertChatCount",
 			keywords: ["Popup", "Sytemnachricht", "Nachricht", "Benachrichtgung"],
@@ -449,6 +477,8 @@ outline: none;
 			name: "FilterKH",
 			description: "Filtert die Krankenhäuser in einem Sprechwunsch.",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			settingsTarget: "filterKH",
 			target: "filterKHCheck",
 			keywords: ["Filter", "Krankenhäuser", "Sprechwunsch", "FMS5", "S5"],
@@ -558,6 +588,8 @@ outline: none;
 			description: "Wechselt im Einsatz mit der Taste \"U\" zwischen der Wachen- und Fahrzeugansicht.",
 			settingsTarget: "switchAlarmingMode",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			target: "switchAlarmingModeCheck",
 			func: async (s) => {
 				if (!location.pathname.includes('/mission/')) return
@@ -575,6 +607,8 @@ outline: none;
 			description: "Zeigt in der Einsatzliste, wie viele Einsätze in welchem Status (rot, gelb, grün) ihr aktuell offen habt und wie viel Prozent von euren gesamten Einsötzen dieser Anteil ausmacht.",
 			settingsTarget: "switchAlarmingMode",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			target: "statisticsCheck",
 			func: async (s) => {
 				var red = 0;
@@ -618,6 +652,8 @@ outline: none;
 			description: "Zeigt im Einsatz mit Patienten die Chance der Grundvarinate, dass ein Notazt gebraucht wird.",
 			settingsTarget: "ShowNAChance",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			target: "ShowNAChanceCheck",
 			func: async (s) => {
 				if (!location.pathname.includes('/mission/')) return
@@ -634,6 +670,8 @@ outline: none;
 			description: "Auf dem Nutzerprofil eines anderen Nutzer sehr ihr, wie viele Münzen mehr / wneiger dieser Nutzer hat.",
 			settingsTarget: "differentToAnotherUser",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			target: "differentToAnotherUserCheck",
 			func: async (s) => {
 				if (!location.pathname.includes('/profile/')) return
@@ -654,6 +692,8 @@ outline: none;
 			description: "Filtert die Fahrzeuge im Einsatz, die weiter als x Kilometer entfernt sind.",
 			settingsTarget: "vehicleDistance",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			target: "distaceVehicleCheck",
 			func: async (s) => {
 				if (!location.pathname.includes('/mission/')) return;
@@ -716,6 +756,8 @@ outline: none;
 			description: "Stellt einen individuellen Webseitentitel ein, welcher oben im Browsertab angezeigt wird.",
 			settingsTarget: "titleChange",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			target: "titleChangeCheck",
 			func: async (s) => {
 				document.title = s.titleChangeSettings ? s.titleChangeSettings.title ? s.titleChangeSettings.title : 'rettungssimulator.online' : 'rettungssimulator.online'
@@ -738,6 +780,8 @@ outline: none;
 			description: "Sobald ein Fahrzeug einen Sprechwunsch hat, wird euch das per Mitteilungsbox angezeigt.",
 			settingsTarget: "alertFMS5",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			target: "alertFMS5Check",
 			func: async (s) => {
 				try {
@@ -765,6 +809,8 @@ outline: none;
 			description: "Dieses Modul zeit euch in eurer Leitstelle Fahrzeug- sowie Gebäudestatistiken. Weiter gibt es Statistiken zu den heute verdienten Münzen, absolvierten Einsätzen und transportierten Patienten.",
 			settingsTarget: "statisticsLST",
 			helpLink: "",
+			version: "1.0.0",
+			author: "NiZi112",
 			target: "statisticsLSTCheck",
 			func: async (s) => {
 				if (!localStorage.counterConfig) localStorage.counterConfig = JSON.stringify({
@@ -878,20 +924,23 @@ outline: none;
 	];
 	//function build default storage object from modules
 	function buildDefaultStotrage() {
+		console.log('hey');
 		let obj = {};
 		modules.forEach((el) => {
 			obj[el.settingsTarget] = false;
 			if (el.hasSettings) {
 				el.settings.forEach((setting) => {
-					let dest = setting.subtarget ? obj[setting.subtarget] : obj;
-					dest[setting.settingsKey] = setting.defaultValue;
+					if (setting.subtarget && !obj[setting.subtarget]) obj[setting.subtarget] = {};
+					if (setting.subtarget) obj[setting.subtarget][setting.settingsKey] = setting.default
+					else obj[setting.settingsKey] = setting.default
 				});
 			}
-			return obj;
 		});
+		console.log(obj);
+		return obj;
 	}
 	//new user
-	if (!localStorage.getItem('storage_resi_base')) {
+	if (!localStorage.storage_resi_base) {
 		//set storage
 		localStorage.setItem(
 			'storage_resi_base',
@@ -904,6 +953,7 @@ outline: none;
 Du kannst jeden Modul einzeln aktivieren, die Möglichkeit findest Du in einem Einstellungs-Panel, welches Du über die Seitenleiste aufrufen kannst.<br>
 Probier doch einfach mal alle Module aus. Wenn Du nicht weißt, was ein Modul tut, dann klick einfach auf das [?] hinter dem Namen, damit kommst Du zur Wikiseite des Moduls.<br><br>
 Fehler bitte im Forum melden - oder im Thread ReSi-Codebase auf Discord im Bereich <code>#skripting</code><br><br>
+Gerne kannst du auch unserem Discord-Server beitreten: <a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent">discord.gg/8FyA6HBbXs</a><br><br>
 Viel Spaß,<br>
 Dein Team der ReSi-Codebase`,
 			type: 'info'
@@ -944,13 +994,13 @@ Dein Team der ReSi-Codebase`,
 		frame.on('load', async () => {
 			//build frame content
 			var frameContent = `<div class='panel-body'>
-<script src='https://rettungssimulator.online/js/jquery-3.5.0.min.js'></script>
-<link rel='stylesheet' href='https://rettungssimulator.online/css/index.css' charset='utf-8'>
-<script src='https://rettungssimulator.online/js/index.js'></script>
-<script src='https://rettungssimulator.online/js/iframe.js'></script>
-<script src='https://rettungssimulator.online/js/controlCenter.js'></script>
-<script src="https://rettungssimulator.online/js/popper.js" charset="utf-8"></script>
-<script src='https://rettungssimulator.online/js/tippy.js'></script>
+<script src='https://rettungssimulator.online/js/jquery-3.5.0.min.js?v=${ReSi.resiVersion}'></script>
+<link rel='stylesheet' href='https://rettungssimulator.online/css/index.css?v=${ReSi.resiVersion}' charset='utf-8'>
+<script src='https://rettungssimulator.online/js/index.js?v=${ReSi.resiVersion}'></script>
+<script src='https://rettungssimulator.online/js/iframe.js?v=${ReSi.resiVersion}'></script>
+<script src='https://rettungssimulator.online/js/controlCenter.js?v=${ReSi.resiVersion}'></script>
+<script src="https://rettungssimulator.online/js/popper.js?v=${ReSi.resiVersion}" charset="utf-8"></script>
+<script src='https://rettungssimulator.online/js/tippy.js?v=${ReSi.resiVersion}'></script>
 <style>
 .searchHidden{
 display: none;
@@ -966,9 +1016,17 @@ if(!$(this).hasClass('nochange')){
 changes = true;
 }
 })
-lert valide = value => value.replaceAll('>', '').replaceAll('<', '');
+let valide = value => value.replaceAll('>', '').replaceAll('<', '');
 $('body').on('keyup', (e) => {
 if(e.keyCode === 27) $(".right:first").click();
+});
+$('.open-profile').on('click', (e) => {
+let author = $(e.currentTarget).attr('profile');
+e.preventDefault()
+if(changes) modal('Profil des Authors aufrufen?', 'Willst du das Profil von '+author+' Author aufrufen? Du hast ungespeicherte Optionen in den Einstellungen.', 'Aufrufen', 'Hier bleiben', () => {
+location.href = '/profile/'+author;
+}, () => {});
+else location.href = '/profile/'+author;
 });
 function search(){
 var searchWord = $('#input_search').val().toLowerCase();
@@ -997,6 +1055,7 @@ $('#input_search').on('input change keyup', search);
 <button class="button button-round button-success" id="showStorage">Gespeicherte Daten der Scripte anzeigen</button>
 <button id="exportSettings" class="button button-round button-success">Einstellungen exportieren</button>
 <button id="importSettings" class="button button-round button-success">Einstellungen importieren</button>
+<button id="resetStorage" class="button button-round button-success">Einstellungen zurücksetzen</button>
 <div class="input-container nochange" style="float:right"><label for='input_search'>Suche</label>
 <input class="input-round input-inline nochange" type="text" value="" style="padding-left:20px;padding-right:20px;" id="input_search" placeholder="Suche..." autocomplete="off">
 </div>
@@ -1004,7 +1063,6 @@ $('#input_search').on('input change keyup', search);
 </div>
 <div class='tabs tabs-horizotal'>
 <div class='tab tab-active' for='settings-moduls'>Module</div>
-<div class='tab' for='settings-inputs'>Texte & URL's</div>
 <div class='tab' for='licence'>Sonstiges & Lizenzen</div>
 </div>
 <div class='tab-container'>
@@ -1013,17 +1071,17 @@ $('#input_search').on('input change keyup', search);
 <h4 class='label label-info searchNoResult hidden'>Die Suche lieferte keine Ergebnisse! Bitte probiere es mit einem anderen Suchwort!</h4>`;
 			//checkboxes for modules
 			modules.forEach((el) => {
-				frameContent += `<div class='checkbox-container searchable'><input id='${el.target}' type='checkbox' ${s[el.settingsTarget] ? 'checked' : ''}><label for='${el.target}'>${el.name} aktivieren<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></label><div class='hidden keyword-serach'>${el.keywords.join(' ')}</div></div>`
-			});
-			frameContent += `<button class='button-success button button-round' onclick='$("#saveCodebaseSettings").click()'>Speichern</button>
-</div>
-<div class='tab-content' id='tab_settings-inputs'>
-<h2>Texte & URL's:</h2>`
-			//settings for modules
-			modules.forEach((el) => {
+				frameContent += `<div class='checkbox-container searchable'><input id='${el.target}' type='checkbox' ${s[el.settingsTarget] ? 'checked' : ''}><label for='${el.target}'>${el.name} aktivieren<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a> ${el.hasSettings ? '<span data-tooltip="Dieses Modul hat Einstellungen! Passe es dir nach deinem Geschmack an!">[!]</span>' : ''} <span class="label label-success">von: ${'<span class="open-profile pointer" profile="'+ el.author + '" frame="1/2/4/4">' + el.author + '</span>'}</span> <span class="label label-success">V${el.version}</span></label><div class='hidden keyword-serach'>${el.keywords.join(' ')}</div></div>`;
 				if (el.hasSettings) {
-					frameContent += `<h3>${el.name}</h3>
-<h4 class='label label-info searchNoResult hidden'>Die Suche lieferte keine Ergebnisse! Bitte probiere es mit einem anderen Suchwort!</h4>`
+					frameContent += `<h4 class='label label-info searchNoResult hidden'>Die Suche lieferte keine Ergebnisse! Bitte probiere es mit einem anderen Suchwort!</h4>
+<div class="card card-collapse${s[el.settingsTarget] ? '' : ' collapsed'}" style="padding-left:100px;">
+<div class="card-headline card-headline-danger">
+Einstellungen zu ${el.name}
+<div class="card-tools">
+<span class="card-collapse-toggle pointer" style="font-size:15px;overflow:hidden;vertical-algin:middle">${s[el.settingsTarget] ? '&darr;' : '&uarr;'}</span>
+</div>
+</div>
+<div class="card-body">`;
 					el.settings.forEach((setting) => {
 						var value = setting.subtarget ? s[setting.subtarget][setting.settingsKey] : s[setting.settingsKey];
 						switch (setting.type) {
@@ -1036,16 +1094,17 @@ $('#input_search').on('input change keyup', search);
 							case 'input-number':
 								frameContent += `<div class='input-container searchable'><div class='input-label'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></div><div class='input-icon'></div><input class='input-round' type='number' value='${value ? value : ''}' autocomplete='off' id='${setting.target}' placeholder='${setting.preset}'></div>`
 								break;
+							case 'input-choose':
+								//
 							default:
 								frameContent += `<div class='alert alert-info'>Unbekannte Einstellungsmöglichkeit ${setting.type} @ ${el.name}</div>`
 								break;
 						}
 					})
+					frameContent += `</div></div>`
 				}
-			})
-			//other
-			frameContent += `<br>
-<button class='button-success button button-round' id='saveCodebaseSettings'>Speichern</button>
+			});
+			frameContent += `<button class='button-success button button-round' onclick='$("#saveCodebaseSettings").click()'>Speichern</button>
 </div>
 <div class='tab-content' id='tab_licence'>
 <h2>Fehler melden:</h2>
@@ -1066,8 +1125,10 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
 </p>
 </div>
 </div>
+<center>Joine unserem Discord-Server: <a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent">discord.gg/8FyA6HBbXs</a><br><br></center>
 <h3>Danke für die Nutzung der ReSi-Codebase!</h3>
 </div>`
+			frame.contents().find('body').html('')
 			frame.contents().find('body').append(frameContent);
 			//show localStorge & sessionStorage
 			frame.contents().find('#showStorage').on('click', () => {
@@ -1121,6 +1182,10 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
 						$(e.currentTarget).html('Kopiert!');
 					})
 				})
+			});
+			frame.contents().find('#resetStorage').on('click', () => {
+				localStorage.storage_resi_base = buildDefaultStotrage();
+				reload()
 			})
 			//save settings
 			function saveCodebaseSettings() {
