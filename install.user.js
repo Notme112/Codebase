@@ -8,6 +8,7 @@
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @updateURL    https://github.com/Notme112/Codebase/raw/main/install.user.js
 // @downloadURL  https://github.com/Notme112/Codebase/raw/main/install.user.js
+// @supportURL   https://github.com/Notme112/Codebase/issues/new/choose
 // @homepage     https://github.com/Notme112/Codebase/
 // @run-at       document-idle
 // @grant        none

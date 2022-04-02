@@ -272,10 +272,10 @@ outline: none;
 			settings: [],
 		},
 		{
-			name: "Einsatzzähler",
-			description: "Zeigt in Seitenleiste die Zahl der heute absolvierten Einsätze.",
+			name: "[outdated] Einsatzzähler",
+			description: "Zeigt in Seitenleiste die Zahl der heute absolvierten Einsätze. Funktion in Statistics LST enthalten!",
 			helpLink: "",
-			version: "1.0.0",
+			version: "outdatet",
 			author: "NiZi112",
 			settingsTarget: "einsatzzaehler",
 			target: "einsatzzeahlerCheck",
