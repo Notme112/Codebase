@@ -1021,7 +1021,7 @@ if(e.keyCode === 27) $(".right:first").click();
 $('.open-profile').on('click', (e) => {
 let author = $(e.currentTarget).attr('profile');
 e.preventDefault()
-if(changes) modal('Profil des Autors aufrufen?', 'Willst du das Profil von '+author+' aufrufen? Du hast ungespeicherte Optionen in den Einstellungen.', 'Aufrufen', 'Hier bleiben', () => {
+if(changes) modal('Profil des Autors aufrufen?', 'Willst du das Profil von '+author+' aufrufen? Du hast ungespeicherte Optionen in den Einstellungen. Diese gehen verloren, wenn du das profil des Autors aufrufst.', 'Aufrufen', 'Hier bleiben', () => {
 location.href = '/profile/'+author;
 }, () => {});
 else location.href = '/profile/'+author;
