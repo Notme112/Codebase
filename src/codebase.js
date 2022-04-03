@@ -1102,7 +1102,7 @@ Einstellungen zu ${el.name}
 					frameContent += `</div></div>`
 				}
 			});
-			frameContent += `<button class='button-success button button-round' onclick='$("#saveCodebaseSettings").click()'>Speichern</button>
+			frameContent += `<button class='button-success button button-round' id='saveCodebaseSettings'>Speichern</button>
 </div>
 <div class='tab-content' id='tab_licence'>
 <h2>Fehler melden:</h2>
@@ -1231,7 +1231,7 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
 				localStorage.storage_resi_base = JSON.stringify(s)
 				reload()
 			}
-			$('#iframe').contents().find('#saveCodebaseSettings').on('click', saveCodebaseSettings);
+			frame.contents().find('#saveCodebaseSettings').on('click', saveCodebaseSettings);
 			frame.off('load');
 		});
 	});
