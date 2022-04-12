@@ -10,7 +10,6 @@ GM_info = {
 	//remove storage if necessary
 	if (localStorage.resiBaseRemovedStorage != '1.5.0') {
 		localStorage.removeItem('storage_resi_base');
-		localStorage.resiBaseRemovedStorage = '1.5.0';
 	}
 	//define getAPI function
 	getAPI = async function (name) {
@@ -496,7 +495,7 @@ outline: none;
 					if (s.filterKHSettings ? s.filterKHSettings.showPatientsInfo : false) $('.card:first').hide();
 
 					function addFilter() {
-						for (var i = 1; i < $('.pointer').length + 1; i++) {
+						for (var i = 1; i < $('.box-progress').length + 1; i++) {
 							var j = 1 + (i * 2) - 1;
 							var entf = parseInt($('.box-text').eq(j).text().replace(' km', ''));
 							if (entf < val) {
