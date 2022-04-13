@@ -7,10 +7,6 @@ GM_info = {
 /* => ab hier <= */
 (async () => {
 	if ($('.landing-header').length) return
-	//remove storage if necessary
-	if (localStorage.resiBaseRemovedStorage != '1.5.0') {
-		localStorage.removeItem('storage_resi_base');
-	}
 	//define getAPI function
 	getAPI = async function (name) {
 		if (
@@ -943,6 +939,7 @@ outline: none;
 			'storage_resi_base',
 			JSON.stringify(buildDefaultStotrage())
 		);
+		localStorage.setItem('resiBaseRemovedStorage', '1.5.1');
 		//show welcome message
 		systemMessage({
 			title: 'Willkommen bei der ReSi-Codebase!',
@@ -955,6 +952,11 @@ Viel Spaß,<br>
 Dein Team der ReSi-Codebase`,
 			type: 'info'
 		});
+	}
+	//remove storage if necessary
+	if (localStorage.resiBaseRemovedStorage != '1.5.0') {
+		localStorage.storage_resi_base = buildDefaultStorage();
+		localStorage.resiBaseRemovedStorage = '1.5.0'
 	}
 	//load storage
 	const s = JSON.parse(localStorage.storage_resi_base);
