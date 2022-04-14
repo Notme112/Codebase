@@ -67,7 +67,7 @@ outline: none;
 	$(document.head).append(css);
 	//save darkmode-settings in localstorage
 	try {
-		if ($('#darkMode').html().includes('Tag'))
+		if (location.pathname == '/' && $('#darkMode').html().includes('Tag'))
 			localStorage.setItem('darkmode_resi_base', 'true');
 		else localStorage.setItem('darkmode_resi_base', 'false');
 	} catch {
@@ -918,7 +918,7 @@ outline: none;
 		}
 	];
 	//function build default storage object from modules
-	function buildDefaultStotrage() {
+	function buildDefaultStorage() {
 		let obj = {};
 		modules.forEach((el) => {
 			obj[el.settingsTarget] = false;
@@ -937,7 +937,7 @@ outline: none;
 		//set storage
 		localStorage.setItem(
 			'storage_resi_base',
-			JSON.stringify(buildDefaultStotrage())
+			JSON.stringify(buildDefaultStorage())
 		);
 		localStorage.setItem('resiBaseRemovedStorage', '1.5.1');
 		//show welcome message
@@ -1190,7 +1190,7 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
 			});
 			frame.contents().find('#resetStorage').on('click', () => {
 				modal('Alle Einstellungen zurücksetzen', 'Willst du wirklich alle Einstellungen zurücksetzten? Die aktuellen Einstellungen sind dann unwiderruflich verloren!', 'Ja, zurücksetzen', 'Nein, behalten', () => {
-					localStorage.storage_resi_base = JSON.stringify(buildDefaultStotrage());
+					localStorage.storage_resi_base = JSON.stringify(buildDefaultStorage());
 					reload()
 				}, () => {});
 			})
