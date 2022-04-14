@@ -67,9 +67,11 @@ outline: none;
 	$(document.head).append(css);
 	//save darkmode-settings in localstorage
 	try {
-		if (location.pathname == '/' && $('#darkMode').html().includes('Tag'))
-			localStorage.setItem('darkmode_resi_base', 'true');
-		else localStorage.setItem('darkmode_resi_base', 'false');
+		if(location.pathname == '/'){
+			if ($('#darkMode').html().includes('Tag'))
+				localStorage.setItem('darkmode_resi_base', 'true');
+			else localStorage.setItem('darkmode_resi_base', 'false');
+		}
 	} catch {
 		console.error('Darkmode-Button nicht gefunden');
 	};
