@@ -957,7 +957,7 @@ Dein Team der ReSi-Codebase`,
 	}
 	//remove storage if necessary
 	if (localStorage.resiBaseRemovedStorage != '1.5.0') {
-		localStorage.storage_resi_base = buildDefaultStorage();
+		localStorage.storage_resi_base = JSON.stringify(buildDefaultStorage());
 		localStorage.resiBaseRemovedStorage = '1.5.0'
 	}
 	//load storage
