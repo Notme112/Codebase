@@ -281,14 +281,12 @@ outline: none;
 			func: async (s) => {
 				let today = (new Date()).getDate()
 				if (!localStorage.getItem("finished_missions_nizi") || !localStorage.getItem("finished_missions_nizi_time")) {
-					localStorage
-						.setItem("finished_missions_nizi", "0")
-						.setItem("finished_missions_nizi_time", today)
+					localStorage.setItem("finished_missions_nizi", "0")
+					localStorage.setItem("finished_missions_nizi_time", today)
 				};
 				if (localStorage.getItem("finished_missions_nizi_time") != today) {
-					localStorage
-						.setItem("finished_missions_nizi", "0")
-						.setItem("finished_missions_nizi_time", today)
+					localStorage.setItem("finished_missions_nizi", "0")
+					localStorage.setItem("finished_missions_nizi_time", today)
 				};
 				$("#darkMode").after(`<li id="finishedMissionsToday">Einsätze heute: ${localStorage.getItem("finished_missions_nizi")}</li>`)
 				socket.on("finishMission", (userMissionID) => {
@@ -1264,4 +1262,7 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
 Bei Fehlern kopiere bitte diesen Text und füge ihn in deine Fehlermeldung ein. Der Text enthält wichtige Informationenn zu deinen verwendeten Modulen.`;
 		console.log(log);
 	}
+	$('.openCodebaseSettings').on('click', () => {
+		$('#Codebase').click()
+	})
 })();
