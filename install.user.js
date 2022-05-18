@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ReSi-Codebase
 // @version      1.6.2
-// @description  Erweitert viele Funktionen und fügt neue hinzu. Das alle kostenlos in einem Browsergame!
+// @description  Erweitert viele Funktionen und fügt neue hinzu. Das alles kostenlos in einem Browsergame!
 // @author       NiZi112
 // @match        https://rettungssimulator.online/*
 // @include      www.rettungssimulator.online
