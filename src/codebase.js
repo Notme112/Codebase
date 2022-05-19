@@ -393,12 +393,10 @@ outline: none;
             keywords: ["schnell", "Zugriff", "Einstellungen", "Navbar"],
             allSite: false,
             func: async (s) => {
-                $(".brand").after(`<i class="fas fa-cogs codebase openCodebaseSettings" focusable="false" data-tooltip="ReSi-Codebase-Einstellungen"></i>`);
-                setTimeout(() => {
-                    $('.openCodebaseSettings').on('click', () => {
-                        $('#Codebase').click()
-                    });
-                }, 2500);
+                $(".brand").after(`<span class="openCodebaseSettings"><i class="fas fa-cogs codebase" focusable="false" data-tooltip="ReSi-Codebase-Einstellungen"></i></span>`);
+                $('.openCodebaseSettings').on('click', () => {
+                    $('#Codebase').click()
+                });
             },
             hasSettings: false,
             settings: [],
