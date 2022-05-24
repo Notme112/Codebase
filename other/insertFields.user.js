@@ -61,16 +61,16 @@
             $('#newMissionNameInput').val(replaceFunc($(e.target).text()));
         })
         $('.street', newWindow.document).on('click', (e) => {
-            $('#newMissionRoadInput').val(replaceFunc($(e).text()));
+            $('#newMissionRoadInput').val(replaceFunc($(e.target).text()));
         })
         $('.houseNumber', newWindow.document).on('click', (e) => {
-            $('#newMissionHousenumberInput').val(replaceFunc($(e).text()));
+            $('#newMissionHousenumberInput').val(replaceFunc($(e.target).text()));
         })
         $('.city', newWindow.document).on('click', (e) => {
-            $('#newMissionCityInput').val(replaceFunc($(e).text()));
+            $('#newMissionCityInput').val(replaceFunc($(e.target).text()));
         })
         $('.freeText', newWindow.document).on('click', (e) => {
-            $('#newMissionCustomText').val(replaceFunc($(e).text()));
+            $('#newMissionCustomText').val(replaceFunc($(e.target).text()));
         })
     }
     $('body').append(`<script>
