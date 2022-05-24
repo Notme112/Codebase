@@ -1,5 +1,7 @@
 # README insertFields.user.js
 
+## Achtung:
+Wenn ihr das Script das erste mal benutzt, werden Pop-Ups von eurem Browser automatisch blockiert! Diese müsst ihr erlauben! Wo genau, ist browserabhängig.
 ## Darkmode
 In Zeile 14 entweder `true` oder `false` hinter dem Gleichheitszeichen angeben. Alles ab `//` könnt ihr ignorieren, hierbei handelt es sich um einen Kommentar - dieser wird nciht beachtet.
 
