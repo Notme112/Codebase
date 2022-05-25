@@ -903,7 +903,73 @@ outline: none;
             hasSettings: false,
             allSite: true,
             settings: []
-        }
+        },
+        {
+            name: "CollapseCards in Association",
+            description: "Die Karten auf der Verbandsseite bei den Mitgliedern lassen sich zusammenklappen.",
+            settingsTarget: "collapseCardsAssociation",
+            helpLink: "",
+            version: "1.0.0",
+            author: "NiZi112",
+            target: "collapseCardsAssociationCheck",
+            func: async (s) => {
+                if (!location.href.includes('/association/')) return;
+                let autoCollapse = s.collapseCardsAssociation ? s.collapseCardsAssociation.autoCollapseCards : false;
+                $('.card-headline:contains("Verbandsleitung")').html($('.card-headline:contains("Verbandsleitung")').html() + '<i class="fas fa-angle-up pointer right card-collapse-toggle"></i>').parent().addClass(`card-collapse${autoCollapse ? ' collapsed' : ''}`);
+            },
+            keywords: ['Verband', 'Association', 'Cards', 'Collapse', 'automatisch', 'übersichtlich'],
+            hasSettings: true,
+            allSite: true,
+            settings: [{
+                subtarget: "collapseCardsAssociation",
+                target: "autoCollapseCards",
+                name: "Automatisches zusammenklappen",
+                type: "checkbox",
+                settingsKey: "autoCollapseCards",
+                preset: "TEXT",
+                default: false
+            }]
+        },
+        {
+            name: "HideDevelopedStepsAtRoadmap",
+            description: "Blendet bereits entwickelte Schritte auf der Roadmap aus.",
+            settingsTarget: "hideDevelopedStepsAtRoadmap",
+            helpLink: "",
+            version: "1.0.0",
+            author: "NiZi112",
+            target: "hideDevelopedStepsAtRoadmapCheck",
+            func: async (s) => {
+                if (!location.href.includes('/roadmap')) return;
+                $('.label-success').parent().parent().parent().hide().next().hide();
+            },
+            keywords: ['Roadmap', 'neu', 'fertig', 'ausblenden', 'Filter', 'verstecken'],
+            hasSettings: false,
+            allSite: true,
+            settings: []
+        },
+        /* */
+        {
+            name: "HideDeletedMessagesInChat",
+            description: "Blendet gelöschte Chatnachrichten aus.",
+            settingsTarget: "hideDeletedMessagesInChat",
+            helpLink: "",
+            version: "1.0.0",
+            author: "NiZi112",
+            target: "hideDeletedMessagesInChatCheck",
+            func: async (s) => {
+                function deleteMessages(){
+                    $(".message-deleted").remove();
+                };
+                socket.on("associationMessageDelete", associationMessageDeleteObject => {
+                    deleteMessages();
+                });
+                deleteMessages();
+            },
+            keywords: ['Chat', 'Nachrichten', 'gelöscht', 'ausblenden', 'Filter', 'verstecken'],
+            hasSettings: false,
+            allSite: false,
+            settings: []
+        },
     ];
     //function build default storage object from modules
     function buildDefaultStorage() {
@@ -1072,13 +1138,13 @@ Einstellungen zu ${el.name}
                         var value = setting.subtarget ? s[setting.subtarget][setting.settingsKey] : s[setting.settingsKey];
                         switch (setting.type) {
                             case 'checkbox':
-                                frameContent += `<div class='checkbox-container searchable'><input id='${setting.target}' ${value ? 'checked' : ''} type='checkbox'><label for='${setting.target}'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></label></div>`
+                                frameContent += `<div class='checkbox-container'><input id='${setting.target}' ${value ? 'checked' : ''} type='checkbox'><label for='${setting.target}'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></label></div>`
                                 break;
                             case 'input-text':
-                                frameContent += `<div class='input-container searchable'><div class='input-label'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></div><div class='input-icon'></div><input class='input-round' value='${value ? value : ''}' autocomplete='off' id='${setting.target}' placeholder='${setting.preset}'></div>`
+                                frameContent += `<div class='input-container'><div class='input-label'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></div><div class='input-icon'></div><input class='input-round' value='${value ? value : ''}' autocomplete='off' id='${setting.target}' placeholder='${setting.preset}'></div>`
                                 break;
                             case 'input-number':
-                                frameContent += `<div class='input-container searchable'><div class='input-label'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></div><div class='input-icon'></div><input class='input-round' type='number' value='${value ? value : ''}' autocomplete='off' id='${setting.target}' placeholder='${setting.preset}'></div>`
+                                frameContent += `<div class='input-container'><div class='input-label'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></div><div class='input-icon'></div><input class='input-round' type='number' value='${value ? value : ''}' autocomplete='off' id='${setting.target}' placeholder='${setting.preset}'></div>`
                                 break;
                             case 'input-choose':
                                 //
