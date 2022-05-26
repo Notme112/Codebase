@@ -30,7 +30,7 @@
 			"\t\t",
 			"\t},",
 			"\tkeywords: [\"$5\", \"$6\", \"$7\", \"$8\", \"$9\", \"$10\"],",
-			"\thasSettings: {true|false},",
+			"\thasSettings: ${11|true,false|}},",
 			"\tallSite: false,",
 			"\tsettings:[]",
 			"}"
@@ -53,7 +53,7 @@
 			"\t\t",
 			"\t},",
 			"\tkeywords: [\"$6\", \"$7\", \"$8\", \"$9\", \"$10\", \"$11\"],",
-			"\thasSettings: {true|false},",
+			"\thasSettings: ${12|true,false|},",
 			"\tallSite: true,",
 			"\tsettings:[]",
 			"}"
@@ -63,25 +63,15 @@
 	"Setting": {
 		"scope": "javascript",
 		"prefix": "setting",
-		/*{
-                subtarget: "collapseCardsAssociation",
-                target: "autoCollapseCards",
-                name: "Automatisches zusammenklappen",
-                type: "checkbox",
-                settingsKey: "autoCollapseCards",
-                preset: "CHECKBOX",
-                default: false
-            }*/
 		"body": [
 			"{",
 			"\tsubtarget: \"$1\",",
 			"\ttarget: \"$2Check\",",
 			"\tname: \"$3\",",
-			"\ttype: \"{\"checkbox\"|\"input-number\"|\"input-string\"|\"input-choose\"}\",",
+			"\ttype: \"${3|checkbox,input-number,input-string,input-choose|}\",",
 			"\tsettingsKey: \"$2\",",
-			"\tpreset: \"{\"CHECKBOX\"|\"ZAHL\"|\"TEXT\"}\"",
-			"\tdefault: $4",
-			"\t\t",
+			"\tpreset: \"${4|CHECKBOX,ZAHL,TEXT|}\"",
+			"\tdefault: $5",
 			"}"
 		],
 		"description": "Code for a new setting"
