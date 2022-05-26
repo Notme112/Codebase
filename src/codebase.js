@@ -983,6 +983,7 @@ outline: none;
                 $('.detail-header').after(`<h4 class='label label-info searchNoResult hidden'>Die Suche lieferte keine Ergebnisse! Bitte probiere es mit einem anderen Suchwort!</h4>`)
                 $('head').append(`<style>.searchHidden { display: none !important };</style>`)
                 let query = 'table tbody tr';
+
                 function search() {
                     var searchWord = document.querySelector('#input_search').value.toLowerCase();
                     if (searchWord == '') {
@@ -1007,7 +1008,7 @@ outline: none;
                 };
                 $('#input_search').on('input change keyup', search);
             },
-            keywords: ["Suche", "Serach", "Mission", "Overview", "Übersicht", "Einsatz","Mission", "Einsatzübersicht"],
+            keywords: ["Suche", "Serach", "Mission", "Overview", "Übersicht", "Einsatz", "Mission", "Einsatzübersicht"],
             hasSettings: false,
             allSite: true,
             settings: []
