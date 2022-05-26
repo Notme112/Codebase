@@ -957,7 +957,7 @@ outline: none;
             author: "NiZi112",
             target: "hideDeletedMessagesInChatCheck",
             func: async (s) => {
-                function deleteMessages(){
+                function deleteMessages() {
                     $(".message-deleted").remove();
                 };
                 socket.on("associationMessageDelete", associationMessageDeleteObject => {
