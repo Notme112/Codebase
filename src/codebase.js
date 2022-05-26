@@ -914,7 +914,7 @@ outline: none;
             target: "collapseCardsAssociationCheck",
             func: async (s) => {
                 if (!location.href.includes('/association/')) return;
-                let autoCollapse = s.collapseCardsAssociation ? s.collapseCardsAssociation.autoCollapseCards : false;
+                let autoCollapse = s.collapseCardsAssociation.autoCollapseCards;
                 $('.card-headline:contains("Verbandsleitung")').html($('.card-headline:contains("Verbandsleitung")').html() + '<i class="fas fa-angle-up pointer right card-collapse-toggle"></i>').parent().addClass(`card-collapse${autoCollapse ? ' collapsed' : ''}`);
             },
             keywords: ['Verband', 'Association', 'Cards', 'Collapse', 'automatisch', 'übersichtlich'],
@@ -926,7 +926,7 @@ outline: none;
                 name: "Automatisches zusammenklappen",
                 type: "checkbox",
                 settingsKey: "autoCollapseCards",
-                preset: "TEXT",
+                preset: "CHECKBOX",
                 default: false
             }]
         },
