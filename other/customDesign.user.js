@@ -35,10 +35,10 @@
     let ad = "3/1/3/2"; // Werbung
     let calls = "1/2/2/3"; // Anrufe
     let chat = "2/2/4/3"; // Chat, wenn expanded, dann "1/2/4/3"
-    let missions = "1/3/4/4"; // Einsätze, wenn expanded, dann "1/3/4/4"
+    let missions = "1/3/2/4"; // Einsätze, wenn expanded, dann "1/3/4/4"
     let radio = "2/3/4/4"; // Funk
     let buildings = "1/4/4/5"; // Gebäude
-    let hidden = ['radio'] // ausblenden
+    let hidden = [] // ausblenden
     $('#map').css('grid-area', map);
     $('#ad').css('grid-area', ad);
     $('#calls').css('grid-area', calls);
