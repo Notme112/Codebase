@@ -6,7 +6,14 @@ GM_info = {
 };
 /* => ab hier <= */
 (async () => {
-    if ($('.landing-header').length) return
+    if ($('.landing-header').length) return;
+    let chromeAgent = navigator.userAgent.indexOf("Chrome") > -1;
+    let IExplorerAgent = navigator.userAgent.indexOf("MSIE") > -1 || navigator.userAgent.indexOf("rv:") > -1;
+    let safariAgent = navigator.userAgent.indexOf("Safari") > -1;
+    if ((chromeAgent) && (safariAgent)) safariAgent = false;
+    let operaAgent = navigator.userAgent.indexOf("OP") > -1;
+    if ((chromeAgent) && (operaAgent)) chromeAgent = false;
+    if (safariAgent || IExplorerAgent) noticeModal('Achtung! Veralteter Browser!', 'Es könnte passieren, dass einige Module der Codebase nicht korrekt funktionieren, da du einen veralteten Browser benutzt.<br>Wir empfelen, einen aktuelleren Browser wie Chrome, Firefox oder Opera zu nutzte.');
     //define getAPI function
     getAPI = async function (name) {
         if (!sessionStorage.getItem(`a${name}`) || JSON.parse(sessionStorage.getItem(`a${name}`)).lastUpdate > (new Date).getTime() * 1000 * 60 * 5) {
@@ -1055,6 +1062,15 @@ Dein Team der ReSi-Codebase`,
         localStorage.storage_resi_base = JSON.stringify(buildDefaultStorage());
         localStorage.resiBaseRemovedStorage = '1.5.1'
     }
+    //if bad storage, reset storage
+    if (localStorage.storage_resi_base == '[object Object]') {
+        systemMessage({
+            'title': `Fehler in den Codebase-Einstellungen`,
+            'message': `Es gab einen Fehler in den Codebase-Einstellungen, die Einstellungen wurden zurückgesetzt.`,
+            'type': 'danger'
+        });
+        localStorage.storage_resi_base = JSON.stringify(buildDefaultStorage());
+    }
     //load storage
     const s = JSON.parse(localStorage.storage_resi_base);
     //codebase class
@@ -1062,6 +1078,12 @@ Dein Team der ReSi-Codebase`,
         constructor() {
             this.version = GM_info.script.version
             this.settings = s;
+        }
+        getSettings() {
+            return this.settings;
+        }
+        getVersion() {
+            return this.version;
         }
     }
     //function check settings and catching errors when there is a new branch
@@ -1232,7 +1254,7 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                 closeFrame = closeFrameOrig;
             }
             //show localStorge & sessionStorage
-            frame.contents().find('#showStorage').on('click', () => {
+            frame.contents().find('#showStorage').on('click', async () => {
                 var table = '<table class="table-divider striped"><thead><tr><th>Key</th><th>Wert</th></tr><tbody>'
                 for (var i = 0; i < localStorage.length; i++) {
                     key = localStorage.key(i);
@@ -1245,8 +1267,52 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                 }
                 table += '</tbody></table>'
                 table2 += '</tbody></table>'
-                noticeModal('Gescheicherte Daten', `<div style="height: 200px;overflow:auto">Hier siehst du, welche Daten im sog. local- & session-Storage gespeichert wurden. Davon ausgenommen sind sog. indexDB und Cookies${table}${table2}</div>`)
-            })
+                tableModal = () => noticeModal('Gescheicherte Daten', `<div style="height: 200px;overflow:auto">Hier siehst du, welche Daten im sog. local- & session-Storage gespeichert wurden. Davon ausgenommen sind sog. indexDB und Cookies${table}${table2}</div><div>Session-Storage löschen: <button class="button button-round button-danger deleteSessionStorage">Daten unwiederruflich löschen</button></div><div>Local-Storage löschen: <button class="button button-round button-danger deleteLocalStorage">Daten unwiederruflich löschen</button></div><div>Session- & Local-Storage löschen: <button class="button button-round button-danger deleteAllStorage">Daten unwiederruflich löschen</button></div>`);
+                tableModal();
+                $('.deleteLocalStorage').on('click', () => {
+                    modal(
+                        'Local-Storage wirklich leeren?',
+                        'Willst du den Local-Storage wirklich löschen? Dabei gehen alle <b>permanenten</b> Daten von Scripten und ähnlichem <b>unwiederruflich</b> verloren!',
+                        'Ja, <b>unwiederruflich LÖSCHEN</b>',
+                        'Nein, abbrechen',
+                        () => {
+                            localStorage.clear();
+                            tableModal();
+                        },
+                        () => {
+                            tableModal();
+                        }
+                    )
+                });
+                $('.deleteSessionStorage').on('click', () => {
+                    modal('Session-Storage wirklich leeren?',
+                        'Willst du den Session-Storage wirklich löschen? Dabei gehen alle <b>temporären</b> Daten von Scripten und ähnlichem <b>unwiederruflich</b> verloren!',
+                        'Ja, <b>unwiederruflich LÖSCHEN</b>',
+                        'Nein, abbrechen',
+                        () => {
+                            sessionStorage.clear();
+                            tableModal();
+                        },
+                        () => {
+                            tableModal();
+                        }
+                    );
+                });
+                $('.deleteAllStorage').on('click', () => {
+                    modal('Session- und Local-Storage wirklich leeren?',
+                        'Willst du den Session-Storage und Local-Storage wirklich löschen? Dabei gehen alle <b>temporären</b> und <b>permanenten</b> Daten von Scripten und ähnlichem <b>unwiederruflich</b> verloren!',
+                        'Ja, <b>unwiederruflich LÖSCHEN</b>',
+                        'Nein, abbrechen',
+                        () => {
+                            sessionStorage.clear();
+                            tableModal();
+                        },
+                        () => {
+                            tableModal();
+                        }
+                    );
+                });
+            });
             //import
             frame.contents().find('#importSettings').on('click', async () => {
                 //alerts wrong data
@@ -1288,7 +1354,8 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                     localStorage.storage_resi_base = JSON.stringify(buildDefaultStorage());
                     reload()
                 }, () => {});
-            })
+            });
+            frame.contents().find('#')
             //save settings
             function saveCodebaseSettings() {
                 checkSettings();

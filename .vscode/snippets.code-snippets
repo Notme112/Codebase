@@ -47,7 +47,7 @@
 			"\tsettingsTarget: \"$3\",",
 			"\tversion: \"1.0.0\",",
 			"\tauthor: \"NiZi112\",",
-			"\ttarget: \"$4Check\",",
+			"\ttarget: \"${4}Check\",",
 			"\tfunc: async (s) => {",
 			"\t\tif(!location.pathname.includes(\"$5\")) return;",
 			"\t\t",
