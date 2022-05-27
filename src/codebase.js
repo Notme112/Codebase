@@ -1051,9 +1051,9 @@ Dein Team der ReSi-Codebase`,
         });
     }
     //remove storage if necessary
-    if (localStorage.resiBaseRemovedStorage != '1.5.0') {
+    if (localStorage.resiBaseRemovedStorage != '1.5.1') {
         localStorage.storage_resi_base = JSON.stringify(buildDefaultStorage());
-        localStorage.resiBaseRemovedStorage = '1.5.0'
+        localStorage.resiBaseRemovedStorage = '1.5.1'
     }
     //load storage
     const s = JSON.parse(localStorage.storage_resi_base);
@@ -1082,7 +1082,6 @@ Dein Team der ReSi-Codebase`,
     codebase = new ReSiCodebase();
     //own frame
     //create
-    const listenelement = document.createElement('li');
     $('#darkMode').after(`<li id='Codebase'>ReSi-Codebase</li>`);
     $('#Codebase').on('click', async () => {
         openFrame('', '1/1/4/5');
