@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Karte dauerhaft groß!
+// @name         Karte dauerhaft groß
 // @version      1.0.2
 // @description  Setzt die Karte nach dem Schließen eines Frames in den Vollbildmodus!
 // @author       NiZi112
