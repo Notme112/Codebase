@@ -1267,7 +1267,7 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                 }
                 table += '</tbody></table>'
                 table2 += '</tbody></table>'
-                tableModal = () => noticeModal('Gescheicherte Daten', `<div style="height: 200px;overflow:auto">Hier siehst du, welche Daten im sog. local- & session-Storage gespeichert wurden. Davon ausgenommen sind sog. indexDB und Cookies${table}${table2}</div><div>Session-Storage löschen: <button class="button button-round button-danger deleteSessionStorage">Daten unwiederruflich löschen</button></div><div>Local-Storage löschen: <button class="button button-round button-danger deleteLocalStorage">Daten unwiederruflich löschen</button></div><div>Session- & Local-Storage löschen: <button class="button button-round button-danger deleteAllStorage">Daten unwiederruflich löschen</button></div>`);
+                tableModal = () => noticeModal('Gescheicherte Daten', `Hier siehst du, welche Daten im sog. local- & session-Storage gespeichert wurden. Davon ausgenommen sind sog. indexDB und Cookies<div style="height: 200px;overflow:auto">${table}${table2}</div><div>Session-Storage löschen: <button class="button button-round button-danger deleteSessionStorage">Daten unwiederruflich löschen</button></div><div>Local-Storage löschen: <button class="button button-round button-danger deleteLocalStorage">Daten unwiederruflich löschen</button></div><div>Session- & Local-Storage löschen: <button class="button button-round button-danger deleteAllStorage">Daten unwiederruflich löschen</button></div>`);
                 tableModal();
                 $('.deleteLocalStorage').on('click', () => {
                     modal(
@@ -1277,7 +1277,9 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                         'Nein, abbrechen',
                         () => {
                             localStorage.clear();
+                            localStorage.storage_resi_base = JSON.stringify(buildDefaultStorage());
                             tableModal();
+                            reload();
                         },
                         () => {
                             tableModal();
@@ -1291,7 +1293,9 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                         'Nein, abbrechen',
                         () => {
                             sessionStorage.clear();
+                            localStorage.storage_resi_base = JSON.stringify(buildDefaultStorage());
                             tableModal();
+                            reload();
                         },
                         () => {
                             tableModal();
@@ -1305,7 +1309,9 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                         'Nein, abbrechen',
                         () => {
                             sessionStorage.clear();
+                            localStorage.storage_resi_base = JSON.stringify(buildDefaultStorage());
                             tableModal();
+                            reload();
                         },
                         () => {
                             tableModal();
@@ -1355,7 +1361,6 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                     reload()
                 }, () => {});
             });
-            frame.contents().find('#')
             //save settings
             function saveCodebaseSettings() {
                 checkSettings();
