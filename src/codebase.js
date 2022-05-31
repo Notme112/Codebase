@@ -13,7 +13,7 @@ GM_info = {
     if ((chromeAgent) && (safariAgent)) safariAgent = false;
     let operaAgent = navigator.userAgent.indexOf("OP") > -1;
     if ((chromeAgent) && (operaAgent)) chromeAgent = false;
-    if (safariAgent || IExplorerAgent) noticeModal('Achtung! Veralteter Browser!', 'Es könnte passieren, dass einige Module der Codebase nicht korrekt funktionieren, da du einen veralteten Browser benutzt.<br>Wir empfelen, einen aktuelleren Browser wie Chrome, Firefox oder Opera zu nutzte.');
+    if (safariAgent || IExplorerAgent) noticeModal('Achtung! Veralteter Browser!', 'Es könnte passieren, dass einige Module der Codebase nicht korrekt funktionieren, da du einen veralteten Browser benutzt.<br>Wir empfehlen, einen aktuelleren Browser wie Chrome, Firefox oder Opera zu nutzte.');
     //define getAPI function
     getAPI = async function (name) {
         if (!sessionStorage.getItem(`a${name}`) || JSON.parse(sessionStorage.getItem(`a${name}`)).lastUpdate > (new Date).getTime() * 1000 * 60 * 5) {
@@ -1167,7 +1167,7 @@ $('.searchNoResult').removeClass('hidden');
 $('#input_search').on('input change keyup', search);
 </script>
 <div class='detail-header'>
-<div class='detail-title'>ReSi-Codebase <div class='right pointer' onclick='if(changes === true){modal("Ohne Speichern verlassen?","Du hast Änderungen vorgenommen, willst du diese Seichern?","Speichern","Ohne speichern verlassen",() => {$("#saveCodebaseSettings").click()}, () => {parent.closeFrame()})}else{parent.closeFrame()}'> &times; </div><div class='right pointer share' data-tooltip='Die ReSi-Codebase weiterempfelen' share-url='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-5/&action=firstNew'>&hookrightarrow;</div></div>
+<div class='detail-title'>ReSi-Codebase <div class='right pointer' onclick='if(changes === true){modal("Ohne Speichern verlassen?","Du hast Änderungen vorgenommen, willst du diese Seichern?","Speichern","Ohne speichern verlassen",() => {$("#saveCodebaseSettings").click()}, () => {parent.closeFrame()})}else{parent.closeFrame()}'> &times; </div><div class='right pointer share' data-tooltip='Die ReSi-Codebase weiterempfehlen' share-url='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-5/&action=firstNew'>&hookrightarrow;</div></div>
 <div class='detail-subtitle'>Verwalte hier deine Einstellungen für die ReSi-Codebase
 <button class="button button-round button-success" id="showStorage">Gespeicherte Daten der Scripte anzeigen</button>
 <button id="exportSettings" class="button button-round button-success">Einstellungen exportieren</button>
