@@ -56,7 +56,7 @@
 			"\thasSettings: ${12|true,false|},",
 			"\tallSite: true,",
 			"\tsettings:[]",
-			"}"
+			"}$0"
 		],
 		"description": "Code for a new module on own site"
 	},

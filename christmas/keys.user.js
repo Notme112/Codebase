@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         KeysInMission
-// @version      1.0.0
-// @description  Erlaubt es,
-// @author       You
+// @version      1.0.2
+// @description  Erlaubt es, im Einsatz mit Keys zu navigieren
+// @author       NiZi112
 // @match        https://rettungssimulator.online/mission/*
 // @icon         https://www.google.com/s2/favicons?domain=rettungssimulator.online
 // @grant        none
@@ -13,11 +13,19 @@
     'use strict';
     var called = false;
     function triggerKeyEvent(e){
-        if(called || $('input').is(":focus")) return;
-        if(e.keyCode === 120){
+        if(called || $('input, #missionName').is(":focus") || $(e.target).attr('id') == 'missionName') return;
+        if(e.keyCode === 121){
+            //submit
             $('.alarming-submit').click();
-        }else if(e.keyCode === 121){
+        }else if(e.keyCode === 120){
+            //submit + close
             $('.alarming-submit-close').click();
+        }else if(e.keyCode === 65){
+            //share (+ submit)
+            $('.alarming-submit-share').click();
+        }else if(e.keyCode === 83){
+            //share + submit + close
+            $('.alarming-submit-share-close').click();
         }else if(e.keyCode === 49){
             $('.mission-aao').eq(0).click();
         }else if(e.keyCode === 50){
@@ -36,6 +44,10 @@
             $('.mission-aao').eq(7).click();
         }else if(e.keyCode === 57){
             $('.mission-aao').eq(8).click();
+        }else if(e.keyCode === 113){
+            $('.tab-active').prev().click();
+        }else if(e.keyCode === 101){
+            $('.tab-active').next().click();
         };
         called = true;
         setTimeout(function(){
@@ -43,4 +55,5 @@
         }, 20);
     };
     $('*').keypress(triggerKeyEvent);
+
 })();
