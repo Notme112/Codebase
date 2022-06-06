@@ -117,7 +117,7 @@ outline: none;
             allSite: false,
             func: async (s) => {
                 const res = await getAPI('user')
-                $('.dropdown-content li').eq(2).html(`Topliste: ${res.toplistRank}`);
+                $('.dropdown-content li').eq(3).html(`Topliste: ${res.toplistRank}`);
             },
             hasSettings: false,
             settings: [],
@@ -619,6 +619,12 @@ outline: none;
                     red = $('.mission-list-progress-1').length;
                     yellow = $('.mission-list-progress-2').length;
                     green = $('.mission-list-progress-3').length;
+                    aRed = $('#sharedMissions .mission-list-progress-1').length;
+                    aYellow = $('#sharedMissions .mission-list-progress-2').length;
+                    aGreen = $('#sharedMissions .mission-list-progress-3').length;
+                    oRed = $('#ownMissions .mission-list-progress-1').length;
+                    oYellow = $('#ownMissions .mission-list-progress-2').length;
+                    oGreen = $('#ownMissions .mission-list-progress-3').length;
                     var all = red + yellow + green;
                     rPer = Math.floor(red / all * 100);
                     yPer = Math.floor(yellow / all * 100);
@@ -626,11 +632,12 @@ outline: none;
                     if (isNaN(rPer)) rPer = 0;
                     if (isNaN(yPer)) yPer = 0;
                     if (isNaN(gPer)) gPer = 0;
-                    data = `Rot: ${red} (${rPer}%), Gelb: ${yellow} (${yPer}%), Grün: ${green} (${gPer}%)`
+                    data = `Rot: ${red} (${rPer}%, eigene: ${oRed}, shared: ${aRed}),<br>Gelb: ${yellow} (${yPer}%, eigene: ${oYellow}, shared: ${aYellow}),<br>Grün: ${green} (${gPer}%, eigene: ${oGreen}, shared: ${aGreen})`;
                     $('#missionPercent').attr('data-tooltip', data)
                 };
                 calcPercent();
-                $('#missions .panel-expand').before(`<span class="fa fa-info-circle nizi112" id="missionPercent" data-tooltip="${data}"></span>`);
+                if(!$('#mission-detail').length) $('#missions .panel-headline').prepend(`<div><span id="mission-detail"><span class="fa-solid fa-sliders"></span>:</span></div>`)
+                $('#mission-detail').append(` <span class="fas fa-info-circle nizi112" id="missionPercent" data-tooltip="${data}"></span>`);
                 socket.on('missionStatus', () => {
                     calcPercent();
                 });
