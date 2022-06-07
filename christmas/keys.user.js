@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         KeysInMission
-// @version      1.0.2
+// @version      1.0.4
 // @description  Erlaubt es, im Einsatz mit Keys zu navigieren
 // @author       NiZi112
 // @match        https://rettungssimulator.online/mission/*
@@ -20,12 +20,14 @@
         }else if(e.keyCode === 120){
             //submit + close
             $('.alarming-submit-close').click();
-        }else if(e.keyCode === 65){
+        }else if(e.keyCode === 97){
             //share (+ submit)
-            $('.alarming-submit-share').click();
-        }else if(e.keyCode === 83){
+            if($('.alarming-submit-share').length) $('.alarming-submit-share').click();
+            else $('.alarming-submit').click();
+        }else if(e.keyCode === 115){
             //share + submit + close
-            $('.alarming-submit-share-close').click();
+            if($('.alarming-submit-share-close').length) $('.alarming-submit-share-close').click();
+            else $('.alarming-submit-close').click();
         }else if(e.keyCode === 49){
             $('.mission-aao').eq(0).click();
         }else if(e.keyCode === 50){
