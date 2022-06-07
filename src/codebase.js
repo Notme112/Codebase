@@ -295,6 +295,8 @@ outline: none;
                 };
                 $("#darkMode").after(`<li id="finishedMissionsToday">Einsätze heute: ${localStorage.getItem("finished_missions_nizi")}</li>`)
                 socket.on("finishMission", () => {
+                    let mission = ControlCenter.missions[e];
+                    if(!mission || (mission.isShared && !mission.ownParticipation)) return;
                     var missions = parseInt(localStorage.getItem("finished_missions_nizi"));
                     missions++;
                     localStorage.setItem("finished_missions_nizi", missions);
@@ -492,13 +494,15 @@ outline: none;
                     $('.card:first').after(`<button class='button button-round button-danger' id='changeFilterKHMode'>Filter aktivieren</button>`)
 
                     if (s.filterKHSettings ? s.filterKHSettings.showPatientsInfo : false) $('.card:first').hide();
+                    if(s.filterKHSettings ? s.filterKHSettings.hidePatientsRelease : false) $('#releasePatient').hide()
 
                     function addFilter() {
                         for (var i = 1; i < $('.box-progress').length + 1; i++) {
+                            if($('#releasePatient') === $('.box-progress').eq(i)) continue;
                             var j = 1 + (i * 2) - 1;
                             var entf = parseInt($('.box-text').eq(j).text().replace(' km', ''));
                             if (entf < val) {
-                                if ($('.box-progress').eq(i).html().includes('<span class="label label-info label-round text-small">VERBAND</span>')) {
+                                if ($('.box-progress').eq(i).html().includes('<span class="label label-info label-round text-small">')) {
                                     if (alli) {
                                         $('.box-progress').eq(i).show();
                                     } else {
@@ -517,6 +521,7 @@ outline: none;
 
                     function removeFilter() {
                         $('.box-progress').show();
+                        if(s.filterKHSettings ? s.filterKHSettings.hidePatientsRelease : false) $('#releasePatient').hide()
                     };
 
                     $('#changeFilterKHMode').on('click', function () {
@@ -576,6 +581,15 @@ outline: none;
                     name: "Patienteninformationen verstecken",
                     type: "checkbox",
                     settingsKey: "showPatientsInfo",
+                    preset: "CHECKBOX",
+                    default: false
+                },
+                {
+                    subtarget: "filterKHSettings",
+                    target: "hidePatientsReleaseCheck",
+                    name: "\"Patienten entlassen\" verstecken",
+                    type: "checkbox",
+                    settingsKey: "hidePatientsRelease",
                     preset: "CHECKBOX",
                     default: false
                 }
@@ -784,7 +798,7 @@ outline: none;
             func: async (s) => {
                 try {
                     socket.on("vehicleFMS", (vehicleFMSObject) => {
-                        if (vehicleFMSObject.userVehicleFMS != 5) return
+                        if (vehicleFMSObject.userVehicleFMS != 5 || (vehicleFMSObject.userName != null && vehicleFMSObject.userName != ReSi.userName)) return
                         modal(`Sprechwunsch`, `${vehicleFMSObject.userVehicleName} hat einen Sprechwunsch`, 'öffnen', 'schließen', () => {
                             if (vehicleFMSObject.vehicleID == 43) {
                                 openFrame(`/vehicle/${vehicleFMSObject.userVehicleID}`, '1/2/4/4')
@@ -894,7 +908,8 @@ outline: none;
                         }
                         localStorage.counterConfig = JSON.stringify(config)
                     }
-                    socket.on('patientStatus', (e) => {
+                    socket.on('patientStatus', async (e) => {
+                        if((await getAPI('userVehicles?id='+e.treatmentUserVehicleID)).status == 'error' || (await getAPI('userVehicles?id='+e.transportUserVehicleID)).status == 'error') return;
                         if (e.userPatientStatus != 4)
                             changeConfig('patients')
                     })
@@ -909,6 +924,8 @@ outline: none;
                         actual = e;
                     })
                     socket.on('finishMission', (e) => {
+                        let mission = ControlCenter.missions[e];
+                        if(!mission || (mission.isShared && !mission.ownParticipation)) return;
                         changeConfig('missions')
                     })
                 }
