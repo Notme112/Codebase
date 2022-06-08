@@ -146,7 +146,7 @@ outline: none;
             author: "NiZi112",
             settingsTarget: "flogout",
             target: "flogoutCheck",
-            keywords: ['FastLogout', 'Logout', 'Fast', 'Logout', 'scneller', 'Logout'],
+            keywords: ['FastLogout', 'Logout', 'Fast', 'Logout', 'schneller', 'Logout'],
             allSite: false,
             func: async (s) => {
                 $('.brand-img:first')
@@ -428,7 +428,7 @@ outline: none;
                         charackters = "0" + charackters
                     }
                     $("#chracktarsChatCount").html(charackters);
-                    if (charackters > 300) {
+                    if (charackters > 500) {
                         $("#chracktarsChatCount").addClass("label-danger");
                         $("#chracktarsChatCount").removeClass("label-success");
                     } else {
@@ -695,7 +695,7 @@ outline: none;
                     negative;
                 diff < 0 ? negative = true : negative = false;
                 diff = Math.abs(diff)
-                $('.detail-subtitle').eq(1).after(`<i class="fas fa-arrows-alt-v"></i> Differenz: <b>${diff.toLocaleString()}</b> Münzen ${negative ? 'weniger als Du' : 'mehr als Du'}`)
+                $('.detail-subtitle').eq(1).after(`<i class="fas fa-arrows-alt-v"></i> Differenz: <b>${diff.toLocaleString()}</b> Münzen ${negative ? 'weniger als Du' : 'mehr als Du'}<br>`)
             },
             keywords: ['Profil', 'Nutzerprofil', 'Münzendifferenz', 'Gesamtmünzen', 'Münzen', 'Info'],
             hasSettings: false,
