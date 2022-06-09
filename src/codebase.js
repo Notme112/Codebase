@@ -6,7 +6,7 @@ GM_info = {
 };
 /* => ab hier <= */
 (async () => {
-    if ($('.landing-header').length) return;
+    /*if ($('.landing-header').length) return;
     let chromeAgent = navigator.userAgent.indexOf("Chrome") > -1;
     let IExplorerAgent = navigator.userAgent.indexOf("MSIE") > -1 || navigator.userAgent.indexOf("rv:") > -1;
     let safariAgent = navigator.userAgent.indexOf("Safari") > -1;
@@ -14,6 +14,7 @@ GM_info = {
     let operaAgent = navigator.userAgent.indexOf("OP") > -1;
     if ((chromeAgent) && (operaAgent)) chromeAgent = false;
     if (safariAgent || IExplorerAgent) noticeModal('Achtung! Veralteter Browser!', 'Es könnte passieren, dass einige Module der Codebase nicht korrekt funktionieren, da du einen veralteten Browser benutzt.<br>Wir empfehlen, einen aktuelleren Browser wie Chrome, Firefox oder Opera zu nutzte.');
+    */
     //define getAPI function
     getAPI = async function (name) {
         if (!sessionStorage.getItem(`a${name}`) || JSON.parse(sessionStorage.getItem(`a${name}`)).lastUpdate > (new Date).getTime() * 1000 * 60 * 5) {
