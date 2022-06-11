@@ -17,7 +17,7 @@
         list.forEach((el) => {
             sum += parseInt(el.innerHTML.replaceAll('.', ''))
         })
-        return sum / list.length
+        return parseFloat(sum / list.length).toFixed(2);
     }
-    $('.detail-subtitle').append(`<span class="label label-info">Durchschnittlicher Verdienst pro Einsatz: ${getAverageMissionCredits()}</span>`)
+    $('.detail-subtitle').append(`<span class="label label-info">Durchschnittlicher Verdienst pro Einsatz: ${getAverageMissionCredits()} Münzen</span>`)
 })();
