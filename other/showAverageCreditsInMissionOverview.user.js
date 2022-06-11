@@ -19,5 +19,5 @@
         })
         return sum / list.length
     }
-    $('.detail-subtitle').append(`<span class="label label-primary">Durchschnittlicher Verdienst pro Einsatz: ${getAverageMissionCredits()}</span>`)
+    $('.detail-subtitle').append(`<span class="label label-info">Durchschnittlicher Verdienst pro Einsatz: ${getAverageMissionCredits()}</span>`)
 })();
