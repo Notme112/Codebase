@@ -913,7 +913,7 @@ outline: none;
                         if(((e.treatmentUserVehicleID != NULL && await getAPI(`userVehicles?id=${e.treatmentUserVehicleID}`)).status == 'error') || (e.transportUserVehicleID != NULL && await getAPI(`userVehicles?id=${e.transportUserVehicleID}`)).status == 'error') return;
                         if (e.userPatientStatus != 4)
                             changeConfig('patients')
-                    })
+                    });
                     var actual = parseInt($('.muenzen:first').text().replaceAll('.', ''));
                     socket.on('muenzenUpdate', (e) => {
                         e = parseInt(e.toString().replaceAll('.', ''))
