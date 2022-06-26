@@ -910,8 +910,8 @@ outline: none;
                         localStorage.counterConfig = JSON.stringify(config)
                     }
                     socket.on('patientStatus', async (e) => {
-                        if(((e.treatmentUserVehicleID != NULL && await getAPI(`userVehicles?id=${e.treatmentUserVehicleID}`)).status == 'error') || (e.transportUserVehicleID != NULL && await getAPI(`userVehicles?id=${e.transportUserVehicleID}`)).status == 'error') return;
-                        if (e.userPatientStatus != 4)
+                        if(((e.treatmentUserVehicleID == NULL || await getAPI(`userVehicles?id=${e.treatmentUserVehicleID}`)).status == 'error') && (e.transportUserVehicleID != NULL || await getAPI(`userVehicles?id=${e.transportUserVehicleID}`)).status == 'error') return;
+                        if (e.userPatientStatus == 3)
                             changeConfig('patients')
                     });
                     var actual = parseInt($('.muenzen:first').text().replaceAll('.', ''));
