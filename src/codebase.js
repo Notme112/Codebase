@@ -2,10 +2,12 @@ GM_info = {
     script: {
         name: 'ReSi-Codebase',
         version: '1.6.1'
-    }
+    },
+    isProduktion: ReSi.userName === 'NiZi112'
 };
 /* => ab hier <= */
 (async () => {
+    console.log(GM_info.isProduktion)
     if ($('.landing-header').length) return;
     //define getAPI function
     getAPI = async function (name) {
@@ -1095,12 +1097,16 @@ Dein Team der ReSi-Codebase`,
         constructor() {
             this.version = GM_info.script.version
             this.settings = s;
+            this.isProduction = GM_info.isProductionScript;
         }
         getSettings() {
             return this.settings;
         }
         getVersion() {
             return this.version;
+        }
+        istProduction() {
+            return this.isProduction;
         }
     }
     //function check settings and catching errors when there is a new branch
@@ -1135,6 +1141,9 @@ Dein Team der ReSi-Codebase`,
 <script src='https://rettungssimulator.online/js/controlCenter.js?v=${ReSi.resiVersion}'></script>
 <script src="https://rettungssimulator.online/js/popper.js?v=${ReSi.resiVersion}" charset="utf-8"></script>
 <script src='https://rettungssimulator.online/js/tippy.js?v=${ReSi.resiVersion}'></script>
+<script src='https://cdn.jsdelivr.net/gh/Notme112/Codebase@main/src/uikit/uikit.min.js'></script>
+<script src='https://cdn.jsdelivr.net/gh/Notme112/Codebase@main/src/uikit/uikit-icons.min.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Notme112/Codebase@main/src/uikit/uikit.min.css">
 <style>
 .searchHidden{
 display: none;
@@ -1184,7 +1193,7 @@ $('.searchNoResult').removeClass('hidden');
 $('#input_search').on('input change keyup', search);
 </script>
 <div class='detail-header'>
-<div class='detail-title'>ReSi-Codebase <div class='right pointer' onclick='if(changes === true){modal("Ohne Speichern verlassen?","Du hast Änderungen vorgenommen, willst du diese Seichern?","Speichern","Ohne speichern verlassen",() => {$("#saveCodebaseSettings").click()}, () => {parent.closeFrame()})}else{parent.closeFrame()}'> &times; </div><div class='right pointer share' data-tooltip='Die ReSi-Codebase weiterempfehlen' share-url='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-5/&action=firstNew'>&hookrightarrow;</div></div>
+<div class='detail-title'>ReSi-Codebase <div class='right pointer' onclick='if(changes === true){modal("Ohne Speichern verlassen?","Du hast Änderungen vorgenommen, willst du diese Seichern?","Speichern","Ohne speichern verlassen",() => {$("#saveCodebaseSettings").click()}, () => {parent.closeFrame()})}else{parent.closeFrame()}'> &times; </div><div class='right pointer share' data-tooltip='Die ReSi-Codebase weiterempfehlen' share-url='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-5/'><span uk-icon="forward"></span></div><div data-tooltip="Besuche die ReSi-Codebase auf Discord"><a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent"><span uk-icon="discord"></span></a></div></div>
 <div class='detail-subtitle'>Verwalte hier deine Einstellungen für die ReSi-Codebase
 <button class="button button-round button-success" id="showStorage">Gespeicherte Daten der Scripte anzeigen</button>
 <button id="exportSettings" class="button button-round button-success">Einstellungen exportieren</button>
@@ -1248,14 +1257,21 @@ Einstellungen zu ${el.name}
 <h2>Open-Source:</h2>
 <p>
 Icons:
-Icons by <a href='https://fontawesome.com/' target='_blank' class='no-prevent'><u>Fontawesome</u></a> unter <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank'><u>CC-BY 4.0-Lizenz</u></a>.
+Icons <b>in den Skripten</b> by <a href='https://fontawesome.com/' target='_blank' class='no-prevent'><u>Fontawesome</u></a> unter <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank'><u>CC-BY 4.0-Lizenz</u></a>.<br>
+Icons <b>auf dieser Seite</b> by <a href='https://getuikit.com/' target='_blank' class='no-prevent'><u>UIKit</u></a> unter MIT-License.
 </p>
 <p>
-JQuery:
+UIKit:<br>
+Copyright (c) 2014 - 2022 YOOtheme<br>
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br>
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+<p>
+JQuery:<br>
 Copyright (c) 2021 OpenJS Foundation and other contributors, https://openjsf.org/, <br>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 <br>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br>
 THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-</p>
 </div>
 </div>
 <center>Joine unserem Discord-Server: <a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent">discord.gg/8FyA6HBbXs</a><br><br></center>
