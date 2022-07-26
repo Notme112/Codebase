@@ -30,7 +30,7 @@
 			"\t\t",
 			"\t},",
 			"\tkeywords: [\"$5\", \"$6\", \"$7\", \"$8\", \"$9\", \"$10\"],",
-			"\thasSettings: ${11|true,false|}},",
+			"\thasSettings: ${11|true,false|},",
 			"\tallSite: false,",
 			"\tsettings:[]",
 			"}"
@@ -66,12 +66,12 @@
 		"body": [
 			"{",
 			"\tsubtarget: \"$1\",",
-			"\ttarget: \"$2Check\",",
+			"\ttarget: \"${2}Check\",",
 			"\tname: \"$3\",",
-			"\ttype: \"${3|checkbox,input-number,input-string,input-choose|}\",",
+			"\ttype: \"${4|checkbox,input-number,input-string,input-choose|}\",",
 			"\tsettingsKey: \"$2\",",
-			"\tpreset: \"${4|CHECKBOX,ZAHL,TEXT|}\"",
-			"\tdefault: $5",
+			"\tpreset: \"${5|CHECKBOX,ZAHL,TEXT|}\"",
+			"\tdefault: $6",
 			"}"
 		],
 		"description": "Code for a new setting"
