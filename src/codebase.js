@@ -7,8 +7,12 @@ GM_info = {
 };
 /* => ab hier <= */
 (async () => {
-    console.log(GM_info.isProduktion)
     if ($('.landing-header').length) return;
+    //load icons
+    let stylesheet = document.createElement('link')
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css';
+    document.head.appendChild(stylesheet);
     //define getAPI function
     getAPI = async function (name) {
         if (!sessionStorage.getItem(`a${name}`) || JSON.parse(sessionStorage.getItem(`a${name}`)).lastUpdate > (new Date).getTime() * 1000 * 60 * 5) {
@@ -147,7 +151,7 @@ outline: none;
                 $('.brand-img:first')
                     .css('display', 'inline')
                     .css('padding-right', '20px')
-                    .html('<i class="fas fa-sign-out-alt"></i>')
+                    .html('<i class="bi bi-box-arrow-right"></i>')
                     .on('click', () => {
                         $.ajax({
                             url: '/api/deauthenticate',
@@ -291,7 +295,7 @@ outline: none;
                 $("#darkMode").after(`<li id="finishedMissionsToday">Einsätze heute: ${localStorage.getItem("finished_missions_nizi")}</li>`)
                 socket.on("finishMission", () => {
                     let mission = ControlCenter.missions[e];
-                    if(!mission || (mission.isShared && !mission.ownParticipation)) return;
+                    if (!mission || (mission.isShared && !mission.ownParticipation)) return;
                     var missions = parseInt(localStorage.getItem("finished_missions_nizi"));
                     missions++;
                     localStorage.setItem("finished_missions_nizi", missions);
@@ -379,7 +383,7 @@ outline: none;
                     if (minute < 10) {
                         minute = `0${minute}`
                     };
-                    $('#clock').html(`${stunde}:${minute} <i class='far fa-clock'></i>`);
+                    $('#clock').html(`${stunde}:${minute} <i class="bi bi-clock"></i>`);
                 };
                 setInterval(updateClock, 50)
             },
@@ -397,7 +401,7 @@ outline: none;
             keywords: ["schnell", "Zugriff", "Einstellungen", "Navbar"],
             allSite: false,
             func: async (s) => {
-                $(".brand").after(`<span class="openCodebaseSettings"><i class="fas fa-cogs codebase" focusable="false" data-tooltip="ReSi-Codebase-Einstellungen"></i></span>`);
+                $(".brand").after(`<span class="openCodebaseSettings"><i class="bi bi-gear codebase" data-tooltip="ReSi-Codebase-Einstellungen"></i></span>`);
                 $('.openCodebaseSettings').on('click', () => {
                     $('#Codebase').click()
                 });
@@ -489,11 +493,11 @@ outline: none;
                     $('.card:first').after(`<button class='button button-round button-danger' id='changeFilterKHMode'>Filter aktivieren</button>`)
 
                     if (s.filterKHSettings ? s.filterKHSettings.showPatientsInfo : false) $('.card:first').hide();
-                    if(s.filterKHSettings ? s.filterKHSettings.hidePatientsRelease : false) $('#releasePatient').hide()
+                    if (s.filterKHSettings ? s.filterKHSettings.hidePatientsRelease : false) $('#releasePatient').hide()
 
                     function addFilter() {
                         for (var i = 1; i < $('.box-progress').length + 1; i++) {
-                            if($('#releasePatient') === $('.box-progress').eq(i)) continue;
+                            if ($('#releasePatient') === $('.box-progress').eq(i)) continue;
                             var j = 1 + (i * 2) - 1;
                             var entf = parseInt($('.box-text').eq(j).text().replace(' km', ''));
                             if (entf < val) {
@@ -516,7 +520,7 @@ outline: none;
 
                     function removeFilter() {
                         $('.box-progress').show();
-                        if(s.filterKHSettings ? s.filterKHSettings.hidePatientsRelease : false) $('#releasePatient').hide()
+                        if (s.filterKHSettings ? s.filterKHSettings.hidePatientsRelease : false) $('#releasePatient').hide()
                     };
 
                     $('#changeFilterKHMode').on('click', function () {
@@ -645,8 +649,8 @@ outline: none;
                     $('#missionPercent').attr('data-tooltip', data)
                 };
                 calcPercent();
-                if(!$('#mission-detail').length) $('#missions .panel-headline').prepend(`<div><span id="mission-detail"><span class="fa-solid fa-sliders"></span>:</span></div>`)
-                $('#mission-detail').append(` <span class="fas fa-info-circle nizi112" id="missionPercent" data-tooltip="${data}"></span>`);
+                if (!$('#mission-detail').length) $('#missions .panel-headline').prepend(`<div><span id="mission-detail"><i class="bi bi-sliders"></i>:</span></div>`)
+                $('#mission-detail').append(` <span class="bi bi-info-circle nizi112" id="missionPercent" data-tooltip="${data}"></span>`);
                 socket.on('missionStatus', () => {
                     calcPercent();
                 });
@@ -690,7 +694,7 @@ outline: none;
                     negative;
                 diff < 0 ? negative = true : negative = false;
                 diff = Math.abs(diff)
-                $('.detail-subtitle').eq(1).after(`<i class="fas fa-arrows-alt-v"></i> Differenz: <b>${diff.toLocaleString()}</b> Münzen ${negative ? 'weniger als Du' : 'mehr als Du'}<br>`)
+                $('.detail-subtitle').eq(1).after(`<i class="bi bi-plus-slash-minus"></i> Differenz: <b>${diff.toLocaleString()}</b> Münzen ${negative ? 'weniger als Du' : 'mehr als Du'}<br>`)
             },
             keywords: ['Profil', 'Nutzerprofil', 'Münzendifferenz', 'Gesamtmünzen', 'Münzen', 'Info'],
             hasSettings: false,
@@ -904,7 +908,7 @@ outline: none;
                         localStorage.counterConfig = JSON.stringify(config)
                     }
                     socket.on('patientStatus', async (e) => {
-                        if(((e.treatmentUserVehicleID == NULL || await getAPI(`userVehicles?id=${e.treatmentUserVehicleID}`)).status == 'error') && (e.transportUserVehicleID != NULL || await getAPI(`userVehicles?id=${e.transportUserVehicleID}`)).status == 'error') return;
+                        if (((e.treatmentUserVehicleID == NULL || await getAPI(`userVehicles?id=${e.treatmentUserVehicleID}`)).status == 'error') && (e.transportUserVehicleID != NULL || await getAPI(`userVehicles?id=${e.transportUserVehicleID}`)).status == 'error') return;
                         if (e.userPatientStatus == 3)
                             changeConfig('patients')
                     });
@@ -920,7 +924,7 @@ outline: none;
                     })
                     socket.on('finishMission', (e) => {
                         let mission = ControlCenter.missions[e];
-                        if(!mission || (mission.isShared && !mission.ownParticipation)) return;
+                        if (!mission || (mission.isShared && !mission.ownParticipation)) return;
                         changeConfig('missions')
                     })
                 }
@@ -941,7 +945,7 @@ outline: none;
             func: async (s) => {
                 if (!location.href.includes('/association/')) return;
                 let autoCollapse = s.collapseCardsAssociation.autoCollapseCards;
-                $('.card-headline:contains("Verbandsleitung")').html($('.card-headline:contains("Verbandsleitung")').html() + '<i class="fas fa-angle-up pointer right card-collapse-toggle"></i>').parent().addClass(`card-collapse${autoCollapse ? ' collapsed' : ''}`);
+                $('.card-headline:contains("Verbandsleitung")').html($('.card-headline:contains("Verbandsleitung")').html() + '<i class="bi bi-caret-up-fill pointer right card-collapse-toggle"></i>').parent().addClass(`card-collapse${autoCollapse ? ' collapsed' : ''}`);
             },
             keywords: ['Verband', 'Association', 'Cards', 'Collapse', 'automatisch', 'übersichtlich'],
             hasSettings: true,
@@ -1070,7 +1074,7 @@ outline: none;
 Du kannst jeden Modul einzeln aktivieren, die Möglichkeit findest Du in einem Einstellungs-Panel, welches Du über die Seitenleiste aufrufen kannst.<br>
 Probier doch einfach mal alle Module aus. Wenn Du nicht weißt, was ein Modul tut, dann klick einfach auf das [?] hinter dem Namen, damit kommst Du zur Wikiseite des Moduls.<br><br>
 Fehler bitte im Forum melden - oder im Thread ReSi-Codebase auf Discord im Bereich <code>#skripting</code><br><br>
-Gerne kannst du auch unserem Discord-Server beitreten: <a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent">discord.gg/8FyA6HBbXs</a><br><br>
+Gerne kannst du auch unserem Discord-Server beitreten: <i class="bi bi-discord"></i> <a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent">discord.gg/8FyA6HBbXs</a><br><br>
 Viel Spaß,<br>
 Dein Team der ReSi-Codebase`,
             type: 'info'
@@ -1127,7 +1131,7 @@ Dein Team der ReSi-Codebase`,
     codebase = new ReSiCodebase();
     //own frame
     //create
-    $('#darkMode').after(`<li id='Codebase'>ReSi-Codebase</li>`);
+    $('#darkMode').after(`<li id='Codebase'>ReSi-Codebase <i class="bi bi-gear" style="padding-left:5px;"></i></li>`);
     $('#Codebase').on('click', async () => {
         openFrame('', '1/1/4/5');
         const frame = $('#iframe');
@@ -1141,9 +1145,7 @@ Dein Team der ReSi-Codebase`,
 <script src='https://rettungssimulator.online/js/controlCenter.js?v=${ReSi.resiVersion}'></script>
 <script src="https://rettungssimulator.online/js/popper.js?v=${ReSi.resiVersion}" charset="utf-8"></script>
 <script src='https://rettungssimulator.online/js/tippy.js?v=${ReSi.resiVersion}'></script>
-<script src='https://cdn.jsdelivr.net/gh/Notme112/Codebase@main/src/uikit/uikit.min.js'></script>
-<script src='https://cdn.jsdelivr.net/gh/Notme112/Codebase@main/src/uikit/uikit-icons.min.js'></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Notme112/Codebase@main/src/uikit/uikit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <style>
 .searchHidden{
 display: none;
@@ -1193,13 +1195,37 @@ $('.searchNoResult').removeClass('hidden');
 $('#input_search').on('input change keyup', search);
 </script>
 <div class='detail-header'>
-<div class='detail-title'>ReSi-Codebase <div class='right pointer' onclick='if(changes === true){modal("Ohne Speichern verlassen?","Du hast Änderungen vorgenommen, willst du diese Seichern?","Speichern","Ohne speichern verlassen",() => {$("#saveCodebaseSettings").click()}, () => {parent.closeFrame()})}else{parent.closeFrame()}'> &times; </div><div class='right pointer share' data-tooltip='Die ReSi-Codebase weiterempfehlen' share-url='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-5/'><span uk-icon="forward"></span></div><div data-tooltip="Besuche die ReSi-Codebase auf Discord"><a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent"><span uk-icon="discord"></span></a></div></div>
+<div class='detail-title'>ReSi-Codebase-Einstellungen
+<div 
+    class='right pointer'
+    onclick='if(changes === true){modal("Ohne Speichern verlassen?","Du hast Änderungen vorgenommen, willst du diese Seichern?","Speichern","Ohne speichern verlassen",() => {$("#saveCodebaseSettings").click()}, () => {parent.closeFrame()})}else{parent.closeFrame()}'
+>
+<i class="bi bi-x"></i>
+</div>
+<div
+    class='right pointer share'
+    data-tooltip='Die ReSi-Codebase weiterempfehlen'
+    share-url='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-5/'
+>
+<i class="bi bi-share" style="padding-left:5px;"></i>
+</div>
+<div class="right" data-tooltip="Besuche die ReSi-Codebase auf Discord">
+<a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent">
+<i class="bi bi-discord" style="padding-left:5px;"></i>
+</a>
+</div>
+<div class="right" data-tooltip="Die ReSi-Codebase im Forum besuchen">
+<a href="https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-5/" target="_blank" class="no-prevent">
+<i class="bi bi-chat-left-text" style="padding-left:5px;"></i>
+</a>
+</div>
+</div>
 <div class='detail-subtitle'>Verwalte hier deine Einstellungen für die ReSi-Codebase
-<button class="button button-round button-success" id="showStorage">Gespeicherte Daten der Scripte anzeigen</button>
-<button id="exportSettings" class="button button-round button-success">Einstellungen exportieren</button>
-<button id="importSettings" class="button button-round button-success">Einstellungen importieren</button>
-<button id="resetStorage" class="button button-round button-success">Einstellungen zurücksetzen</button>
-<div class="input-container nochange" style="float:right"><label for='input_search'>Suche</label>
+<button class="button button-round button-success" id="showStorage">Gespeicherte Daten der Scripte anzeigen <i class="bi bi-clipboard-data"></i></button>
+<button id="exportSettings" class="button button-round button-success">Einstellungen exportieren <i class="bi bi-download"></i></button>
+<button id="importSettings" class="button button-round button-success">Einstellungen importieren <i class="bi bi-upload"></i></button>
+<button id="resetStorage" class="button button-round button-success">Einstellungen zurücksetzen <i class="bi bi-x-circle"></i></button>
+<div class="input-container nochange" style="float:right"><label for='input_search'>Suche <i class="bi bi-search" style="padding-left:5px;"></i></label>
 <input class="input-round input-inline nochange" type="text" value="" style="padding-left:20px;padding-right:20px;" id="input_search" placeholder="Suche..." autocomplete="off">
 </div>
 </div>
@@ -1214,13 +1240,13 @@ $('#input_search').on('input change keyup', search);
 <h4 class='label label-info searchNoResult hidden'>Die Suche lieferte keine Ergebnisse! Bitte probiere es mit einem anderen Suchwort!</h4>`;
             //checkboxes for modules
             modules.forEach((el) => {
-                frameContent += `<div class='checkbox-container searchable'><input id='${el.target}' type='checkbox' ${s[el.settingsTarget] ? 'checked' : ''}><label for='${el.target}'>${el.name} aktivieren<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a> ${el.hasSettings ? '<span data-tooltip="Dieses Modul hat Einstellungen! Passe es dir nach deinem Geschmack an!">[!]</span>' : ''} <span class="label label-success">von: ${'<span class="open-profile pointer" profile="'+ el.author + '" frame="1/2/4/4">' + el.author + '</span>'}</span> <span class="label label-success">V${el.version}</span></label><div class='hidden keyword-serach'>${el.keywords.join(' ')}</div></div>`;
+                frameContent += `<div class='checkbox-container searchable'><input id='${el.target}' type='checkbox' ${s[el.settingsTarget] ? 'checked' : ''}><label for='${el.target}'>${el.name} aktivieren<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'><i class="bi bi-question-circle" style="padding-left:5px;"></i></a> ${el.hasSettings ? '<span data-tooltip="Dieses Modul hat Einstellungen! Passe es dir nach deinem Geschmack an!"><i class="bi bi-exclamation-circle"></i></span>' : ''} <span class="label label-success"><i class="bi bi-person"></i> von: ${'<span class="open-profile pointer" profile="'+ el.author + '" frame="1/2/4/4">' + el.author + '</span>'}</span> <span class="label label-success"><i class="bi bi-git"></i> V${el.version}</span></label><div class='hidden keyword-serach'>${el.keywords.join(' ')}</div></div>`;
                 if (el.hasSettings) {
                     frameContent += `<div class="searchable card card-collapse${s[el.settingsTarget] ? '' : ' collapsed'}" style="padding-left:100px;">
 <div class="card-headline card-headline-danger">
-Einstellungen zu ${el.name}
+<i class="bi bi-gear"></i> Einstellungen zu ${el.name}
 <div class="card-tools">
-<span class="card-collapse-toggle pointer" style="font-size:15px;overflow:hidden;vertical-algin:middle">${s[el.settingsTarget] ? '&darr;' : '&uarr;'}</span>
+<span class="card-collapse-toggle pointer" style="font-size:15px;overflow:hidden;vertical-algin:middle"> <i class="bi bi-caret-${s[el.settingsTarget] ? 'up' : 'down'}"></i></span>
 </div>
 </div>
 <div class="card-body">`;
@@ -1228,13 +1254,13 @@ Einstellungen zu ${el.name}
                         var value = setting.subtarget ? s[setting.subtarget][setting.settingsKey] : s[setting.settingsKey];
                         switch (setting.type) {
                             case 'checkbox':
-                                frameContent += `<div class='checkbox-container'><input id='${setting.target}' ${value ? 'checked' : ''} type='checkbox'><label for='${setting.target}'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></label></div>`
+                                frameContent += `<div class='checkbox-container'><input id='${setting.target}' ${value ? 'checked' : ''} type='checkbox'><label for='${setting.target}'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'><i class="bi bi-question-circle" style="padding-left:5px;"></i></a></label></div>`
                                 break;
                             case 'input-text':
-                                frameContent += `<div class='input-container'><div class='input-label'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></div><div class='input-icon'></div><input class='input-round' value='${value ? value : ''}' autocomplete='off' id='${setting.target}' placeholder='${setting.preset}'></div>`
+                                frameContent += `<div class='input-container'><div class='input-label'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'><i class="bi bi-question-circle" style="padding-left:5px;"></i></a></div><div class='input-icon'></div><input class='input-round' value='${value ? value : ''}' autocomplete='off' id='${setting.target}' placeholder='${setting.preset}'></div>`
                                 break;
                             case 'input-number':
-                                frameContent += `<div class='input-container'><div class='input-label'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'> [?]</a></div><div class='input-icon'></div><input class='input-round' type='number' value='${value ? value : ''}' autocomplete='off' id='${setting.target}' placeholder='${setting.preset}'></div>`
+                                frameContent += `<div class='input-container'><div class='input-label'>${setting.name} (${setting.preset})<a class='no-prevent' href='${el.helpLink}' target='_blank' data-tooltip='${el.description} Mehr im Hilfeartikel!'><i class="bi bi-question-circle" style="padding-left:5px;"></i></a></div><div class='input-icon'></div><input class='input-round' type='number' value='${value ? value : ''}' autocomplete='off' id='${setting.target}' placeholder='${setting.preset}'></div>`
                                 break;
                             case 'input-choose':
                                 //
@@ -1246,23 +1272,18 @@ Einstellungen zu ${el.name}
                     frameContent += `</div></div>`
                 }
             });
-            frameContent += `<button class='button-success button button-round' id='saveCodebaseSettings'>Speichern</button>
+            frameContent += `<button class='button-success button button-round' id='saveCodebaseSettings'>Speichern <i class="bi bi-cloud-arrow-up"></i></button>
 </div>
 <div class='tab-content' id='tab_licence'>
 <h2>Fehler melden:</h2>
 <p>
-<a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent button button-round button-success">Discord-Server</a> - <a href='https://github.com/Notme112/Codebase/issues/new/choose' class='no-prevent button button-success button-round' target='_blank'>Github</a> - <a href='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-0/&action=lastPost' class='no-prevent button button-success button-round' target='_blank'>Forum</a> - ReSi-Discord: im Thread ReSi-Codebase im Bereich <code>#skripting</code>
+<a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent button button-round button-success">Discord-Server <i class="bi bi-discord"></i></a> - <a href='https://github.com/Notme112/Codebase/issues/new/choose' class='no-prevent button button-success button-round' target='_blank'>Github <i class="bi bi-github"></i></a> - <a href='https://forum.rettungssimulator.online/index.php?thread/1423-resi-codebase-v1-0/&action=lastPost' class='no-prevent button button-success button-round' target='_blank'>Forum <i class="bi bi-chat-left-text"></i></a> - ReSi-Discord <i class="bi bi-discord"></i>: im Thread ReSi-Codebase im Bereich <code>#skripting</code>
 <h3>Vielen Danke für deine Mithilfe!</h3>
 </p>
 <h2>Open-Source:</h2>
 <p>
-Icons:
-Icons <b>in den Skripten</b> by <a href='https://fontawesome.com/' target='_blank' class='no-prevent'><u>Fontawesome</u></a> unter <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank'><u>CC-BY 4.0-Lizenz</u></a>.<br>
-Icons <b>auf dieser Seite</b> by <a href='https://getuikit.com/' target='_blank' class='no-prevent'><u>UIKit</u></a> unter MIT-License.
-</p>
-<p>
-UIKit:<br>
-Copyright (c) 2014 - 2022 YOOtheme<br>
+Bootstrap-Icons:<br>
+Copyright (c) 2019-2021 The Bootstrap Authors<br>
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br>
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br>
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
@@ -1274,7 +1295,7 @@ Copyright (c) 2021 OpenJS Foundation and other contributors, https://openjsf.org
 THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </div>
 </div>
-<center>Joine unserem Discord-Server: <a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent">discord.gg/8FyA6HBbXs</a><br><br></center>
+<center>Joine unserem Discord-Server: <a href="https://discord.gg/8FyA6HBbXs" target="_blank" class="no-prevent">discord.gg/8FyA6HBbXs <i class="bi bi-discord"></i></a><br><br></center>
 <h3>Danke für die Nutzung der ReSi-Codebase!</h3>
 </div>`
             frame.contents().find('body').html('')
@@ -1291,22 +1312,22 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                 var table = '<table class="table-divider striped"><thead><tr><th>Key</th><th>Wert</th></tr><tbody>'
                 for (var i = 0; i < localStorage.length; i++) {
                     key = localStorage.key(i);
-                    table += `<tr><td>${key}</td><td>${localStorage[key]}</td><td onclick='localStorage.removeItem("${key}");$(this).parent().remove()'>löschen</td></tr>`
+                    table += `<tr><td>${key}</td><td>${localStorage[key]}</td><td onclick='localStorage.removeItem("${key}");$(this).parent().remove()'>löschen <i class="bi bi-trash"></i></td></tr>`
                 }
                 var table2 = '<table class="table-divider striped"><thead><tr><th>Session-Storage: Key</th><th>Value</th></tr><tbody>'
                 for (var i = 0; i < sessionStorage.length; i++) {
                     key = sessionStorage.key(i);
-                    table2 += `<tr><td>${key}</td><td>${sessionStorage[key]}</td><td onclick='sessionStorage.removeItem("${key}");$(this).parent().remove()'>löschen</td></tr>`
+                    table2 += `<tr><td>${key}</td><td>${sessionStorage[key]}</td><td onclick='sessionStorage.removeItem("${key}");$(this).parent().remove()'>löschen <i class="bi bi-trash"></i></td></tr>`
                 }
                 table += '</tbody></table>'
                 table2 += '</tbody></table>'
-                tableModal = () => noticeModal('Gescheicherte Daten', `Hier siehst du, welche Daten im sog. local- & session-Storage gespeichert wurden. Davon ausgenommen sind sog. indexDB und Cookies<div style="height: 200px;overflow:auto">${table}${table2}</div><div>Session-Storage löschen: <button class="button button-round button-danger deleteSessionStorage">Daten unwiederruflich löschen</button></div><div>Local-Storage löschen: <button class="button button-round button-danger deleteLocalStorage">Daten unwiederruflich löschen</button></div><div>Session- & Local-Storage löschen: <button class="button button-round button-danger deleteAllStorage">Daten unwiederruflich löschen</button></div>`);
+                tableModal = () => noticeModal('Gescheicherte Daten', `Hier siehst du, welche Daten im sog. local- & session-Storage gespeichert wurden. Davon ausgenommen sind sog. indexDB und Cookies<div style="height: 200px;overflow:auto">${table}${table2}</div><div>Session-Storage löschen: <button class="button button-round button-danger deleteSessionStorage">Daten unwiederruflich löschen <i class="bi bi-trash"></i></button></div><div>Local-Storage löschen: <button class="button button-round button-danger deleteLocalStorage">Daten unwiederruflich löschen <i class="bi bi-trash"></i></button></div><div>Session- & Local-Storage löschen: <button class="button button-round button-danger deleteAllStorage">Daten unwiederruflich löschen <i class="bi bi-trash"></i></button></div>`);
                 tableModal();
                 $('.deleteLocalStorage').on('click', () => {
                     modal(
                         'Local-Storage wirklich leeren?',
                         'Willst du den Local-Storage wirklich löschen? Dabei gehen alle <b>permanenten</b> Daten von Scripten und ähnlichem <b>unwiederruflich</b> verloren!',
-                        'Ja, <b>unwiederruflich LÖSCHEN</b>',
+                        'Ja, <b>unwiederruflich LÖSCHEN <i class="bi bi-trash"></i></b>',
                         'Nein, abbrechen',
                         () => {
                             localStorage.clear();
@@ -1322,7 +1343,7 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                 $('.deleteSessionStorage').on('click', () => {
                     modal('Session-Storage wirklich leeren?',
                         'Willst du den Session-Storage wirklich löschen? Dabei gehen alle <b>temporären</b> Daten von Scripten und ähnlichem <b>unwiederruflich</b> verloren!',
-                        'Ja, <b>unwiederruflich LÖSCHEN</b>',
+                        'Ja, <b>unwiederruflich LÖSCHEN <i class="bi bi-trash"></i></b>',
                         'Nein, abbrechen',
                         () => {
                             sessionStorage.clear();
@@ -1338,7 +1359,7 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                 $('.deleteAllStorage').on('click', () => {
                     modal('Session- und Local-Storage wirklich leeren?',
                         'Willst du den Session-Storage und Local-Storage wirklich löschen? Dabei gehen alle <b>temporären</b> und <b>permanenten</b> Daten von Scripten und ähnlichem <b>unwiederruflich</b> verloren!',
-                        'Ja, <b>unwiederruflich LÖSCHEN</b>',
+                        'Ja, <b>unwiederruflich LÖSCHEN <i class="bi bi-trash"></i></b>',
                         'Nein, abbrechen',
                         () => {
                             sessionStorage.clear();
@@ -1356,11 +1377,11 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
             frame.contents().find('#importSettings').on('click', async () => {
                 //alerts wrong data
                 function invalid() {
-                    noticeModal('Fehler beim Importieren der Codebase-Einstellungen', 'Einstellungen nicht valide', 'Schließen')
+                    noticeModal('<i class="bi bi-exclamation-triangle"></i> Fehler beim Importieren der Codebase-Einstellungen', 'Die Einstellungen sind nicht valide, bitte überprüfe diese!', 'Schließen')
                 }
                 //asks for data string
                 var newSettings = await inputModal({
-                    title: 'Codebase-Einstellungen importieren',
+                    title: 'Codebase-Einstellungen importieren <i class="bi bi-upload"></i>',
                     label: 'Gib hier deine Einstellungen ein:',
                     placeholder: 'Gib hier die Codebase-Einstellungen ein'
                 });
@@ -1381,12 +1402,18 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
             })
             //export
             frame.contents().find('#exportSettings').on('click', () => {
-                noticeModal('Codebase-Einstellungen exportieren', `Hier kannst du deine Einstellungen kopieren und an Freunde weitergeben:<div style='overflow:auto'><code>${JSON.stringify(s)}</code></div><br><button class="button button-round button-success" id="shareSettings">In Zwischenablage kopieren</button>`)
+                noticeModal('Codebase-Einstellungen exportieren <i class="bi bi-download"></i>', `Hier kannst du deine Einstellungen kopieren und an Freunde weitergeben:<div style='overflow:auto'><code>${JSON.stringify(s)}</code></div><br><button class="button button-round button-success" id="shareSettings">In Zwischenablage kopieren <i class="bi bi-clipboard"></i></button>`, 'Schließen')
                 $('#shareSettings').on('click', (e) => {
                     navigator.clipboard.writeText(JSON.stringify(s)).then(() => {
-                        $(e.currentTarget).html('Kopiert!');
+                        $(e.currentTarget).html('Kopiert! <i class="bi bi-clipboard-check"></i>');
+                        setTimeout(() => {
+                            $(e.currentTarget).html('In Zwischenablage kopieren <i class="bi bi-clipboard"></i>');
+                        }, 3000);
                     })
-                })
+                });
+                $('#downloadSettings').on('click', (e) => {
+                    
+                });
             });
             frame.contents().find('#resetStorage').on('click', () => {
                 modal('Alle Einstellungen zurücksetzen', 'Willst du wirklich alle Einstellungen zurücksetzten? Die aktuellen Einstellungen sind dann unwiderruflich verloren!', 'Ja, zurücksetzen', 'Nein, behalten', () => {
@@ -1448,7 +1475,7 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
                 }
             }
         } catch (e) {
-            console.log(e)
+            console.error(e)
             console.error(`Fehler im Modul ${el.name}`)
         }
     })
