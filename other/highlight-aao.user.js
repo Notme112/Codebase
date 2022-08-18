@@ -31,8 +31,8 @@
             }
         })
     }
-    for(let color in colorsForAaos){
-        colorsForAaos[color].forEach((id) => {
+    for(let color in backgroundColorsForAaos){
+        backgroundColorsForAaos[color].forEach((id) => {
             let aao = document.querySelector(`.mission-aao[aaoid="${id}"]`);
             if(aao) {
                 aao.style.backgroundColor = color;
