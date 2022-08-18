@@ -13,6 +13,10 @@
         'blue': [0],
         'red': [1]
     }
+    let backgroundColorsForAaos = {
+        'blue': [0],
+        'red': [1]
+    }
     aaoIdsToHighlight.forEach((id) => {
         let aao = document.querySelector(`.mission-aao[aaoid="${id}"]`);
         if(aao) {
@@ -24,6 +28,14 @@
             let aao = document.querySelector(`.mission-aao[aaoid="${id}"]`);
             if(aao) {
                 aao.querySelector('.mission-aao-name').style.color = color;
+            }
+        })
+    }
+    for(let color in colorsForAaos){
+        colorsForAaos[color].forEach((id) => {
+            let aao = document.querySelector(`.mission-aao[aaoid="${id}"]`);
+            if(aao) {
+                aao.style.backgroundColor = color;
             }
         })
     }
