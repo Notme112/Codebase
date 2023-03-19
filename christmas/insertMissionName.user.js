@@ -1,4 +1,4 @@
-/// ==UserScript==
+// ==UserScript==
 // @name         Stichwörter einfügen!
 // @version      1.2.0
 // @description  Fügt Stichwörter auf Klick in das jeweilige Feld ein!
