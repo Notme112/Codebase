@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         AlarmAndNextMission
+// @name         [CB] AlarmAndNextMission
 // @version      1.0.0
 // @description  Alarms Back-BTN!
 // @author       NiZi112
@@ -28,9 +28,9 @@
         let alarm_html = "<i class='fas fa-bell'></i> Alarmieren und weiter";
         let next_html = "<i class='fa-sharp fa-solid fa-arrow-right'></i> Weiter";
         let share_html = "<i class='fas fa-sitemap'></i> Alarmieren, Freigeben und weiter"
-        if($('.mission-vehicle-selected').length){
-            $(btn_alarm_share_next).removeClass('button-disabled').html(share_html + ' (' + $('#mission-vehicle-group-by-building .mission-vehicle-selected').length + ')');
-            $(btn_alarm_next).removeClass('button-disabled').html(alarm_html + ' (' + $('#mission-vehicle-group-by-building .mission-vehicle-selected').length + ')');
+        if($('#mission-vehicle-group-by-vehicle .mission-vehicle-selected').length){
+            $(btn_alarm_share_next).removeClass('button-disabled').html(share_html + ' (' + $('#mission-vehicle-group-by-vehicle .mission-vehicle-selected').length + ')');
+            $(btn_alarm_next).removeClass('button-disabled').html(alarm_html + ' (' + $('#mission-vehicle-group-by-vehicle .mission-vehicle-selected').length + ')');
         } else {
             $(btn_alarm_share_next).addClass('button-disabled').html(share_html);
             $(btn_alarm_next).addClass('button-disabled').html(alarm_html);
@@ -39,14 +39,16 @@
         if(parent.ControlCenter.missions[MISSION_ID].isShared) $(btn_alarm_share_next).remove();
     }
     update();
-    let vehicleClickedOrig = vehicleClicked;
-    vehicleClicked = function(...args){
-        vehicleClickedOrig(...args);
+    let updateAlarmingButtonVehicleCountOrig = updateAlarmingButtonVehicleCount;
+    updateAlarmingButtonVehicleCount = function(...args){
+        updateAlarmingButtonVehicleCountOrig(...args);
         update();
     }
-    let removeVehicleFromAlarmingArrayOrig = removeVehicleFromAlarmingArray;
-    removeVehicleFromAlarmingArray = function(...args){
-        removeVehicleFromAlarmingArrayOrig(...args);
+    let updateAAOButtonsOrig = updateAAOButtons;
+    updateAAOButtons = function(...args){
+        console.log('hallooooooo')
+        updateAAOButtonsOrig(...args);
+        console.log(nextMissionPending);
         if(nextMissionPending) {
             nextMission();
             nextMissionPending = false;
